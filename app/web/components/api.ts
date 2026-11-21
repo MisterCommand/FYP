@@ -14,8 +14,8 @@ export type FieldError = { loc: (string | number)[]; msg: string };
 export class APIError extends Error {
   fields: FieldError[];
   status: number;
-  constructor(status: number, fields: FieldError[] = []) {
-    super(status === 404 ? "This research could not be found. It may no longer be available." : status === 422 ? "Some research inputs could not be used. Check your selections and values." : status === 0 ? "We couldn’t connect. Check your connection and try again." : status === 401 || status === 403 ? "You don’t have access to this research." : "Research is temporarily unavailable. Please try again.");
+  constructor(status: number, fields: FieldError[] = [], validationMessage?: string) {
+    super(status === 404 ? "This research could not be found. It may no longer be available." : status === 422 ? validationMessage || fields.map(e => e.msg).join("; ") || "Some research inputs could not be used. Check your selections and values." : status === 0 ? "We couldn’t connect. Check your connection and try again." : status === 401 || status === 403 ? "You don’t have access to this research." : "Research is temporarily unavailable. Please try again.");
     this.status = status;
     this.fields = fields;
   }
@@ -30,8 +30,8 @@ export async function api<T>(path: string, body?: unknown): Promise<T> {
   }
   if (!response.ok) {
     const data = await response.json().catch(() => null);
-    const fields: FieldError[] = response.status === 422 && Array.isArray(data?.detail) ? data.detail.filter((e: FieldError) => Array.isArray(e?.loc)).map((e: FieldError) => ({ loc: e.loc, msg: "Check this value and the research requirements." })) : [];
-    throw new APIError(response.status, fields);
+    const fields: FieldError[] = response.status === 422 && Array.isArray(data?.detail) ? data.detail.filter((e: FieldError) => Array.isArray(e?.loc) && typeof e.msg === "string").map((e: FieldError) => ({ loc: e.loc, msg: e.msg })) : [];
+    throw new APIError(response.status, fields, response.status === 422 && typeof data?.detail === "string" ? data.detail : undefined);
   }
   try {
     return await response.json();
