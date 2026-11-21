@@ -1,0 +1,12 @@
+key,value
+source_fingerprint,5993a27c334d23c12c7c89c49310c9f76efae1510e78c9dbb40c2c98cd44c7dd
+seed,42
+raw_participant_rows,6257537
+deduplicated_rows,6218003
+duplicate_rows_removed,39534
+panel_rows,324
+minimum_trades,5
+shrink_trades,20
+smart_fraction,0.1
+minimum_smart,20
+python_version,3.12.16
