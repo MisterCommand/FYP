@@ -123,3 +123,26 @@ def test_mixture():
     assert mixture(.25, .1, -.1, .04, .01) == pytest.approx((-.05, .025))
     assert mixture(1, .1, -.1, .04, .01) == pytest.approx((.1, .04))
     assert mixture(0, .1, -.1, .04, .01) == pytest.approx((-.1, .01))
+
+
+@pytest.mark.parametrize("weight", [0, .5, 1])
+def test_bounded_override_losses(client, weight):
+    response = client.post("/analyses", json=body(
+        client, notional=100000,
+        holdings=[{"asset": "SPY", "weight": weight}, {"asset": "Cash", "weight": 1 - weight}],
+        overrides={"mu_yes": -1, "mu_no": -1}))
+    assert response.status_code == 200
+    result = response.json()["results"]
+    assert min(result["scenario_returns"]) >= -weight
+    assert 0 <= result["var_95_pct"] <= result["es_95_pct"] <= 100
+    assert result["es_95_usd"] <= 100000
+    assert result["evidence"] == "Assumption"
+    assert all(side["status"] == "Assumption" for side in result["conditional_spy"].values())
+
+
+def test_override_evidence_and_context(client):
+    for overrides in ({}, {"mu_yes": .01}, {"mu_no": 0}):
+        result = client.post("/analyses", json=body(client, overrides=overrides)).json()["results"]
+        assert result["evidence"] == ("Assumption" if overrides else "Limited")
+    assert client.get("/analyses/context").json() == {"as_of": str(load()[0].date.max().date())}
+    assert client.post("/analyses", json=body(client, overrides={"mu_yes": -1.01})).status_code == 422

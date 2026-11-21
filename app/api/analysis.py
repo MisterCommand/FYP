@@ -50,7 +50,7 @@ def analyze(request, rows):
             means[side] = override
             assumptions.append(f"Assumption: {side.upper()} mean overridden by user.")
         variances[side] = float(samples[side].var())
-    exposure = sum(h.weight for h in request.holdings if h.asset == "SPY")
+    exposure = min(1., sum(h.weight for h in request.holdings if h.asset == "SPY"))
     mean, variance = mixture(p, means["yes"], means["no"], variances["yes"], variances["no"])
     rng = np.random.default_rng(SEED)
     yes = rng.random(10000) < p
@@ -59,7 +59,12 @@ def analyze(request, rows):
     unconditional_std = float(residuals.std())
     for side, mask in (("yes", yes), ("no", ~yes)):
         scale = np.sqrt(variances[side]) / unconditional_std if len(groups[side]) >= 3 and unconditional_std > 0 else 1.
-        simulated[mask] = (means[side] + rng.choice(residuals, int(mask.sum())) * scale) * exposure
+        simulated[mask] = np.maximum(-1., means[side] + rng.choice(residuals, int(mask.sum())) * scale) * exposure
+    bounded = bool(np.any(simulated == -exposure)) and exposure > 0
+    if bounded:
+        mean = float(simulated.mean()) / exposure
+        variance = float(simulated.var()) / exposure**2
+        assumptions.append("SPY simple returns are floored at -100%; mixture moments reflect bounded simulation draws.")
     losses = np.sort(-simulated)[::-1]
     var = max(0., float(np.quantile(losses, .95)))
     es = max(var, float(losses[:500].mean()))
@@ -72,6 +77,6 @@ def analyze(request, rows):
             "var_95_pct": var * 100, "es_95_pct": es * 100,
             "var_95_usd": var * request.notional, "es_95_usd": es * request.notional,
             "scenario_returns": simulated.tolist(), "assumptions": assumptions,
-            "evidence": "Assumption" if any(len(v) < 3 for v in groups.values()) else "Limited",
+            "evidence": "Assumption" if bounded or any(len(v) < 3 for v in groups.values()) or (request.overrides and any(getattr(request.overrides, f"mu_{s}", None) is not None for s in groups)) else "Limited",
             "residual_pool_n": len(unconditional),
-            "method": "10000 fixed-seed draws from all overlapping historical H-day SPY returns, demeaned and shifted to conditional means; scaled to conditional std only for groups with at least 3 meetings, otherwise unconditional std. ES averages worst 500 losses; positive loss metrics floored at zero."}
+            "method": "10000 fixed-seed draws from all overlapping historical H-day SPY returns, demeaned and shifted to conditional means; scaled to conditional std only for groups with at least 3 meetings, otherwise unconditional std. SPY simple returns are floored at -100%; when the floor binds, mixture moments use bounded draws. ES averages worst 500 losses; positive loss metrics floored at zero."}

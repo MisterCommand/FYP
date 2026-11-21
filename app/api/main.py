@@ -67,6 +67,11 @@ def get_forecast(asset: str = "SPY", horizon: int = 5):
     return forecast(horizon)
 
 
+@app.get("/analyses/context")
+def analysis_context():
+    return {"as_of": cutoff().date().isoformat()}
+
+
 @app.post("/analyses", response_model=Run)
 def analyses(request: AnalysisRequest):
     try:
