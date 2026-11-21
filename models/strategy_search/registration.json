@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "development": ["2024-09", "2024-11", "2024-12", "2025-01", "2025-07", "2025-09", "2025-10", "2025-12", "2026-01"],
+  "historical_holdout": ["2026-03", "2026-04", "2026-06", "2026-07", "2026-09"],
+  "fresh_holdout": ["2026-10"],
+  "fresh_event_id": "606422",
+  "cutoff_days": 3,
+  "pm_cost": 0.02,
+  "spy_cost_per_side": 0.001,
+  "minimum_fit_meetings": 3,
+  "calibration_l2": 1.0,
+  "large_trade_notional": 1000.0,
+  "entropy_threshold": 0.5,
+  "disagreement_threshold": 0.5,
+  "reduced_exposure": 0.5,
+  "favorite_threshold": 0.5,
+  "longshot_threshold": 0.1,
+  "development_alpha": 0.1,
+  "holdout_alpha": 0.05,
+  "seed": 42,
+  "null_shuffles": 100,
+  "strategies": [
+    {"id": "a_smart_pm", "market": "PM", "primary": "mean_net_roi", "confirmatory": true},
+    {"id": "b_contrarian_pm", "market": "PM", "primary": "mean_net_roi", "confirmatory": true},
+    {"id": "c_momentum_pm", "market": "PM", "primary": "mean_net_roi", "confirmatory": true},
+    {"id": "d_calibration_pm", "market": "PM", "primary": "mean_net_roi", "confirmatory": true},
+    {"id": "e_late_whale_pm", "market": "PM", "primary": "mean_net_roi", "confirmatory": true},
+    {"id": "f_uncertainty_spy", "market": "SPY", "primary": "sharpe_delta", "confirmatory": true},
+    {"id": "g_wallet_control", "market": "SPY", "primary": "mean_net_excess", "confirmatory": false},
+    {"id": "h_placebo_pm", "market": "PM", "primary": "mean_net_roi", "confirmatory": true}
+  ]
+}
