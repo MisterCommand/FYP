@@ -19,21 +19,41 @@ cd ../..
 ./app/start.sh
 ```
 
-Visit http://localhost:3000. The launcher starts uvicorn on 8000 and `next start`
-on `${PORT:-3000}`. Build first; stop existing processes on those ports before
-launching. Ctrl-C stops both services. Run the launcher from any directory.
+Visit http://localhost:3000. The launcher starts uvicorn on `${API_PORT:-8000}`
+and `next start` on `${PORT:-3000}`. Build first; use unoccupied ports when
+launching. Ctrl-C stops both services started by that launcher. Run the launcher
+from any directory.
 
 The browser calls only same-origin `/api/*`. Next rewrites those requests to
-`http://127.0.0.1:8000/*`. For a different backend, set `API_URL` (without a trailing
-slash) **when building**; rewrites are embedded in the production build:
+`http://127.0.0.1:8000/*` by default. Set `API_PORT` when building to change the
+local backend port, or override the full target with `API_URL` (without a trailing
+slash). Rewrites are embedded in the production build; changing only the launcher
+environment does not retarget an existing build:
 
 ```sh
-API_URL=http://127.0.0.1:8000 npm run build
+npm run build # API_URL and API_PORT unset: backend 8000, frontend build .next
 ```
+
+To run an additional production pair without replacing or stopping the default
+3000/8000 services, from `app/`:
+
+```sh
+cd web
+PORT=3001 API_PORT=8001 API_URL=http://127.0.0.1:8001 npm run build
+cd ..
+PORT=3001 API_PORT=8001 ./start.sh
+```
+
+Visit http://localhost:3001. Non-default frontend ports use separate build
+directories (`.next-3001` in this example); use the same `PORT` for build and
+launch. The default port 3000 still uses `.next`. This keeps alternate builds
+from overwriting files used by the default running frontend. For a custom
+`API_URL`, also supply the same value when launching.
 
 SQLite defaults to `app/api/runs.sqlite3`; override with `EVENTLENS_DB` when
 launching. Data paths resolve relative to the backend, independently of the
-working directory. SQLite, virtualenvs, node_modules and `.next` are ignored.
+working directory. SQLite, virtualenvs, node_modules and all `.next*` build
+directories are ignored.
 
 ## Development and checks
 
