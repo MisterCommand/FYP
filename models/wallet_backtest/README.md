@@ -6,7 +6,7 @@ is changed. Python 3.11+ standard library only; no network requests.
 
 ```sh
 python3 models/wallet_backtest/build_panel.py --data-root ~/data/polymarket
-python3 -m unittest discover -s models/wallet_backtest -p 'test_*.py' -v
+python3 -m unittest discover -s models/wallet_backtest -p 'test_build_panel.py' -v
 ```
 
 ## Inputs and reproducibility
@@ -125,3 +125,11 @@ related wallets, market-making, fee effects, participant double-counting and
 survivorship/retention bias remain limitations. Use meeting-level held-out
 evaluation and market-only/placebo baselines in later parts; this panel alone
 does not establish smart-wallet predictive value.
+
+## Part B: probability and portfolio evaluation
+
+See [BACKTEST.md](BACKTEST.md) for the walk-forward verdict, full accuracy and
+portfolio tables, charts, leakage safeguards and reproduction commands.
+`backtest.py` and its tests require the local `requirements.txt` dependencies
+(NumPy and Matplotlib), unlike the standard-library-only Part A builder.
+The Part B virtual-environment test command runs both parts' tests together.
