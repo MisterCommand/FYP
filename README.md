@@ -6,6 +6,7 @@ The initial asset universe is SPY, QQQ and DIA, plus AAPL, MSFT, NVDA, AMZN and 
 
 ## Start here
 
+- [EventLens app](app/README.md): run the working research prototype (Overview, Events, Scenarios and saved research).
 - [Compiled proposal](proposal/proposal.pdf): read the latest committed report without compiling LaTeX.
 - [Report source](proposal/proposal.tex): main document, formatting and section order.
 - [Section guide](proposal/README.md): find the file for each printed section and follow the editing conventions.

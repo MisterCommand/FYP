@@ -1,0 +1,125 @@
+import numpy as np
+import pandas as pd
+import pytest
+
+from analysis import mixture
+from data import feature_frame, load
+
+
+def body(client, **kwargs):
+    event = client.get("/events").json()[0]
+    return {"event_id": event["id"], "horizon": 5,
+            "holdings": [{"asset": "SPY", "weight": .5}, {"asset": "Cash", "weight": .5}], **kwargs}
+
+
+def test_assets_events(client):
+    assets = client.get("/assets").json()
+    assert len(assets) == 8
+    assert [a["asset"] for a in assets if a["supported"]] == ["SPY"]
+    events = client.get("/events").json()
+    assert events and len({e["id"] for e in events}) == len(events)
+    event = events[0]
+    detail = client.get(f"/events/{event['id']}").json()
+    assert detail["history"] and not detail["wallet_informed"]["available"]
+    assert detail["evidence"] == "Limited"
+    early = client.get(f"/events/{event['id']}?as_of=2022-01-01").json()
+    assert early["history"] == {} and early["final_outcome"] is None
+    assert early["evidence"] == "Unavailable"
+    assert client.get("/events/missing").status_code == 404
+    assert client.get("/events?as_of=bad").status_code == 422
+    assert client.get("/events?asset=QQQ").status_code == 422
+
+
+@pytest.mark.parametrize("horizon", [1, 5, 20])
+def test_forecast(client, horizon):
+    response = client.get(f"/forecast?asset=SPY&horizon={horizon}")
+    assert response.status_code == 200
+    data = response.json()
+    assert len(data["series"]) == data["models"]["baseline"]["n"] == data["models"]["augmented"]["n"] > 0
+    assert all(m["latest_variance"] >= data["forecast_floor"] and m["qlike"] >= 0 for m in data["models"].values())
+    for name, metrics in data["models"].items():
+        assert metrics["floor_hits"] == sum(point[name] == point["floor"] for point in data["series"])
+    assert client.get("/forecast?asset=QQQ").status_code == 422
+    assert client.get("/forecast?horizon=2").status_code == 422
+
+
+def test_no_lookahead():
+    prices, markets = load()
+    day = pd.Timestamp("2025-06-02")
+    original = feature_frame(5, prices, markets)
+    changed_prices, changed_markets = prices.copy(), markets.copy()
+    changed_prices.loc[changed_prices.date.gt(day), "close"] *= 2
+    changed_markets.loc[changed_markets.date.gt(day), "market_probability"] = .123
+    changed_markets["final_outcome"] = 1 - changed_markets.final_outcome
+    changed = feature_frame(5, changed_prices, changed_markets)
+    cols = ["date", "history", "probability", "probability_change", "probability_date"]
+    pd.testing.assert_frame_equal(original.loc[original.date.le(day), cols], changed.loc[changed.date.le(day), cols])
+    assert original.probability_date.le(original.date).all()
+    row = original[original.date.eq(day)].iloc[0]
+    position = prices.index[prices.date.eq(day)][0]
+    logs = np.log(prices.close).diff()
+    assert row.target == pytest.approx(sum(logs.iloc[position + 1:position + 6]**2))
+    assert row.history == pytest.approx(logs.iloc[position - 20:position].pow(2).mean())
+
+
+def test_analysis_runs_assistant(client):
+    assert client.get("/runs").json() == []
+    response = client.post("/analyses", json=body(client))
+    assert response.status_code == 200
+    run = response.json()
+    result = run["results"]
+    assert result["es_95_pct"] >= result["var_95_pct"] >= 0
+    assert len(result["scenario_returns"]) == 10000
+    assert len(set(result["scenario_returns"])) >= 500
+    assert result["es_95_pct"] > result["var_95_pct"] * 1.1
+    assert run["seed"] == 42 and run["data_version"]
+    assert client.get(f"/runs/{run['id']}").json() == run
+    assert len(client.get("/runs").json()) == 1
+    repeated = client.post("/analyses", json=body(client)).json()
+    assert repeated["results"] == result
+    for question in ("why estimates differ", "wallet", "what is VaR and ES", "what does the forecast say", "probability now", "hello"):
+        answer = client.post("/assistant/query", json={"question": question, "run_id": run["id"]}).json()
+        assert answer["mode"] == "rule-based" and f"run:{run['id']}" in answer["citations"]
+    assert client.get("/runs/missing").status_code == 404
+    assert client.post("/assistant/query", json={"question": "hi", "run_id": "missing"}).status_code == 404
+    assert client.post("/assistant/query", json={"question": "probability"}).status_code == 200
+    assert client.post("/assistant/query", json={"question": ""}).status_code == 422
+
+
+@pytest.mark.parametrize("holdings", [[], [{"asset": "SPY", "weight": -.1}], [{"asset": "SPY", "weight": .9}], [{"asset": "QQQ", "weight": 1}]])
+def test_weight_validation(client, holdings):
+    response = client.post("/analyses", json=body(client, holdings=holdings))
+    assert response.status_code == 422
+    assert response.json()["detail"]
+
+
+def test_analysis_empty_and_overrides(client):
+    assert client.post("/analyses", json=body(client, as_of="2022-01-01")).status_code == 422
+    assert client.post("/analyses", json=body(client, outcome="missing")).status_code == 422
+    assert client.post("/analyses", json=body(client, event_id="missing")).status_code == 404
+    result = client.post("/analyses", json=body(client, holdings=[{"asset": "Cash", "weight": 1}], overrides={"mu_yes": .1, "mu_no": -.1})).json()["results"]
+    assert result["horizon_volatility"] == result["var_95_usd"] == result["es_95_usd"] == 0
+    early = client.post("/analyses", json=body(client, as_of="2023-01-30")).json()["results"]
+    assert early["sample_counts"] == {"yes": 0, "no": 0}
+    assert early["evidence"] == "Assumption"
+    assert any("unconditional" in message for message in early["assumptions"])
+
+
+def test_default_event_outcome(client):
+    request = {"holdings": [{"asset": "SPY", "weight": 1}]}
+    response = client.post("/analyses", json=request)
+    assert response.status_code == 200
+    run = response.json()
+    latest = client.get("/events").json()[-1]
+    assert run["request"]["event_id"] == latest["id"]
+    change = max((s for s in latest["latest_snapshot"] if s["outcome"] != "No change"), key=lambda s: s["market_probability"])
+    assert run["request"]["outcome"] == change["outcome"]
+    upcoming = client.post("/analyses", json={**request, "as_of": "2023-01-30"}).json()
+    assert upcoming["request"]["event_id"] == client.get("/events").json()[0]["id"]
+    assert client.post("/analyses", json={**request, "as_of": "2022-01-01"}).status_code == 422
+
+
+def test_mixture():
+    assert mixture(.25, .1, -.1, .04, .01) == pytest.approx((-.05, .025))
+    assert mixture(1, .1, -.1, .04, .01) == pytest.approx((.1, .04))
+    assert mixture(0, .1, -.1, .04, .01) == pytest.approx((-.1, .01))
