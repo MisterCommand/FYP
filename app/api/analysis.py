@@ -1,3 +1,5 @@
+import re
+
 import numpy as np
 import pandas as pd
 
@@ -11,6 +13,28 @@ def mixture(p, mu_yes, mu_no, var_yes, var_no):
             p * var_yes + (1 - p) * var_no + p * (1 - p) * (mu_yes - mu_no)**2)
 
 
+def outcome_range(outcome):
+    if outcome.casefold() == "no change":
+        return 0, 0
+    match = re.fullmatch(r"(\d+)(\+)? bps (increase|decrease)", outcome.casefold())
+    if not match:
+        return None
+    amount, plus, direction = match.groups()
+    low, high = int(amount), np.inf if plus else int(amount)
+    return (low, high) if direction == "increase" else (-high, -low)
+
+
+def outcome_matches(outcome, realized):
+    selected, observed = outcome_range(outcome), outcome_range(realized)
+    if selected is None or observed is None:
+        return None
+    if selected[0] <= observed[0] and observed[1] <= selected[1]:
+        return True
+    if observed[1] < selected[0] or selected[1] < observed[0]:
+        return False
+    return None
+
+
 def analyze(request, rows):
     as_of = cutoff(request.as_of)
     selected = [s for s in snapshot(rows, as_of) if s["outcome"] == request.outcome]
@@ -20,6 +44,7 @@ def analyze(request, rows):
     prices, markets = load()
     prices = prices[prices.date.le(as_of)].reset_index(drop=True)
     groups = {"yes": [], "no": []}
+    ambiguous = 0
     for _, event in markets.groupby("event_id"):
         info = event_summary(event, as_of)
         meeting = pd.Timestamp(info["meeting_date"])
@@ -34,11 +59,17 @@ def analyze(request, rows):
         if end >= len(prices):
             continue
         value = prices.iloc[end].close / prices.iloc[pos].close - 1
-        groups["yes" if info["realized_outcome"] == request.outcome else "no"].append(value)
+        matched = outcome_matches(request.outcome, info["realized_outcome"])
+        if matched is None:
+            ambiguous += 1
+            continue
+        groups["yes" if matched else "no"].append(value)
     unconditional = (prices.close.shift(-request.horizon) / prices.close - 1).dropna().to_numpy()
     if not len(unconditional):
         raise ValueError("Insufficient price history at as_of for this horizon")
     assumptions = ["Cash has zero return; only SPY risk is modeled. Returns are decimal, losses are percent and USD."]
+    if ambiguous:
+        assumptions.append(f"Assumption: {ambiguous} historical outcomes have ambiguous or unrecognized labels and are excluded from YES/NO groups.")
     samples, means, variances = {}, {}, {}
     for side in groups:
         samples[side] = np.array(groups[side]) if len(groups[side]) >= 3 else unconditional
@@ -65,6 +96,7 @@ def analyze(request, rows):
     es = max(var, float(losses[:500].mean()))
     return {"probability": p, "probability_date": selected[0]["date"], "as_of": as_of.date().isoformat(),
             "sample_counts": {key: len(value) for key, value in groups.items()},
+            "ambiguous_outcome_samples": ambiguous,
             "conditional_spy": {s: {"mean": means[s], "variance": variances[s], "effective_n": len(samples[s]),
                                     "status": "Historical" if len(groups[s]) >= 3 and getattr(request.overrides, f"mu_{s}", None) is None else "Assumption"} for s in groups},
             "mu_mix": mean * exposure, "sigma2_mix": variance * exposure**2,
@@ -72,6 +104,6 @@ def analyze(request, rows):
             "var_95_pct": var * 100, "es_95_pct": es * 100,
             "var_95_usd": var * request.notional, "es_95_usd": es * request.notional,
             "scenario_returns": simulated.tolist(), "assumptions": assumptions,
-            "evidence": "Assumption" if any(len(v) < 3 for v in groups.values()) else "Limited",
+            "evidence": "Assumption" if ambiguous or any(len(v) < 3 for v in groups.values()) else "Limited",
             "residual_pool_n": len(unconditional),
             "method": "10000 fixed-seed draws from all overlapping historical H-day SPY returns, demeaned and shifted to conditional means; scaled to conditional std only for groups with at least 3 meetings, otherwise unconditional std. ES averages worst 500 losses; positive loss metrics floored at zero."}
