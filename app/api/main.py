@@ -1,4 +1,5 @@
 from datetime import date
+import re
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -92,7 +93,7 @@ def run_detail(run_id: str):
 
 @app.post("/assistant/query", response_model=Answer)
 def assistant(request: AssistantRequest):
-    question = request.question.lower()
+    words = set(re.findall(r"\b[a-z]+\b", request.question.lower()))
     run = require_run(request.run_id) if request.run_id else None
     event_id = request.event_id or (run["request"]["event_id"] if run else None)
     event = event_detail(event_id) if event_id else None
@@ -101,18 +102,18 @@ def assistant(request: AssistantRequest):
         citations.append(f"run:{run['id']}")
     if event:
         citations.append(f"event:{event_id}")
-    if any(word in question for word in ("wallet", "differ", "why")):
+    if words & {"forecast", "forecasts", "volatility", "variance"}:
+        result = forecast(run["request"]["horizon"] if run else 5)
+        answer = f"SPY {result['horizon']}-day horizon volatility at {result['as_of']}: " + "; ".join(f"{name} {m['latest_volatility']:.3%}, OOS MSE {m['mse']:.6g}, QLIKE {m['qlike']:.4f}, n={m['n']}" for name, m in result["models"].items()) + ". These are research estimates, not investment advice."
+    elif words & {"wallet", "wallets", "differ", "why"}:
         answer = "Wallet-informed probabilities are unavailable: No wallet/settlement data ingested yet. Market probabilities are raw traded prices. Forecasts differ because augmented OLS also uses the next meeting's No change probability and its five-day change; scenario estimates instead use conditional historical returns."
         if run:
             answer += " Run assumptions: " + " ".join(run["results"]["assumptions"])
-    elif any(word in question for word in ("var", "shortfall", " es")):
+    elif words & {"var", "shortfall", "es"}:
         answer = "95% VaR is the loss threshold exceeded in approximately 5% of simulated scenarios, not a maximum loss. ES is the mean of the worst 5% of losses. Both are positive loss percentages (floored at zero)."
         if run:
             answer += f" This run: VaR {run['results']['var_95_pct']:.3f}%, ES {run['results']['es_95_pct']:.3f}%."
-    elif any(word in question for word in ("forecast", "volatility")):
-        result = forecast(run["request"]["horizon"] if run else 5)
-        answer = f"SPY {result['horizon']}-day horizon volatility at {result['as_of']}: " + "; ".join(f"{name} {m['latest_volatility']:.3%}, OOS MSE {m['mse']:.6g}, QLIKE {m['qlike']:.4f}, n={m['n']}" for name, m in result["models"].items()) + ". These are research estimates, not investment advice."
-    elif any(word in question for word in ("probability", "probabilities", "odds")):
+    elif words & {"probability", "probabilities", "odds"}:
         answer = ("Latest observations: " + "; ".join(f"{s['outcome']}: {s['market_probability']:.2%} on {s['date']}" for s in event["latest_snapshot"])) if event else "Supply an event_id to inspect the latest market probabilities."
     else:
         answer = "I can explain market probabilities, wallet data limitations, baseline versus augmented volatility forecasts, and saved-run VaR/ES. Supply an event_id or run_id for context. Research only; no trading or personalized advice."
