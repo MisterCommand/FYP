@@ -48,3 +48,9 @@ venv/
 !.env.example
 .codex-build
 .codex-finalizer
+
+# EventLens web build and research database
+node_modules/
+.next/
+*.tsbuildinfo
+runs.sqlite3*

@@ -1,0 +1,35 @@
+"use client";
+
+import { FormEvent, useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { APIError, AnalysisRequest, api, defaultEvent, defaultOutcome, Run, useEvents } from "./api";
+import { RunResults } from "./results";
+import { Horizon, PageHeading, State } from "./ui";
+
+type PortfolioRow = { asset: string; weight: string };
+
+export function Scenarios({ initialEvent = "" }: { initialEvent?: string }) {
+  const events = useEvents();
+  const queryClient = useQueryClient();
+  const [chosenEvent, setChosenEvent] = useState(initialEvent);
+  const [chosenOutcome, setChosenOutcome] = useState("");
+  const [horizon, setHorizon] = useState(5);
+  const [notional, setNotional] = useState("100000");
+  const [rows, setRows] = useState<PortfolioRow[]>([{ asset: "SPY", weight: "50" }, { asset: "Cash", weight: "50" }]);
+  const [muYes, setMuYes] = useState("");
+  const [muNo, setMuNo] = useState("");
+  const event = events.data?.find(e => e.id === chosenEvent) || defaultEvent(events.data || []);
+  const outcome = chosenOutcome || defaultOutcome(event);
+  const total = rows.reduce((s, r) => s + Number(r.weight), 0);
+  const mutation = useMutation({ mutationFn: (body: AnalysisRequest) => api<Run>("/analyses", body), onSuccess: () => queryClient.invalidateQueries({ queryKey: ["runs"] }) });
+  const errors = mutation.error instanceof APIError ? mutation.error.fields : [];
+  function fieldError(...keys: (string | number)[]) {
+    return errors.filter(e => keys.every((key, i) => e.loc[i + 1] === key)).map(e => e.msg).join("; ");
+  }
+  function updateRow(index: number, key: keyof PortfolioRow, value: string) { setRows(rows.map((r, i) => i === index ? { ...r, [key]: value } : r)); }
+  function submit(e: FormEvent) {
+    e.preventDefault();
+    mutation.mutate({ event_id: event?.id, outcome, horizon, notional: Number(notional), holdings: rows.map(r => ({ asset: r.asset, weight: Number(r.weight) / 100 })), overrides: { ...(muYes !== "" ? { mu_yes: Number(muYes) / 100 } : {}), ...(muNo !== "" ? { mu_no: Number(muNo) / 100 } : {}) } });
+  }
+  return <main className="page scenarios-page"><PageHeading eyebrow="Paper portfolio lab" title="Portfolio scenario analysis" description="Translate an event view into a transparent, hypothetical risk estimate."><span className="badge">SPY + Cash</span></PageHeading><div className="scenario-layout"><form className="portfolio panel" onSubmit={submit}><div className="section-title"><h2>Paper portfolio</h2><span aria-hidden="true">▤</span></div><label>Notional · USD<input type="number" min="1" required step="any" value={notional} onChange={e => setNotional(e.target.value)} /></label>{fieldError("notional") && <p className="field-error">{fieldError("notional")}</p>}<div className="portfolio-labels"><span>Asset</span><span>Weight %</span></div>{rows.map((row, index) => <div key={index} className="holding"><div className="holding-fields"><select aria-label={`Asset ${index + 1}`} value={row.asset} onChange={e => updateRow(index, "asset", e.target.value)}><option>SPY</option><option>Cash</option>{["QQQ", "DIA", "AAPL", "MSFT", "NVDA", "AMZN", "TSLA"].map(a => <option key={a} disabled value={a}>{a} — unavailable</option>)}</select><input aria-label={`Weight ${index + 1} percent`} type="number" step="any" min="0" max="100" required value={row.weight} onChange={e => updateRow(index, "weight", e.target.value)} /><button className="remove-row" type="button" disabled={rows.length === 1} onClick={() => setRows(rows.filter((_, i) => i !== index))} aria-label={`Remove holding ${index + 1}`}>×</button></div>{fieldError("holdings", index) && <p className="field-error">{fieldError("holdings", index)}</p>}</div>)}<div className="weight-summary"><button className="text-button" type="button" onClick={() => setRows([...rows, { asset: "Cash", weight: "0" }])}>+ Add holding</button><span className={Math.abs(total - 100) <= .0001 ? "" : "error"}>Total {Number.isFinite(total) ? total.toFixed(1) : "—"}% {Math.abs(total - 100) <= .0001 ? "✓" : "≠ 100%"}</span></div><p className="tiny muted">Only SPY has prices. Cash earns zero. Weights must total 100%.</p><div className="form-divider" /><label>Fed event<select value={event?.id || ""} onChange={e => { setChosenEvent(e.target.value); setChosenOutcome(""); }} disabled={!events.data}>{events.data?.map(e => <option key={e.id} value={e.id}>{e.title.replace("FOMC rate decision — ", "")} · {e.status}</option>)}</select></label>{events.error && <p className="field-error">{events.error.message}</p>}<label>YES outcome<select value={outcome} onChange={e => setChosenOutcome(e.target.value)}>{event?.latest_snapshot.map(s => <option key={s.outcome}>{s.outcome}</option>)}</select></label><div className="form-label">Horizon</div><Horizon value={horizon} onChange={setHorizon} /><details className="override-fields"><summary>Conditional mean overrides <span>Optional</span></summary><p className="tiny muted">Shift SPY horizon mean returns; residual shape and scale are retained. These are assumptions, not predictions.</p><label>YES mean return · %<input type="number" step="any" min="-100" placeholder="Historical mean" value={muYes} onChange={e => setMuYes(e.target.value)} /></label>{fieldError("overrides", "mu_yes") && <p className="field-error">{fieldError("overrides", "mu_yes")}</p>}<label>NO mean return · %<input type="number" step="any" min="-100" placeholder="Historical mean" value={muNo} onChange={e => setMuNo(e.target.value)} /></label>{fieldError("overrides", "mu_no") && <p className="field-error">{fieldError("overrides", "mu_no")}</p>}</details>{mutation.error && <div className="form-error" role="alert"><b>Review your inputs</b><p>{mutation.error.message}</p></div>}<button className="primary run-button" disabled={mutation.isPending || !event}>{mutation.isPending ? "Modelling scenarios…" : "Run scenario"}<span aria-hidden="true">↗</span></button><p className="tiny muted centered">Hypothetical; does not place orders.<br />Runs are saved automatically.</p></form><div className="scenario-output" aria-live="polite">{mutation.data ? <RunResults run={mutation.data} /> : <div className="scenario-empty"><div className="empty-chart" aria-hidden="true">{[10, 20, 34, 55, 80, 100, 86, 61, 40, 23, 12].map((h, i) => <i key={i} style={{ height: h }} />)}</div><span className="eyebrow">Your next research question</span><h2>What could this event<br />mean for your portfolio?</h2><p>Choose a meeting, define your paper allocation<br className="desktop-break" /> and model 10,000 hypothetical outcomes.</p><div className="empty-methods"><span>01 <b>Market probability</b></span><span>02 <b>Conditional history</b></span><span>03 <b>Portfolio loss distribution</b></span></div></div>}</div></div></main>;
+}
