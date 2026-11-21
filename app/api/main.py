@@ -4,7 +4,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from analysis import analyze
-from data import WATCHLIST, cutoff, default_event, default_outcome, event_rows, event_summary, load
+from data import WATCHLIST, cutoff, default_event, default_outcome, event_rows, event_summary, load, snapshot
 from forecast import forecast
 from schemas import (AnalysisRequest, Answer, Asset, AssistantRequest, Event,
                      EventDetail, Forecast, Run)
@@ -46,10 +46,12 @@ def events(asset: str = "SPY", as_of: date | None = None):
 
 
 @app.get("/events/{event_id}", response_model=EventDetail)
-def event_detail(event_id: str, as_of: date | None = None):
+def event_detail(event_id: str, as_of: date | None = None, expectations: bool = False):
     rows = require_event(event_id)
     day = cutoff(as_of)
     info = event_summary(rows, day)
+    if expectations:
+        info["latest_snapshot"] = snapshot(rows, min(day, rows.iloc[0].meeting_date))
     history = {}
     for outcome, group in rows[rows.date.le(day)].groupby("outcome"):
         history[outcome] = [{"date": r.date.date().isoformat(), "market_probability": float(r.market_probability)} for r in group.sort_values("date").itertuples()]
