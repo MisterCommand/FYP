@@ -13,19 +13,31 @@ export type FieldError = { loc: (string | number)[]; msg: string };
 
 export class APIError extends Error {
   fields: FieldError[];
-  constructor(detail: string | FieldError[]) {
-    super(typeof detail === "string" ? detail : detail.map(e => e.msg).join("; "));
-    this.fields = typeof detail === "string" ? [] : detail;
+  status: number;
+  constructor(status: number, fields: FieldError[] = []) {
+    super(status === 404 ? "This research could not be found. It may no longer be available." : status === 422 ? "Some research inputs could not be used. Check your selections and values." : status === 0 ? "We couldn’t connect. Check your connection and try again." : status === 401 || status === 403 ? "You don’t have access to this research." : "Research is temporarily unavailable. Please try again.");
+    this.status = status;
+    this.fields = fields;
   }
 }
 
 export async function api<T>(path: string, body?: unknown): Promise<T> {
-  const response = await fetch(`/api${path}`, body === undefined ? undefined : { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
-  if (!response.ok) {
-    const data = await response.json().catch(() => ({ detail: `Request failed (${response.status})` }));
-    throw new APIError(data.detail || "Request failed. Please try again.");
+  let response: Response;
+  try {
+    response = await fetch(`/api${path}`, body === undefined ? undefined : { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  } catch {
+    throw new APIError(0);
   }
-  return response.json();
+  if (!response.ok) {
+    const data = await response.json().catch(() => null);
+    const fields: FieldError[] = response.status === 422 && Array.isArray(data?.detail) ? data.detail.filter((e: FieldError) => Array.isArray(e?.loc)).map((e: FieldError) => ({ loc: e.loc, msg: "Check this value and the research requirements." })) : [];
+    throw new APIError(response.status, fields);
+  }
+  try {
+    return await response.json();
+  } catch {
+    throw new APIError(502);
+  }
 }
 
 export function useEvents() { return useQuery({ queryKey: ["events"], queryFn: () => api<Event[]>("/events") }); }

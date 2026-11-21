@@ -1,7 +1,8 @@
 import Link from "next/link";
+import { APIError } from "./api";
 
-export function State({ error, loading, empty }: { error?: Error | null; loading?: boolean; empty?: string }) {
-  return <div className={`state ${error ? "error" : ""}`} role={error ? "alert" : "status"}>{error ? <><strong>Could not load research</strong><p>{error.message}</p><p>Check that the API is running, then refresh this page.</p></> : loading ? <><span className="loading-dot" /> Loading research data…</> : empty}</div>;
+export function State({ error, loading, empty, onRetry }: { error?: Error | null; loading?: boolean; empty?: string; onRetry?: () => void }) {
+  return <div className={`state ${error ? "error" : ""}`} role={error ? "alert" : "status"}>{error ? <><strong>Could not load research</strong><p>{error instanceof APIError ? error.message : "Research is temporarily unavailable. Please try again."}</p>{onRetry && (!(error instanceof APIError) || ![401, 403, 404].includes(error.status)) && <button type="button" className="button state-retry" onClick={onRetry}>Try again</button>}</> : loading ? <><span className="loading-dot" /> Loading research data…</> : empty}</div>;
 }
 
 export function Horizon({ value, onChange }: { value: number; onChange: (n: number) => void }) {
