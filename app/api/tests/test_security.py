@@ -38,6 +38,36 @@ def test_local_defaults_and_remote_or_rebound_host_denied(client):
         assert remote.get("/runs", headers={"x-forwarded-for": "127.0.0.1"}).status_code == 403
 
 
+@pytest.mark.parametrize("origin,status", [("http://localhost:3000", 200), ("https://attacker.example", 400)])
+def test_token_mode_preflight_reaches_cors_but_actual_requests_still_require_auth(client, monkeypatch, origin, status):
+    monkeypatch.setenv("EVENTLENS_API_TOKEN", "shared-test-token")
+    response = client.options("/runs", headers={"origin": origin,
+        "access-control-request-method": "GET", "access-control-request-headers": "authorization"})
+    assert response.status_code == status
+    if status == 200:
+        assert response.headers["access-control-allow-origin"] == origin
+        assert "authorization" in response.headers["access-control-allow-headers"].lower()
+        authenticated = client.get("/runs", headers={"origin": origin, "authorization": "Bearer shared-test-token"})
+        assert authenticated.status_code == 200
+        assert authenticated.headers["access-control-allow-origin"] == origin
+    assert client.get("/runs", headers={"origin": origin}).status_code == 401
+
+
+@pytest.mark.parametrize("headers", [{}, {"origin": "http://localhost:3000"},
+                                    {"access-control-request-method": "GET"}])
+def test_non_preflight_options_still_require_token(client, monkeypatch, headers):
+    monkeypatch.setenv("EVENTLENS_API_TOKEN", "shared-test-token")
+    assert client.options("/runs", headers=headers).status_code == 401
+
+
+@pytest.mark.parametrize("host,peer", [("localhost", "192.0.2.1"), ("attacker.example", "127.0.0.1")])
+def test_no_token_preflight_preserves_remote_and_host_guard(host, peer):
+    with TestClient(app, base_url=f"http://{host}", client=(peer, 1234)) as remote:
+        response = remote.options("/runs", headers={"origin": "http://localhost:3000",
+                                                  "access-control-request-method": "GET"})
+        assert response.status_code == 403
+
+
 @pytest.mark.parametrize("method,path", [
     ("GET", "/runs"), ("GET", "/runs/private"), ("POST", "/analyses"),
     ("PATCH", "/analyses/private"), ("DELETE", "/analyses/private"),

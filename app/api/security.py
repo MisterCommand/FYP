@@ -49,8 +49,10 @@ def supplied_token(authorization):
 async def protect_api(request: Request, call_next):
     token, allow = policy()
     if token:
+        preflight = (request.method == "OPTIONS" and "origin" in request.headers
+                     and "access-control-request-method" in request.headers)
         supplied = supplied_token(request.headers.get("authorization", ""))
-        if not hmac.compare_digest(supplied.encode(), token.encode()):
+        if not preflight and not hmac.compare_digest(supplied.encode(), token.encode()):
             return JSONResponse({"detail": "API authentication required"}, status_code=401,
                 headers={"WWW-Authenticate": 'Basic realm="EventLens", charset="UTF-8"',
                          "Cache-Control": "no-store"})
