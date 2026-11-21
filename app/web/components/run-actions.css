@@ -1,0 +1,5 @@
+.run-actions { display: flex; align-items: flex-start; gap: 12px; margin-top: 10px; }
+.run-actions form { min-width: 230px; }
+.run-actions dialog { border: 1px solid #cecece; border-radius: 3px; padding: 28px; max-width: 480px; }
+.run-actions dialog::backdrop { background: rgb(0 0 0 / 35%); }
+.run-actions dialog p { margin-top: 16px; }
