@@ -18,12 +18,14 @@ def ask(client, question, **context):
 
 @pytest.mark.parametrize(("question", "selected", "expected"), [
     ("What does the forecast say?", 20, 20),
+    ("What does the forecast say?", 1, 1),
+    ("What does the forecast say?", 5, 5),
     ("What is the 20-day volatility forecast?", 5, 20),
     ("Show the one trading day forecast.", 20, 1),
 ])
 def test_forecast_matches_dashboard(client, question, selected, expected):
     result = client.get(f"/forecast?horizon={expected}").json()
-    answer, sources = ask(client, question, horizon=selected)
+    answer, sources = ask(client, question, horizon=selected, asset="SPY")
     assert f"SPY {expected}-trading-day" in answer
     assert result["as_of"] in answer
     for name, metrics in result["models"].items():

@@ -10,10 +10,11 @@ type Context = {
   eventTitle?: string;
   runId?: string;
   outcome?: string;
+  asset?: "SPY";
   horizon?: number;
 };
 
-export function Assistant({ eventId, eventTitle, runId, outcome, horizon }: Context) {
+export function Assistant({ eventId, eventTitle, runId, outcome, asset = "SPY", horizon }: Context) {
   const inputId = useId();
   const [question, setQuestion] = useState("");
   const mutation = useMutation({
@@ -22,6 +23,7 @@ export function Assistant({ eventId, eventTitle, runId, outcome, horizon }: Cont
       event_id: eventId,
       run_id: runId,
       outcome: outcome || undefined,
+      asset,
       horizon,
     }),
   });
@@ -41,7 +43,7 @@ export function Assistant({ eventId, eventTitle, runId, outcome, horizon }: Cont
       <span className="badge">Rule-based · no LLM</span>
       <p className="muted small">
         {runId ? "Context: this saved run" : eventTitle
-          ? [eventTitle.replace("FOMC rate decision — ", ""), outcome, horizon && `SPY ${horizon}D`].filter(Boolean).join(" · ")
+          ? [eventTitle.replace("FOMC rate decision — ", ""), outcome, horizon && `${asset} ${horizon}D`].filter(Boolean).join(" · ")
           : "Select a meeting for market odds, or ask about the SPY forecast."}
       </p>
       <div className="assistant-conversation">

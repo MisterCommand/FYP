@@ -28,3 +28,16 @@ def test_assistant_intents_match_words(client, question, prefix, sources):
     assert answer["citations"] == sources
     if question == "Compare the forecast and VaR/ES.":
         assert "Expected shortfall" in answer["answer"]
+
+
+def test_assistant_run_horizon_fallback_and_explicit_override(client):
+    run = client.post("/analyses", json={"horizon": 20, "holdings": [{"asset": "SPY", "weight": 1}]}).json()
+    request = {"question": "What does the forecast say?", "run_id": run["id"]}
+    assert client.post("/assistant/query", json=request).json()["answer"].startswith("SPY 20-trading-day")
+    assert client.post("/assistant/query", json={**request, "horizon": 1}).json()["answer"].startswith("SPY 1-trading-day")
+
+
+@pytest.mark.parametrize("context", [{"horizon": 2}, {"asset": "QQQ"}])
+def test_assistant_rejects_unsupported_forecast_context(client, context):
+    response = client.post("/assistant/query", json={"question": "forecast", **context})
+    assert response.status_code == 422

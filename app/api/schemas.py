@@ -107,6 +107,7 @@ class AssistantRequest(BaseModel):
     event_id: str | None = None
     run_id: str | None = None
     outcome: str | None = None
+    asset: Literal["SPY"] = "SPY"
     horizon: Horizon | None = None
 
 
