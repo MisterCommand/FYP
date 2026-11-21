@@ -1,0 +1,10 @@
+family,gamma_event_objects,official_releases,usable_releases,markets,participant_rows,sum_event_wallet_counts,included
+cpi_headline_mom,21,20,19,131,173861,14464,True
+cpi_headline_yoy,24,21,21,176,401695,30395,True
+cpi_core_mom,5,5,5,38,22752,3045,False
+cpi_core_yoy,6,6,6,60,22670,3899,False
+cpi_threshold,10,0,0,10,3373,949,False
+payrolls,24,24,23,147,109366,10827,True
+unemployment,22,22,21,148,84407,9726,True
+pce,8,4,4,56,22119,3192,False
+gdp,8,7,7,53,133013,13436,False
