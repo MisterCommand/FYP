@@ -116,6 +116,8 @@ class AssistantRequest(BaseModel):
     question: str = Field(min_length=1)
     event_id: str | None = None
     run_id: str | None = None
+    asset: Literal["SPY"] = "SPY"
+    horizon: Horizon | None = None
 
 
 class Answer(BaseModel):
