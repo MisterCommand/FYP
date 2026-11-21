@@ -2,7 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 
 export type Snapshot = { outcome: string; market_probability: number; date: string };
 export type Event = { id: string; title: string; meeting_date: string; meeting_month: string; status: string; realized_outcome: string | null; latest_snapshot: Snapshot[]; total_volume: number; volume_note: string };
-export type Detail = Event & { history: Record<string, { date: string; market_probability: number }[]>; evidence: string; evidence_rule: string; wallet_informed: { available: boolean; reason: string } };
+export type WalletEstimate = { available: false; reason: string } | { available: true; method: string; signal_timestamp: string; coverage_complete: boolean; outcomes: { outcome: string; market_id: string; wallet_probability: number; signal_timestamp: string; active_wallets: number; coverage_complete: boolean; complete_wallets: number; cluster_members: number }[] };
+export type Detail = Event & { history: Record<string, { date: string; market_probability: number }[]>; evidence: string; evidence_rule: string; wallet_informed: WalletEstimate };
 export type Metrics = { mse: number; qlike: number; n: number; floor_hits: number; latest_floor_hit: boolean; latest_variance: number; latest_volatility: number };
 export type Forecast = { asset: string; horizon: number; as_of: string; models: Record<string, Metrics>; floor_policy: string; forecast_floor: number; series: { date: string; realized: number; baseline: number; augmented: number }[]; notes: string };
 export type Holding = { asset: string; weight: number };
