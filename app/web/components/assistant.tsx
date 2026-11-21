@@ -3,7 +3,7 @@
 import { useId, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { Answer, api } from "./api";
-import { Citation } from "./ui";
+import { Citation, State } from "./ui";
 
 type Context = {
   eventId?: string;
@@ -73,7 +73,7 @@ export function Assistant({ eventId, eventTitle, runId, outcome, asset = "SPY", 
             </div>
           )}
         </div>
-        {mutation.error && <p className="error" role="alert">{mutation.error.message}</p>}
+        {mutation.error && <State error={mutation.error} onRetry={() => { if (mutation.variables) mutation.mutate(mutation.variables); }} />}
       </div>
       <div className="suggestions">
         <span className="eyebrow">Suggested questions</span>

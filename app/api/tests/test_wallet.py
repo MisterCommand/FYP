@@ -2,7 +2,8 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from data import event_rows
+from assistant import WALLET_SIGNALS
+from data import ROOT, event_rows
 import wallet
 
 
@@ -100,9 +101,6 @@ def test_assistant_wallet_context(client):
 
 
 def test_assistant_wallet_comparison_and_download(client):
-    from assistant import WALLET_SIGNALS
-    from data import ROOT
-
     answer = client.post("/assistant/query", json={
         "question": "Why do estimates differ?", "event_id": "101772",
     }).json()
