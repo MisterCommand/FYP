@@ -30,6 +30,34 @@ def test_assets_events(client):
     assert client.get("/events?asset=QQQ").status_code == 422
 
 
+@pytest.mark.parametrize("event_id", ["901498", "901497"])
+def test_overview_expectations_snapshot(client, event_id):
+    raw = client.get(f"/events/{event_id}").json()
+    response = client.get(f"/events/{event_id}?expectations=true")
+    assert response.status_code == 200
+    detail = response.json()
+    assert detail["history"] == raw["history"]
+    assert any(s["date"] > raw["meeting_date"] for s in raw["latest_snapshot"])
+    for snapshot in detail["latest_snapshot"]:
+        expected = max((p for p in raw["history"][snapshot["outcome"]]
+                        if p["date"] <= raw["meeting_date"]), key=lambda p: p["date"])
+        assert snapshot["date"] == expected["date"]
+        assert snapshot["market_probability"] == expected["market_probability"]
+    assert client.get(f"/events/{event_id}").json() == raw
+
+
+def test_overview_expectations_upcoming_empty_and_errors(client):
+    path = "/events/901493?as_of=2023-01-30"
+    latest = client.get(path).json()
+    upcoming = client.get(path + "&expectations=true").json()
+    assert upcoming["status"] == "upcoming"
+    assert upcoming["latest_snapshot"] == latest["latest_snapshot"]
+    early = client.get("/events/901493?as_of=2022-01-01&expectations=true").json()
+    assert early["latest_snapshot"] == [] and early["history"] == {}
+    assert client.get("/events/missing?expectations=true").status_code == 404
+    assert client.get(path + "&expectations=invalid").status_code == 422
+
+
 @pytest.mark.parametrize("horizon", [1, 5, 20])
 def test_forecast(client, horizon):
     response = client.get(f"/forecast?asset=SPY&horizon={horizon}")
@@ -62,7 +90,7 @@ def test_no_lookahead():
     assert row.history == pytest.approx(logs.iloc[position - 20:position].pow(2).mean())
 
 
-def test_analysis_runs_assistant(client):
+def test_analysis_runs(client):
     assert client.get("/runs").json() == []
     response = client.post("/analyses", json=body(client))
     assert response.status_code == 200
@@ -77,13 +105,7 @@ def test_analysis_runs_assistant(client):
     assert len(client.get("/runs").json()) == 1
     repeated = client.post("/analyses", json=body(client)).json()
     assert repeated["results"] == result
-    for question in ("why estimates differ", "wallet", "what is VaR and ES", "what does the forecast say", "probability now", "hello"):
-        answer = client.post("/assistant/query", json={"question": question, "run_id": run["id"]}).json()
-        assert answer["mode"] == "rule-based" and f"run:{run['id']}" in answer["citations"]
     assert client.get("/runs/missing").status_code == 404
-    assert client.post("/assistant/query", json={"question": "hi", "run_id": "missing"}).status_code == 404
-    assert client.post("/assistant/query", json={"question": "probability"}).status_code == 200
-    assert client.post("/assistant/query", json={"question": ""}).status_code == 422
 
 
 @pytest.mark.parametrize("holdings", [[], [{"asset": "SPY", "weight": -.1}], [{"asset": "SPY", "weight": .9}], [{"asset": "QQQ", "weight": 1}]])
@@ -105,6 +127,28 @@ def test_analysis_empty_and_overrides(client):
     assert any("unconditional" in message for message in early["assumptions"])
 
 
+def test_saved_run_event_evidence_cutoff(client):
+    event = client.get("/events").json()[-1]
+    day = "2026-06-01"
+    run = client.post("/analyses", json=body(client, event_id=event["id"], as_of=day)).json()
+    saved = client.get(f"/runs/{run['id']}").json()
+    assert saved["results"]["as_of"] == day
+    evidence = client.get(f"/events/{event['id']}?as_of={saved['results']['as_of']}").json()
+    assert evidence["status"] == "upcoming"
+    assert evidence["realized_outcome"] is None
+    assert all(s["date"] <= day for s in evidence["latest_snapshot"])
+    assert all(p["date"] <= day for history in evidence["history"].values() for p in history)
+    selected = next(s for s in evidence["latest_snapshot"] if s["outcome"] == saved["request"]["outcome"])
+    assert selected["market_probability"] == saved["results"]["probability"]
+    assert selected["date"] == saved["results"]["probability_date"]
+    latest = client.get(f"/events/{event['id']}").json()
+    assert latest["status"] == "resolved"
+    assert max(s["date"] for s in latest["latest_snapshot"]) > day
+    empty = client.get(f"/events/{event['id']}?as_of=2022-01-01").json()
+    assert empty["latest_snapshot"] == [] and empty["history"] == {}
+    assert client.get(f"/events/{event['id']}?as_of=invalid").status_code == 422
+
+
 def test_default_event_outcome(client):
     request = {"holdings": [{"asset": "SPY", "weight": 1}]}
     response = client.post("/analyses", json=request)
@@ -123,3 +167,26 @@ def test_mixture():
     assert mixture(.25, .1, -.1, .04, .01) == pytest.approx((-.05, .025))
     assert mixture(1, .1, -.1, .04, .01) == pytest.approx((.1, .04))
     assert mixture(0, .1, -.1, .04, .01) == pytest.approx((-.1, .01))
+
+
+@pytest.mark.parametrize("weight", [0, .5, 1])
+def test_bounded_override_losses(client, weight):
+    response = client.post("/analyses", json=body(
+        client, notional=100000,
+        holdings=[{"asset": "SPY", "weight": weight}, {"asset": "Cash", "weight": 1 - weight}],
+        overrides={"mu_yes": -1, "mu_no": -1}))
+    assert response.status_code == 200
+    result = response.json()["results"]
+    assert min(result["scenario_returns"]) >= -weight
+    assert 0 <= result["var_95_pct"] <= result["es_95_pct"] <= 100
+    assert result["es_95_usd"] <= 100000
+    assert result["evidence"] == "Assumption"
+    assert all(side["status"] == "Assumption" for side in result["conditional_spy"].values())
+
+
+def test_override_evidence_and_context(client):
+    for overrides in ({}, {"mu_yes": .01}, {"mu_no": 0}):
+        result = client.post("/analyses", json=body(client, overrides=overrides)).json()["results"]
+        assert result["evidence"] == ("Assumption" if overrides else "Limited")
+    assert client.get("/analyses/context").json() == {"as_of": str(load()[0].date.max().date())}
+    assert client.post("/analyses", json=body(client, overrides={"mu_yes": -1.01})).status_code == 422

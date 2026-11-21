@@ -1,7 +1,7 @@
 from datetime import date
-from typing import Any, Literal
+from typing import Annotated, Any, Literal
 
-from pydantic import BaseModel, Field, field_validator, model_validator
+from pydantic import BaseModel, Field, StringConstraints, field_validator, model_validator
 
 Horizon = Literal[1, 5, 20]
 
@@ -95,6 +95,7 @@ class AnalysisRequest(BaseModel):
 
 class Run(BaseModel):
     id: str
+    title: str | None = None
     request: AnalysisRequest
     results: dict[str, Any]
     data_version: str
@@ -102,10 +103,20 @@ class Run(BaseModel):
     created_at: str
 
 
+class RunTitle(BaseModel):
+    title: str | None = Field(max_length=160)
+
+    @field_validator("title", mode="before")
+    @classmethod
+    def clean_title(cls, value):
+        return value.strip() or None if isinstance(value, str) else value
+
+
 class AssistantRequest(BaseModel):
-    question: str = Field(min_length=1)
+    question: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=500)]
     event_id: str | None = None
     run_id: str | None = None
+    outcome: str | None = None
     asset: Literal["SPY"] = "SPY"
     horizon: Horizon | None = None
 

@@ -55,3 +55,13 @@ dated probability snapshot; this is not a claim that the probability is current.
 Forecast floors are pre-specified as max(1e-12, 1% of training mean RV), computed
 separately at each expanding fit, not tuned on test outcomes. Each model reports
 its out-of-sample floor_hits, latest_floor_hit and shared per-date series floors.
+
+## Research assistant
+
+`POST /assistant/query` takes a standalone question and optional event, outcome,
+forecast horizon or saved run context. It has no conversation history, live
+quotes or external lookup. Historical market questions use an exact observation
+date (ISO or English month and day; omitted years use the meeting year). The
+assistant won’t substitute the latest snapshot when the date has no observation.
+Saved-run answers use the stored values for that run; the latest SPY model
+forecast is separate. CSV links download the app’s shipped evidence files.
