@@ -11,7 +11,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from search import (FOLDER, IDS, advance, calibrated, claim_holdout, corrected_windows,
-    direction, evaluate, first_trade, fit_calibration, holdout, holm, metrics, permutation_p,
+    digest, direction, evaluate, first_trade, fit_calibration, holdout, holm, metrics, permutation_p,
     pm_return, prior_price, registration, timestamp)
 from build_panel import DAY, create_tables, normalize_trade
 from test_build_panel import market, record
@@ -120,6 +120,33 @@ class InferenceAndLockTests(unittest.TestCase):
         spec = registration()
         self.assertEqual(tuple(s["id"] for s in spec["strategies"]), IDS)
         self.assertEqual(advance(spec, self.development()), ["a_smart_pm"])
+
+    def test_crlf_registration_passes_but_content_change_fails(self):
+        with tempfile.TemporaryDirectory() as folder:
+            target = Path(folder)
+            for name in ("registration.json", "PREREGISTRATION.md"):
+                original = (FOLDER / name).read_bytes().replace(b"\r\n", b"\n")
+                (target / name).write_bytes(original.replace(b"\n", b"\r\n"))
+            with patch("search.FOLDER", target):
+                self.assertEqual(registration(), self.spec())
+                path = target / "registration.json"
+                path.write_bytes(path.read_bytes().replace(b'"version": 1', b'"version": 2'))
+                with self.assertRaisesRegex(ValueError, "preregistration has changed"):
+                    registration()
+
+    def test_digest_normalizes_text_line_endings_but_preserves_content_and_binary(self):
+        with tempfile.TemporaryDirectory() as folder:
+            for suffix in (".json", ".md", ".py", ".csv", ".txt", ".sqlite3"):
+                path = Path(folder) / ("input" + suffix)
+                path.write_bytes(b"first\nsecond\n")
+                original = digest(path)
+                path.write_bytes(b"first\r\nsecond\r\n")
+                if suffix == ".sqlite3":
+                    self.assertNotEqual(digest(path), original)
+                else:
+                    self.assertEqual(digest(path), original)
+                path.write_bytes(b"changed\nsecond\n")
+                self.assertNotEqual(digest(path), original)
 
     def test_holdout_only_accepts_listed_advanced_strategies_and_claims_once(self):
         spec, dev = self.spec(), self.development()

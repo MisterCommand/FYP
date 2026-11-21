@@ -33,6 +33,8 @@ IDS = ("a_smart_pm", "b_contrarian_pm", "c_momentum_pm", "d_calibration_pm",
 
 def digest(path):
     result = hashlib.sha256()
+    if Path(path).suffix in {".json", ".md", ".py", ".csv", ".txt"}:
+        return hashlib.sha256(Path(path).read_bytes().replace(b"\r\n", b"\n")).hexdigest()
     with Path(path).open("rb") as handle:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             result.update(chunk)
@@ -47,7 +49,7 @@ def read_csv(path):
 def registration():
     for name in ("registration.json", "PREREGISTRATION.md"):
         committed = subprocess.check_output(["git", "show", f"{PREREG_COMMIT}:models/strategy_search/{name}"], cwd=ROOT)
-        if committed != (FOLDER / name).read_bytes():
+        if committed.replace(b"\r\n", b"\n") != (FOLDER / name).read_bytes().replace(b"\r\n", b"\n"):
             raise ValueError("Committed preregistration has changed")
     spec = json.loads((FOLDER / "registration.json").read_text())
     if tuple(s["id"] for s in spec["strategies"]) != IDS:
