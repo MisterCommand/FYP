@@ -22,3 +22,29 @@ def test_assistant_intents_match_words(client, question, prefix):
     assert answer["mode"] == "rule-based"
     assert answer["answer"].startswith(prefix)
     assert "datasets/index_daily.csv" in answer["citations"]
+
+
+@pytest.mark.parametrize("horizon", [1, 5, 20])
+def test_assistant_uses_selected_forecast_context(client, horizon):
+    expected = client.get(f"/forecast?asset=SPY&horizon={horizon}").json()
+    response = client.post("/assistant/query", json={
+        "question": "What does the forecast say?", "asset": "SPY", "horizon": horizon,
+    })
+    assert response.status_code == 200
+    answer = response.json()["answer"]
+    assert answer.startswith(f"SPY {horizon}-day horizon volatility")
+    for name, metrics in expected["models"].items():
+        assert f"{name} {metrics['latest_volatility']:.3%}" in answer
+
+
+def test_assistant_run_horizon_fallback_and_explicit_override(client):
+    run = client.post("/analyses", json={"horizon": 20, "holdings": [{"asset": "SPY", "weight": 1}]}).json()
+    request = {"question": "What does the forecast say?", "run_id": run["id"]}
+    assert client.post("/assistant/query", json=request).json()["answer"].startswith("SPY 20-day")
+    assert client.post("/assistant/query", json={**request, "horizon": 1}).json()["answer"].startswith("SPY 1-day")
+
+
+@pytest.mark.parametrize("context", [{"horizon": 2}, {"asset": "QQQ"}])
+def test_assistant_rejects_unsupported_forecast_context(client, context):
+    response = client.post("/assistant/query", json={"question": "forecast", **context})
+    assert response.status_code == 422

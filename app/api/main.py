@@ -105,8 +105,9 @@ def assistant(request: AssistantRequest):
     if event:
         citations.append(f"event:{event_id}")
     if words & {"forecast", "forecasts", "volatility", "variance"}:
-        result = forecast(run["request"]["horizon"] if run else 5)
-        answer = f"SPY {result['horizon']}-day horizon volatility at {result['as_of']}: " + "; ".join(f"{name} {m['latest_volatility']:.3%}, OOS MSE {m['mse']:.6g}, QLIKE {m['qlike']:.4f}, n={m['n']}" for name, m in result["models"].items()) + ". These are research estimates, not investment advice."
+        horizon = request.horizon or (run["request"]["horizon"] if run else 5)
+        result = get_forecast(asset=request.asset, horizon=horizon)
+        answer = f"{result['asset']} {result['horizon']}-day horizon volatility at {result['as_of']}: " + "; ".join(f"{name} {m['latest_volatility']:.3%}, OOS MSE {m['mse']:.6g}, QLIKE {m['qlike']:.4f}, n={m['n']}" for name, m in result["models"].items()) + ". These are research estimates, not investment advice."
     elif words & {"wallet", "wallets", "differ", "why"}:
         answer = "Wallet-informed probabilities are unavailable: No wallet/settlement data ingested yet. Market probabilities are raw traded prices. Forecasts differ because augmented OLS also uses the next meeting's No change probability and its five-day change; scenario estimates instead use conditional historical returns."
         if run:
