@@ -9,6 +9,7 @@ from forecast import forecast
 from schemas import (AnalysisRequest, Answer, Asset, AssistantRequest, Event,
                      EventDetail, Forecast, Run)
 import store
+from wallet import wallet_estimate
 
 app = FastAPI(title="EventLens research API", version="0.1.0")
 app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:3000"],
@@ -53,10 +54,13 @@ def event_detail(event_id: str, as_of: date | None = None):
     history = {}
     for outcome, group in rows[rows.date.le(day)].groupby("outcome"):
         history[outcome] = [{"date": r.date.date().isoformat(), "market_probability": float(r.market_probability)} for r in group.sort_values("date").itertuples()]
+    wallet = wallet_estimate(rows, day)
     return {**info, "history": history, "final_outcome": info["realized_outcome"],
-            "wallet_informed": {"available": False, "reason": "No wallet/settlement data ingested yet"},
+            "wallet_informed": wallet,
             "evidence": "Limited" if history else "Unavailable",
-            "evidence_rule": "Limited when probability observations exist by as_of; otherwise Unavailable. No wallet-level evidence. Lifetime volume is not point-in-time."}
+            "evidence_rule": "Limited when probability observations exist by as_of; otherwise Unavailable. "
+                             + ("Provisional wallet pilot; heuristic is not calibrated. " if wallet["available"] else "No wallet-level evidence at this cutoff. ")
+                             + "Lifetime volume is not point-in-time."}
 
 
 @app.get("/forecast", response_model=Forecast)
