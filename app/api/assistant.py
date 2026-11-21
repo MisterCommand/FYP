@@ -7,9 +7,10 @@ from data import WATCHLIST
 from forecast import forecast
 from schemas import Answer, AssistantRequest
 
-SourceFile = Literal["forward_probabilities.csv", "index_daily.csv"]
+SourceFile = Literal["forward_probabilities.csv", "index_daily.csv", "daily_cluster_signals.csv"]
 MARKETS = "datasets/forward_probabilities.csv"
 PRICES = "datasets/index_daily.csv"
+WALLET_SIGNALS = "datasets/polymarket/wallet_cluster_pilot/fed_20260531_v1/daily_cluster_signals.csv"
 CALENDAR = "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 MONTHS = "|".join(name.lower() for name in [*month_name[1:], *month_abbr[1:], "Sept"])
 MONTH_NUMBER = {name.lower(): i for i, name in enumerate(month_abbr) if i}
@@ -173,6 +174,34 @@ def forecast_answer(text, request, run):
             f"{comparison}. Lower MSE and QLIKE are better on the same test dates.{context}", (PRICES, MARKETS))
 
 
+def wallet_answer(event, run):
+    sources = [MARKETS]
+    if event:
+        sources.append(f"event:{event['id']}")
+    if run:
+        sources.append(f"run:{run['id']}")
+    if event and event["wallet_informed"]["available"]:
+        wallet = event["wallet_informed"]
+        market = {row["outcome"]: row["market_probability"] for row in event["latest_snapshot"]}
+        answer = f"Wallet-informed estimate: {wallet['method']}. Signal date: {wallet['signal_timestamp']}. "
+        answer += "; ".join(
+            f"{row['outcome']}: wallet {row['wallet_probability']:.4%} versus market {market[row['outcome']]:.4%} "
+            f"({(row['wallet_probability'] - market[row['outcome']]) * 100:+.4f} percentage points)"
+            for row in wallet["outcomes"]
+        )
+        answer += (". Active-wallet-weighted directional imbalance tilts each market logit by k=0.5, then "
+                   "probabilities are normalized across outcomes; missing imbalance gives zero tilt. "
+                   "This is not calibrated or validated predictive evidence.")
+        sources.append(WALLET_SIGNALS)
+    else:
+        reason = event["wallet_informed"]["reason"] if event else "Supply an event_id or run_id to inspect wallet coverage"
+        answer = f"Wallet-informed estimates are unavailable: {reason}."
+    answer += " Market probabilities are raw traded prices. Wallet estimates are not used in forecasts or scenarios."
+    if run:
+        answer += " Run assumptions: " + " ".join(run["results"]["assumptions"])
+    return answer, tuple(sources)
+
+
 def answer_topic(text, request, event, run):
     if event and (meeting := MEETING.search(text) or MEETING_IN.search(text)):
         month = MONTH_NUMBER[meeting["month"][:3]]
@@ -183,10 +212,14 @@ def answer_topic(text, request, event, run):
     if re.search(r"\b(?:weather|rain|gold|bitcoin|crypto|earnings|inflation|temperature)\b", text):
         return FALLBACK, ()
     if re.search(r"\b(?:wallets?|wallet-informed|smart money)\b", text):
-        return "Wallet-informed estimates are unavailable: no wallet or settlement data has been ingested. Market probabilities come from raw traded prices.", (MARKETS,)
+        return wallet_answer(event, run)
     if re.search(r"\b(?:why (?:do|are) (?:the )?estimates differ|baseline (?:vs\.?|versus|and) (?:the )?augmented|why .*forecasts? differ|difference between (?:the )?(?:baseline|models))\b", text):
-        return ("The baseline model uses past SPY returns. The augmented model also uses the next meeting’s "
-                "No change market probability and its five-day change. More inputs don’t guarantee a better forecast.", (PRICES, MARKETS))
+        answer = ("The baseline model uses past SPY returns. The augmented model also uses the next meeting’s "
+                  "No change market probability and its five-day change. More inputs don’t guarantee a better forecast.")
+        if event and re.search(r"\bestimates differ\b", text):
+            wallet_text, sources = wallet_answer(event, run)
+            return answer + "\n\n" + wallet_text, (PRICES, MARKETS, *sources)
+        return answer, (PRICES, MARKETS)
     if event and text.startswith("why ") and ODDS.search(text) and re.search(r"\b(?:resolved|100\s*%|settled)\b", text):
         return (f"{event['title']}: a market observation is a historical traded price, not the final outcome. "
                 "A price before settlement doesn’t have to be 0% or 100%, even when the decision is known today.",

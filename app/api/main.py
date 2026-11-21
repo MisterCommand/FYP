@@ -5,12 +5,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 
 from analysis import analyze
-from assistant import SourceFile, answer_question
-from data import ROOT, WATCHLIST, cutoff, default_event, default_outcome, event_rows, event_summary, load
+from assistant import SourceFile, WALLET_SIGNALS, answer_question
+from data import ROOT, WATCHLIST, cutoff, default_event, default_outcome, event_rows, event_summary, load, snapshot
 from forecast import forecast
 from schemas import (AnalysisRequest, Answer, Asset, AssistantRequest, Event,
                      EventDetail, Forecast, Run)
 import store
+from wallet import wallet_estimate
 
 app = FastAPI(title="EventLens research API", version="0.1.0")
 app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:3000"],
@@ -48,17 +49,22 @@ def events(asset: str = "SPY", as_of: date | None = None):
 
 
 @app.get("/events/{event_id}", response_model=EventDetail)
-def event_detail(event_id: str, as_of: date | None = None):
+def event_detail(event_id: str, as_of: date | None = None, expectations: bool = False):
     rows = require_event(event_id)
     day = cutoff(as_of)
     info = event_summary(rows, day)
+    if expectations:
+        info["latest_snapshot"] = snapshot(rows, min(day, rows.iloc[0].meeting_date))
     history = {}
     for outcome, group in rows[rows.date.le(day)].groupby("outcome"):
         history[outcome] = [{"date": r.date.date().isoformat(), "market_probability": float(r.market_probability)} for r in group.sort_values("date").itertuples()]
+    wallet = wallet_estimate(rows, day)
     return {**info, "history": history, "final_outcome": info["realized_outcome"],
-            "wallet_informed": {"available": False, "reason": "No wallet/settlement data ingested yet"},
+            "wallet_informed": wallet,
             "evidence": "Limited" if history else "Unavailable",
-            "evidence_rule": "Limited when probability observations exist by as_of; otherwise Unavailable. No wallet-level evidence. Lifetime volume is not point-in-time."}
+            "evidence_rule": "Limited when probability observations exist by as_of; otherwise Unavailable. "
+                             + ("Provisional wallet pilot; heuristic is not calibrated. " if wallet["available"] else "No wallet-level evidence at this cutoff. ")
+                             + "Lifetime volume is not point-in-time."}
 
 
 @app.get("/forecast", response_model=Forecast)
@@ -67,6 +73,11 @@ def get_forecast(asset: str = "SPY", horizon: int = 5):
     if horizon not in (1, 5, 20):
         raise HTTPException(422, "horizon must be 1, 5 or 20")
     return forecast(horizon)
+
+
+@app.get("/analyses/context")
+def analysis_context():
+    return {"as_of": cutoff().date().isoformat()}
 
 
 @app.post("/analyses", response_model=Run)
@@ -105,4 +116,5 @@ def assistant(request: AssistantRequest):
 
 @app.get("/assistant/sources/{filename}")
 def assistant_source(filename: SourceFile):
-    return FileResponse(ROOT / filename, filename=filename, media_type="text/csv")
+    path = WALLET_SIGNALS.removeprefix("datasets/") if filename == "daily_cluster_signals.csv" else filename
+    return FileResponse(ROOT / path, filename=filename, media_type="text/csv")
