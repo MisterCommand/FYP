@@ -16,6 +16,7 @@ MONTH_NUMBER = {name.lower(): i for i, name in enumerate(month_abbr) if i}
 DATE = re.compile(rf"\b(?:(?P<iso>\d{{4}}-\d{{2}}-\d{{2}})|(?P<month>{MONTHS})\.?\s+(?P<day>\d{{1,2}})(?:st|nd|rd|th)?(?:(?:,\s*|\s+)(?P<year>\d{{4}}))?)\b")
 MEETING = re.compile(rf"\b(?P<month>{MONTHS})(?:\s+(?P<year>\d{{4}}))?\s+(?:fomc\b|(?:fed\s+)?(?:meeting|rate decision)\b)")
 MEETING_IN = re.compile(rf"\b(?:fomc|meeting|rate decision) (?:in|for) (?P<month>{MONTHS})(?:\s+(?P<year>\d{{4}}))?\b")
+MONTH_REFERENCE = re.compile(rf"\b(?:in|for|at) (?:the )?(?:{MONTHS})(?: \d{{4}})?\b")
 HORIZONS = {"1": 1, "one": 1, "5": 5, "five": 5, "20": 20, "twenty": 20}
 NUMBER_WORD = (
     r"(?:zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|"
@@ -33,6 +34,8 @@ CUT = r"\b(?:cuts?|cutting|lower(?:s|ed|ing)?|decreas(?:e[ds]?|ing)|reduc(?:e[ds
 HIKE = r"\b(?:hikes?|hiking|rais(?:e[ds]?|ing)|increas(?:e[ds]?|ing))\b"
 UNCHANGED = r"\b(?:no change|unchanged|hold(?:s|ing)? (?:interest )?rates?|held (?:interest )?rates?|rates? (?:stay(?:s|ed)?|remain(?:s|ed)?) (?:the same|steady))\b"
 BPS = re.compile(r"\b(\d+)\s*(\+)?\s*[- ]?\s*(?:bps?|basis points?)\b")
+COMPARISON = re.compile(r"\b(?:compare[ds]?|comparison|versus|vs\.?|rather than)\b")
+COMPANY_TICKERS = {"apple": "AAPL", "microsoft": "MSFT", "nvidia": "NVDA", "amazon": "AMZN", "tesla": "TSLA"}
 FALLBACK = ("I couldn’t match that to the research data. Ask a standalone question about Fed market odds, "
             "the meeting decision, or the SPY volatility forecast. I don’t browse the web or remember earlier questions.")
 
@@ -64,8 +67,15 @@ def outcome_filter(text):
 
 
 def market_answer(text, request, event, run):
-    if any(re.search(rf"\b{asset.lower()}\b", text) for asset in WATCHLIST):
+    if any(re.search(rf"\b{asset}\b", text) for asset in (*map(str.lower, WATCHLIST), *COMPANY_TICKERS)):
         return "The market-probability data covers Fed rate decisions, not individual asset prices.", ()
+    dates = list(DATE.finditer(text))
+    directions = sum(bool(re.search(pattern, text)) for pattern in (CUT, HIKE, UNCHANGED))
+    if COMPARISON.search(text) or len(dates) > 1 or directions > 1 or len(BPS.findall(text)) > 1:
+        return "Ask separately for each rate outcome or observation date so I can look up both without mixing them.", ()
+    if not dates and MONTH_REFERENCE.search(text) and not (MEETING.search(text) or MEETING_IN.search(text)):
+        return ("For market odds on a past day, include the exact observation date. "
+                "To ask about a different Fed meeting, select it first."), ()
     label, matches = outcome_filter(text)
     selected = re.search(r"\b(?:this|the selected|the chosen) (?:market )?outcome\b", text)
     all_outcomes = re.search(r"\b(?:all|each|every) (?:market |possible )?outcomes?\b|\bprobabilities\b", text)
@@ -123,13 +133,16 @@ def market_answer(text, request, event, run):
 
 
 def forecast_answer(text, request, run):
-    unsupported = [asset for asset in WATCHLIST if asset != "SPY" and re.search(rf"\b{asset.lower()}\b", text)]
+    names = {asset.lower(): asset for asset in WATCHLIST if asset != "SPY"} | COMPANY_TICKERS
+    unsupported = list(dict.fromkeys(ticker for name, ticker in names.items() if re.search(rf"\b{name}\b", text)))
     if unsupported:
         return f"No volatility forecast is available for {', '.join(unsupported)}. Only SPY has price data here.", ()
     if DATE.search(text) or OTHER_DATE.search(text) or re.search(r"\bhistorical\b", text):
         return "I can show the latest dataset forecast, but can’t look up a forecast for a requested date.", ()
     subject = re.search(r"\b(?:forecast|volatility) (?:for|of|on) (?:the )?([a-z]+)\b", text)
-    if subject and subject[1] not in {"spy", "this", "selected", "next", "that"} and not HORIZON.match(text, subject.start(1)):
+    owner = re.search(r"\b([a-z]+)'s (?:volatility )?forecast\b", text)
+    if ((subject and subject[1] not in {"spy", "this", "selected", "next", "that"} and not HORIZON.match(text, subject.start(1)))
+            or (owner and owner[1] not in {"spy", "run", "model", "eventlens"})):
         return "I can only show the SPY volatility forecast. Name SPY and a supported horizon (1, 5 or 20 trading days).", ()
 
     horizons = {HORIZONS.get(value) for value in HORIZON.findall(text)}

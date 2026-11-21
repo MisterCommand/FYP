@@ -51,6 +51,9 @@ def test_market_answer_uses_outcome_and_observation_date(client, question, expec
 
 @pytest.mark.parametrize(("question", "expected"), [
     ("What is the volatility forecast for TSLA?", "No volatility forecast is available for TSLA"),
+    ("What is Tesla’s volatility forecast?", "No volatility forecast is available for TSLA"),
+    ("What is Nvidia's volatility forecast?", "No volatility forecast is available for NVDA"),
+    ("What is IBM's volatility forecast?", "I can only show the SPY volatility forecast"),
     ("What is the 10-day volatility forecast?", "Choose one supported forecast horizon"),
     ("What is the 1.5-day volatility forecast?", "Choose one supported forecast horizon"),
     ("What is the twenty-one-day volatility forecast?", "Choose one supported forecast horizon"),
@@ -58,6 +61,9 @@ def test_market_answer_uses_outcome_and_observation_date(client, question, expec
     ("What was the SPY forecast on September 1, 2026?", "can’t look up a forecast for a requested date"),
     ("What is the probability that it will rain tomorrow?", "I couldn’t match that"),
     ("What's the odds of a rate cut at the July 2026 meeting?", "Select the meeting you meant"),
+    ("What was the probability of a hike in July 2026?", "include the exact observation date"),
+    ("What were the odds of a cut versus rates staying unchanged?", "Ask separately for each rate outcome or observation date"),
+    ("What were the odds of a 25 bps hike on September 1 compared with September 16?", "Ask separately for each rate outcome or observation date"),
     ("What is the variance of SPY returns?", "I couldn’t match that"),
     ("Why did the Fed raise rates?", "I couldn’t match that"),
     ("What were the chances of no change on February 31?", "That date isn’t valid"),
