@@ -11,8 +11,8 @@ import pytest
     ("ES", "95% VaR is the loss threshold"),
     ("Explain VaR/ES.", "95% VaR is the loss threshold"),
     ("What is expected shortfall?", "95% VaR is the loss threshold"),
-    ("Why do estimates differ?", "Wallet-informed probabilities are unavailable"),
-    ("What about wallets?", "Wallet-informed probabilities are unavailable"),
+    ("Why do estimates differ?", "Wallet-informed estimate unavailable"),
+    ("What about wallets?", "Wallet-informed estimate unavailable"),
     ("A variety of research questions", "I can explain market probabilities"),
 ])
 def test_assistant_intents_match_words(client, question, prefix):
