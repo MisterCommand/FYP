@@ -1,18 +1,18 @@
 from datetime import date
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
 
 from analysis import analyze
 from data import WATCHLIST, cutoff, default_event, default_outcome, event_rows, event_summary, load
 from forecast import forecast
 from schemas import (AnalysisRequest, Answer, Asset, AssistantRequest, Event,
-                     EventDetail, Forecast, Run)
+                     EventDetail, Forecast, Run, RunTitle)
 import store
 
 app = FastAPI(title="EventLens research API", version="0.1.0")
 app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:3000"],
-                   allow_methods=["GET", "POST"], allow_headers=["*"])
+                   allow_methods=["GET", "POST", "PATCH", "DELETE"], allow_headers=["*"])
 
 
 def supported(asset):
@@ -78,6 +78,21 @@ def analyses(request: AnalysisRequest):
     except ValueError as error:
         raise HTTPException(422, str(error)) from error
     return store.save(request, results)
+
+
+@app.patch("/analyses/{run_id}", response_model=Run)
+def rename_analysis(run_id: str, request: RunTitle):
+    run = store.rename(run_id, request.title)
+    if run is None:
+        raise HTTPException(404, "Run not found")
+    return run
+
+
+@app.delete("/analyses/{run_id}", status_code=204)
+def delete_analysis(run_id: str):
+    if not store.delete(run_id):
+        raise HTTPException(404, "Run not found")
+    return Response(status_code=204)
 
 
 @app.get("/runs", response_model=list[Run])

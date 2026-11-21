@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { createdAtLabel, runEventHref } from "./research-format.ts";
+import { createdAtLabel, runEventHref, meetingName, runTitle, matchesSearch } from "./research-format.ts";
 
 test("created timestamps use local date, time and short timezone", () => {
   const previous = process.env.TZ;
@@ -26,4 +26,23 @@ test("legacy runs fall back to requested cutoff or latest when absent", () => {
 
 test("cutoff query values are encoded", () => {
   assert.equal(runEventHref({ request: { event_id: "481717" }, results: { as_of: "bad&other=value" } }), "/events/481717?as_of=bad%26other%3Dvalue");
+});
+
+test("run names use meeting, outcome and horizon unless renamed", () => {
+  const event = { meeting_month: "2026-09" };
+  const run = { request: { outcome: "25 bps increase", horizon: 5 } };
+  assert.equal(meetingName(event), "FOMC · September 2026");
+  assert.equal(runTitle(run, event), "FOMC · September 2026 · 25 bps increase · 5D");
+  assert.equal(runTitle({ ...run, title: "My research" }, event), "My research");
+  assert.equal(runTitle({ ...run, title: null }, event), runTitle(run, event));
+  assert.equal(meetingName(), "FOMC meeting");
+});
+
+test("search matches all words case-insensitively across fields", () => {
+  assert.equal(matchesSearch("  SEPTEMBER 2026 increase ", "FOMC September 2026", "25 bps increase"), true);
+  assert.equal(matchesSearch("stress test", "My stress test", null), true);
+  assert.equal(matchesSearch("2025 increase", "September 2026", "25 bps increase"), false);
+  assert.equal(matchesSearch("", undefined), true);
+  assert.equal(matchesSearch("missing", null, undefined), false);
+  assert.equal(matchesSearch("[", "FOMC September 2026"), false);
 });

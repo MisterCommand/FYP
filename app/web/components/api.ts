@@ -7,7 +7,7 @@ export type Metrics = { mse: number; qlike: number; n: number; floor_hits: numbe
 export type Forecast = { asset: string; horizon: number; as_of: string; models: Record<string, Metrics>; floor_policy: string; forecast_floor: number; series: { date: string; realized: number; baseline: number; augmented: number }[]; notes: string };
 export type Holding = { asset: string; weight: number };
 export type AnalysisRequest = { event_id?: string; outcome?: string; as_of?: string; horizon: number; holdings: Holding[]; notional: number; overrides?: { mu_yes?: number; mu_no?: number } };
-export type Run = { id: string; created_at: string; request: AnalysisRequest; data_version: string; seed: number; results: { probability: number; probability_date: string; as_of: string; sample_counts: Record<string, number>; conditional_spy: Record<string, { mean: number; variance: number; effective_n: number; status?: string }>; mu_mix: number; sigma2_mix: number; horizon_volatility: number; var_95_pct: number; es_95_pct: number; var_95_usd: number; es_95_usd: number; scenario_returns: number[]; assumptions: string[]; evidence: string; method: string; residual_pool_n?: number } };
+export type Run = { id: string; title?: string | null; created_at: string; request: AnalysisRequest; data_version: string; seed: number; results: { probability: number; probability_date: string; as_of: string; sample_counts: Record<string, number>; conditional_spy: Record<string, { mean: number; variance: number; effective_n: number; status?: string }>; mu_mix: number; sigma2_mix: number; horizon_volatility: number; var_95_pct: number; es_95_pct: number; var_95_usd: number; es_95_usd: number; scenario_returns: number[]; assumptions: string[]; evidence: string; method: string; residual_pool_n?: number } };
 export type Answer = { mode: string; answer: string; citations: string[] };
 export type FieldError = { loc: (string | number)[]; msg: string };
 
@@ -19,13 +19,13 @@ export class APIError extends Error {
   }
 }
 
-export async function api<T>(path: string, body?: unknown): Promise<T> {
-  const response = await fetch(`/api${path}`, body === undefined ? undefined : { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+export async function api<T>(path: string, body?: unknown, method = body === undefined ? "GET" : "POST"): Promise<T> {
+  const response = await fetch(`/api${path}`, { method, ...(body === undefined ? {} : { headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }) });
   if (!response.ok) {
     const data = await response.json().catch(() => ({ detail: `Request failed (${response.status})` }));
     throw new APIError(data.detail || "Request failed. Please try again.");
   }
-  return response.json();
+  return response.status === 204 ? undefined as T : response.json();
 }
 
 export function useEvents() { return useQuery({ queryKey: ["events"], queryFn: () => api<Event[]>("/events") }); }

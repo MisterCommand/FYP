@@ -95,11 +95,21 @@ class AnalysisRequest(BaseModel):
 
 class Run(BaseModel):
     id: str
+    title: str | None = None
     request: AnalysisRequest
     results: dict[str, Any]
     data_version: str
     seed: int
     created_at: str
+
+
+class RunTitle(BaseModel):
+    title: str | None = Field(max_length=160)
+
+    @field_validator("title", mode="before")
+    @classmethod
+    def clean_title(cls, value):
+        return value.strip() or None if isinstance(value, str) else value
 
 
 class AssistantRequest(BaseModel):
