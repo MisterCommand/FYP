@@ -34,11 +34,24 @@ price windows observable by as_of, excluding the selected event. Windows start
 at the decision-day close and end H trading days later; simple holding-period
 returns (not volatility targets). Groups with fewer than three meetings use
 all available unconditional rolling windows, explicitly flagged Assumption.
-Overrides shift conditional SPY means while retaining empirical residuals.
-Mixture moments are analytical; VaR/ES use 10,000 fixed-seed bootstrap draws.
+Overrides shift conditional SPY means. Residual shapes come from all historical
+overlapping H-day SPY returns available by as_of, demeaned. When a group has
+at least three meetings, these residuals are scaled to its conditional standard
+deviation; otherwise the unconditional scale is retained. Mixture moments are
+analytical; VaR/ES use 10,000 fixed-seed bootstrap draws.
 Reported loss percentages are percentage points, returns are decimal, horizon
 volatility is not annualized. All results are hypothetical research, not advice.
 
 Event status and final labels are gated by decision date, not a settlement
 timestamp (none is supplied). Dataset final labels are used only for historical
 scenario grouping, never forecast features. No wallet data is available.
+
+Omitting event_id selects the next upcoming meeting with observations by as_of,
+or the latest observed meeting if none is upcoming. Omitting outcome selects
+its most likely non-"No change" outcome (falling back to the most likely outcome
+if no change outcomes exist). Explicitly selected historical events retain their
+dated probability snapshot; this is not a claim that the probability is current.
+
+Forecast floors are pre-specified as max(1e-12, 1% of training mean RV), computed
+separately at each expanding fit, not tuned on test outcomes. Each model reports
+its out-of-sample floor_hits, latest_floor_hit and shared per-date series floors.

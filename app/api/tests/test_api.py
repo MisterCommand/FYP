@@ -37,6 +37,8 @@ def test_forecast(client, horizon):
     data = response.json()
     assert len(data["series"]) == data["models"]["baseline"]["n"] == data["models"]["augmented"]["n"] > 0
     assert all(m["latest_variance"] >= data["forecast_floor"] and m["qlike"] >= 0 for m in data["models"].values())
+    for name, metrics in data["models"].items():
+        assert metrics["floor_hits"] == sum(point[name] == point["floor"] for point in data["series"])
     assert client.get("/forecast?asset=QQQ").status_code == 422
     assert client.get("/forecast?horizon=2").status_code == 422
 
@@ -68,6 +70,8 @@ def test_analysis_runs_assistant(client):
     result = run["results"]
     assert result["es_95_pct"] >= result["var_95_pct"] >= 0
     assert len(result["scenario_returns"]) == 10000
+    assert len(set(result["scenario_returns"])) >= 500
+    assert result["es_95_pct"] > result["var_95_pct"] * 1.1
     assert run["seed"] == 42 and run["data_version"]
     assert client.get(f"/runs/{run['id']}").json() == run
     assert len(client.get("/runs").json()) == 1
@@ -99,6 +103,20 @@ def test_analysis_empty_and_overrides(client):
     assert early["sample_counts"] == {"yes": 0, "no": 0}
     assert early["evidence"] == "Assumption"
     assert any("unconditional" in message for message in early["assumptions"])
+
+
+def test_default_event_outcome(client):
+    request = {"holdings": [{"asset": "SPY", "weight": 1}]}
+    response = client.post("/analyses", json=request)
+    assert response.status_code == 200
+    run = response.json()
+    latest = client.get("/events").json()[-1]
+    assert run["request"]["event_id"] == latest["id"]
+    change = max((s for s in latest["latest_snapshot"] if s["outcome"] != "No change"), key=lambda s: s["market_probability"])
+    assert run["request"]["outcome"] == change["outcome"]
+    upcoming = client.post("/analyses", json={**request, "as_of": "2023-01-30"}).json()
+    assert upcoming["request"]["event_id"] == client.get("/events").json()[0]["id"]
+    assert client.post("/analyses", json={**request, "as_of": "2022-01-01"}).status_code == 422
 
 
 def test_mixture():

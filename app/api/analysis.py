@@ -55,19 +55,23 @@ def analyze(request, rows):
     rng = np.random.default_rng(SEED)
     yes = rng.random(10000) < p
     simulated = np.empty(10000)
+    residuals = unconditional - unconditional.mean()
+    unconditional_std = float(residuals.std())
     for side, mask in (("yes", yes), ("no", ~yes)):
-        residuals = samples[side] - samples[side].mean()
-        simulated[mask] = (means[side] + rng.choice(residuals, int(mask.sum()))) * exposure
+        scale = np.sqrt(variances[side]) / unconditional_std if len(groups[side]) >= 3 and unconditional_std > 0 else 1.
+        simulated[mask] = (means[side] + rng.choice(residuals, int(mask.sum())) * scale) * exposure
     losses = np.sort(-simulated)[::-1]
     var = max(0., float(np.quantile(losses, .95)))
     es = max(var, float(losses[:500].mean()))
     return {"probability": p, "probability_date": selected[0]["date"], "as_of": as_of.date().isoformat(),
             "sample_counts": {key: len(value) for key, value in groups.items()},
-            "conditional_spy": {s: {"mean": means[s], "variance": variances[s], "effective_n": len(samples[s])} for s in groups},
+            "conditional_spy": {s: {"mean": means[s], "variance": variances[s], "effective_n": len(samples[s]),
+                                    "status": "Historical" if len(groups[s]) >= 3 and getattr(request.overrides, f"mu_{s}", None) is None else "Assumption"} for s in groups},
             "mu_mix": mean * exposure, "sigma2_mix": variance * exposure**2,
             "horizon_volatility": float(np.sqrt(variance) * exposure),
             "var_95_pct": var * 100, "es_95_pct": es * 100,
             "var_95_usd": var * request.notional, "es_95_usd": es * request.notional,
             "scenario_returns": simulated.tolist(), "assumptions": assumptions,
             "evidence": "Assumption" if any(len(v) < 3 for v in groups.values()) else "Limited",
-            "method": "10000 fixed-seed conditional bootstrap residual draws; empirical worst 500 losses for ES; positive loss metrics floored at zero."}
+            "residual_pool_n": len(unconditional),
+            "method": "10000 fixed-seed draws from all overlapping historical H-day SPY returns, demeaned and shifted to conditional means; scaled to conditional std only for groups with at least 3 meetings, otherwise unconditional std. ES averages worst 500 losses; positive loss metrics floored at zero."}

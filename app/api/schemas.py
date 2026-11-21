@@ -38,13 +38,24 @@ class EventDetail(Event):
     evidence_rule: str
 
 
+class ForecastMetrics(BaseModel):
+    mse: float
+    qlike: float
+    n: int
+    floor_hits: int
+    latest_floor_hit: bool
+    latest_variance: float
+    latest_volatility: float
+
+
 class Forecast(BaseModel):
     asset: str
     horizon: Horizon
     target: str
     forecast_floor: float
     as_of: str
-    models: dict[str, dict[str, float | int]]
+    floor_policy: str
+    models: dict[str, ForecastMetrics]
     series: list[dict[str, Any]]
     notes: str
 
@@ -67,8 +78,8 @@ class Overrides(BaseModel):
 
 
 class AnalysisRequest(BaseModel):
-    event_id: str
-    outcome: str = "No change"
+    event_id: str | None = None
+    outcome: str | None = None
     as_of: date | None = None
     horizon: Horizon = 5
     holdings: list[Holding] = Field(min_length=1)

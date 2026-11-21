@@ -40,6 +40,22 @@ def event_rows(event_id):
     return rows[rows.event_id.astype(str).eq(str(event_id))]
 
 
+def default_event(as_of):
+    rows = load()[1]
+    available = rows[rows.date.le(as_of)]
+    meetings = available[["event_id", "meeting_date"]].drop_duplicates().sort_values("meeting_date")
+    upcoming = meetings[meetings.meeting_date.ge(as_of)]
+    if meetings.empty:
+        raise ValueError("No event observations available on or before as_of")
+    return str((upcoming.iloc[0] if not upcoming.empty else meetings.iloc[-1]).event_id)
+
+
+def default_outcome(rows, as_of):
+    available = snapshot(rows, as_of)
+    changes = [s for s in available if s["outcome"] != "No change"]
+    return max(changes or available, key=lambda s: s["market_probability"])["outcome"] if available else None
+
+
 def snapshot(rows, as_of):
     available = rows[rows.date.le(as_of)].sort_values("date")
     latest = available.groupby("outcome", sort=True).tail(1)

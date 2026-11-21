@@ -4,7 +4,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from analysis import analyze
-from data import WATCHLIST, cutoff, event_rows, event_summary, load
+from data import WATCHLIST, cutoff, default_event, default_outcome, event_rows, event_summary, load
 from forecast import forecast
 from schemas import (AnalysisRequest, Answer, Asset, AssistantRequest, Event,
                      EventDetail, Forecast, Run)
@@ -69,8 +69,11 @@ def get_forecast(asset: str = "SPY", horizon: int = 5):
 
 @app.post("/analyses", response_model=Run)
 def analyses(request: AnalysisRequest):
-    rows = require_event(request.event_id)
     try:
+        event_id = request.event_id or default_event(cutoff(request.as_of))
+        rows = require_event(event_id)
+        outcome = request.outcome or default_outcome(rows, cutoff(request.as_of))
+        request = request.model_copy(update={"event_id": event_id, "outcome": outcome})
         results = analyze(request, rows)
     except ValueError as error:
         raise HTTPException(422, str(error)) from error
