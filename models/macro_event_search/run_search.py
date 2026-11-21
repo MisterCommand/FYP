@@ -102,7 +102,17 @@ def skill_stream(db, requests, allowed):
         yield request, scores
 
 
+def validate_macro_cache(root):
+    fingerprint = raw_fingerprint(root)
+    with prior.readonly(root / 'trades.sqlite3') as db:
+        recorded = db.execute('SELECT fingerprint FROM build').fetchone()
+    if recorded is None or recorded[0] != fingerprint:
+        raise ValueError('Macro cache source fingerprint changed')
+    return fingerprint
+
+
 def prepare(root, spec, phase, needed=None):
+    validate_macro_cache(root)
     markets, releases, _ = load_metadata(root)
     registered = {f'{f}:{ref}' for f, split in spec['families'].items()
         for ref in split['development'] + (split['holdout'] if phase == 'holdout' else [])}
@@ -259,6 +269,7 @@ def claim_holdout(path, spec, development, requested, manifest):
 
 
 def inputs(root):
+    fingerprint = validate_macro_cache(root)
     files = [FOLDER / name for name in ('registration.json', 'PREREGISTRATION.md', 'release_coverage.csv',
         'run_search.py', 'coverage.py', 'releases.py')]
     files += [ROOT / p for p in ('models/strategy_search/search.py', 'models/wallet_backtest/build_panel.py',
@@ -268,7 +279,7 @@ def inputs(root):
         root.parent / 'strategy_search/fresh/event.json',
         root.parent / 'strategy_search/fresh/606422/summary.json') if p.exists()]
     result = {str(p): prior.digest(p) for p in files}
-    result['raw_macro_fingerprint'] = raw_fingerprint(root)
+    result['raw_macro_fingerprint'] = fingerprint
     return result
 
 

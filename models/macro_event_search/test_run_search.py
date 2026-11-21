@@ -18,6 +18,23 @@ def spec():
 
 
 class ExecutionTests(unittest.TestCase):
+    def test_stale_macro_cache_rejected_by_prepare_and_inputs(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            with sqlite3.connect(root / 'trades.sqlite3') as db:
+                db.execute('CREATE TABLE build (fingerprint TEXT)')
+                db.execute("INSERT INTO build VALUES ('original')")
+            with patch.object(study, 'raw_fingerprint', return_value='original'):
+                self.assertEqual(study.validate_macro_cache(root), 'original')
+            for changed in ('raw-history-changed', 'release-mapping-changed'):
+                with self.subTest(changed=changed), \
+                        patch.object(study, 'raw_fingerprint', return_value=changed), \
+                        patch.object(study, 'load_metadata', side_effect=AssertionError('stale cache used')):
+                    with self.assertRaisesRegex(ValueError, 'Macro cache source fingerprint changed'):
+                        study.prepare(root, spec(), 'development')
+                    with self.assertRaisesRegex(ValueError, 'Macro cache source fingerprint changed'):
+                        study.inputs(root)
+
     def test_release_close_and_strict_post_cutoff_entry(self):
         release = int(datetime.fromisoformat('2026-07-10T12:30:00+00:00').timestamp())
         prices = [(release-2*86400, 100.), (release-86400, 101.), (release+3*3600, 102.)]
