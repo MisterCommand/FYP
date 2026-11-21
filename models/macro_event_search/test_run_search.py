@@ -123,6 +123,35 @@ class SkillAndCalibrationTests(unittest.TestCase):
 
 
 class InferenceAndLockTests(unittest.TestCase):
+    def test_development_hashes_fresh_cache_created_during_prepare(self):
+        s = spec()
+        with tempfile.TemporaryDirectory() as folder:
+            base = Path(folder)
+            root, work = base / 'macro', base / 'macro' / 'study'
+            work.mkdir(parents=True)
+            (root / 'trades.sqlite3').write_bytes(b'macro cache')
+            fomc = base / 'wallet_backtest_cache'
+            fomc.mkdir()
+            (fomc / 'trades.sqlite3').write_bytes(b'fomc cache')
+            fresh = base / 'strategy_search' / 'fresh' / 'trades.sqlite3'
+
+            def prepare(*args):
+                self.assertFalse(fresh.exists())
+                fresh.parent.mkdir(parents=True)
+                fresh.write_bytes(b'newly prepared fresh cache')
+                return [], []
+
+            releases = {f'{family}:{ref}': {'release_ts': 200}
+                for family, split in s['families'].items() for ref in split['holdout']}
+            with patch.object(study, 'prepare', side_effect=prepare), \
+                    patch.object(study, 'validate_macro_cache', return_value='fingerprint'), \
+                    patch.object(study, 'load_metadata', return_value=({}, releases, [])), \
+                    patch.object(study, 'write_csv'):
+                study.develop(root, s, work)
+                frozen = json.loads((work / 'development.json').read_text())
+                self.assertEqual(frozen['input_hashes'][str(fresh)], study.prior.digest(fresh))
+                self.assertEqual(frozen['input_hashes'], study.inputs(root))
+
     def test_horizons_contracts_and_co_released_families_have_equal_cluster_weight(self):
         def row(family, cluster, days, value):
             return {'family': family, 'release_id': family+cluster, 'cluster': cluster,

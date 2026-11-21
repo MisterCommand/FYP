@@ -286,8 +286,8 @@ def inputs(root):
 def develop(root, spec, work):
     if (work / 'development.json').exists():
         raise ValueError('Development is frozen')
-    hashes = inputs(root)
     states, audit = prepare(root, spec, 'development')
+    hashes = inputs(root)
     by_strategy = {s: evaluate(s, states, spec) for s in IDS}
     results = {key: metrics(s, [r for r in by_strategy[s] if f == 'pooled' or r['family'] == f], spec)
         for key, (f, s) in hypotheses(spec).items()}
