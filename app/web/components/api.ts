@@ -29,7 +29,7 @@ export async function api<T>(path: string, body?: unknown): Promise<T> {
 }
 
 export function useEvents() { return useQuery({ queryKey: ["events"], queryFn: () => api<Event[]>("/events") }); }
-export function useEvent(id: string) { return useQuery({ queryKey: ["event", id], queryFn: () => api<Detail>(`/events/${id}`), enabled: !!id }); }
+export function useEvent(id: string, asOf?: string) { return useQuery({ queryKey: ["event", id, ...(asOf ? [asOf] : [])], queryFn: () => api<Detail>(`/events/${id}${asOf ? `?as_of=${encodeURIComponent(asOf)}` : ""}`), enabled: !!id }); }
 export function defaultEvent(events: Event[]) { const observed = events.filter(e => e.latest_snapshot.length); return observed.find(e => e.status === "upcoming") || observed.at(-1); }
 export function defaultOutcome(event?: Event) { const snapshots = event?.latest_snapshot || []; const changes = snapshots.filter(s => s.outcome !== "No change"); return [...(changes.length ? changes : snapshots)].sort((a, b) => b.market_probability - a.market_probability)[0]?.outcome || "No change"; }
 export const pct = (value: number, digits = 2) => `${(value * 100).toFixed(digits)}%`;

@@ -105,6 +105,28 @@ def test_analysis_empty_and_overrides(client):
     assert any("unconditional" in message for message in early["assumptions"])
 
 
+def test_saved_run_event_evidence_cutoff(client):
+    event = client.get("/events").json()[-1]
+    day = "2026-06-01"
+    run = client.post("/analyses", json=body(client, event_id=event["id"], as_of=day)).json()
+    saved = client.get(f"/runs/{run['id']}").json()
+    assert saved["results"]["as_of"] == day
+    evidence = client.get(f"/events/{event['id']}?as_of={saved['results']['as_of']}").json()
+    assert evidence["status"] == "upcoming"
+    assert evidence["realized_outcome"] is None
+    assert all(s["date"] <= day for s in evidence["latest_snapshot"])
+    assert all(p["date"] <= day for history in evidence["history"].values() for p in history)
+    selected = next(s for s in evidence["latest_snapshot"] if s["outcome"] == saved["request"]["outcome"])
+    assert selected["market_probability"] == saved["results"]["probability"]
+    assert selected["date"] == saved["results"]["probability_date"]
+    latest = client.get(f"/events/{event['id']}").json()
+    assert latest["status"] == "resolved"
+    assert max(s["date"] for s in latest["latest_snapshot"]) > day
+    empty = client.get(f"/events/{event['id']}?as_of=2022-01-01").json()
+    assert empty["latest_snapshot"] == [] and empty["history"] == {}
+    assert client.get(f"/events/{event['id']}?as_of=invalid").status_code == 422
+
+
 def test_default_event_outcome(client):
     request = {"holdings": [{"asset": "SPY", "weight": 1}]}
     response = client.post("/analyses", json=request)
