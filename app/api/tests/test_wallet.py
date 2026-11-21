@@ -78,3 +78,22 @@ def test_wallet_bad_mapping(monkeypatch):
     monkeypatch.setattr(wallet, "load_wallet", lambda: (signals, mapping))
     with pytest.raises(ValueError, match="metadata"):
         wallet.wallet_estimate(event_rows("101772"), pd.Timestamp("2026-06-10"))
+
+
+def test_assistant_wallet_context(client):
+    available = client.post("/assistant/query", json={"question": "wallet", "event_id": "101772"}).json()
+    assert "Uncalibrated heuristic tilt" in available["answer"]
+    assert "2026-06-16T00:00:00+00:00" in available["answer"]
+    assert "versus market" in available["answer"] and "percentage points" in available["answer"]
+    assert any("daily_cluster_signals.csv" in c for c in available["citations"])
+    unavailable = client.post("/assistant/query", json={"question": "wallet", "event_id": "481717"}).json()
+    assert "No wallet data for this meeting" in unavailable["answer"]
+    no_context = client.post("/assistant/query", json={"question": "wallet"}).json()
+    assert "Supply an event_id or run_id" in no_context["answer"]
+    for day, expected in (("2026-06-10", "2026-06-10T00:00:00+00:00"),
+                          ("2026-05-30", "No wallet signal at or before the as-of")):
+        run = client.post("/analyses", json={"event_id": "101772", "as_of": day,
+                          "holdings": [{"asset": "SPY", "weight": 1}]}).json()
+        answer = client.post("/assistant/query", json={"question": "wallet", "run_id": run["id"]}).json()
+        assert expected in answer["answer"]
+        assert f"run:{run['id']}" in answer["citations"]
