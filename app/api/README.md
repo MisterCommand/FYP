@@ -5,13 +5,24 @@ From this directory:
 ```sh
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
-.venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
+.venv/bin/uvicorn main:app --host 127.0.0.1 --port 8000 --no-proxy-headers
 .venv/bin/pytest -q
 ```
 
 OpenAPI: `/docs`. SQLite defaults to `runs.sqlite3` here; set `EVENTLENS_DB`
 to an alternate file. Data paths resolve from the source, not the working
 directory. Dataset SHA-256 prefix, request, seed and results are saved per run.
+
+For deployment use [`../start.sh`](../start.sh), which defaults both services to
+loopback and refuses non-loopback `API_HOST`/`WEB_HOST` without an
+`EVENTLENS_API_TOKEN` or explicit `EVENTLENS_ALLOW_UNAUTHENTICATED=1` opt-out.
+The API checks this policy at startup and rejects non-loopback clients/Host names
+without either configuration. A configured token protects **all** routes, including
+docs and saved runs, via Bearer auth or Basic username `eventlens` and token password.
+The token is enforced even on localhost and when the opt-out is set. Keep uvicorn
+proxy-header trust disabled; use HTTPS and authentication at any external proxy.
+See [the app run/deployment instructions](../README.md#network-access-and-authentication),
+including the explicit opt-out used only behind the existing Devin sign-in boundary.
 
 Only SPY has price data. Cash earns zero. Probabilities are raw (not normalized)
 and snapshots carry their observation dates; lifetime volume is not historical

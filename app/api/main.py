@@ -1,3 +1,4 @@
+from contextlib import asynccontextmanager
 from datetime import date
 
 from fastapi import FastAPI, HTTPException, Response
@@ -11,11 +12,20 @@ from forecast import forecast
 from schemas import (AnalysisRequest, Answer, Asset, AssistantRequest, Event,
                      EventDetail, Forecast, Run, RunTitle)
 import store
+from security import check_bindings, protect_api
 from wallet import wallet_estimate
 
-app = FastAPI(title="EventLens research API", version="0.1.0")
+
+@asynccontextmanager
+async def lifespan(app):
+    check_bindings()
+    yield
+
+
+app = FastAPI(title="EventLens research API", version="0.1.0", lifespan=lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:3000"],
                    allow_methods=["GET", "POST", "PATCH", "DELETE"], allow_headers=["*"])
+app.middleware("http")(protect_api)
 
 
 def supported(asset):

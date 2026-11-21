@@ -19,8 +19,10 @@ cd ../..
 ./app/start.sh
 ```
 
-Visit http://localhost:3000. The launcher starts uvicorn on `${API_PORT:-8000}`
-and `next start` on `${PORT:-3000}`. Build first; use unoccupied ports when
+Visit http://localhost:3000. The launcher starts uvicorn on `${API_HOST:-127.0.0.1}:${API_PORT:-8000}`
+and `next start` on `${WEB_HOST:-127.0.0.1}:${PORT:-3000}`. Both are loopback-only
+by default; the npm development/start commands also default to loopback.
+Build first; use unoccupied ports when
 launching. Ctrl-C stops both services started by that launcher. Run the launcher
 from any directory.
 
@@ -54,6 +56,65 @@ SQLite defaults to `app/api/runs.sqlite3`; override with `EVENTLENS_DB` when
 launching. Data paths resolve relative to the backend, independently of the
 working directory. SQLite, virtualenvs, node_modules and all `.next*` build
 directories are ignored.
+
+## Network access and authentication
+
+Use `./app/start.sh` for deployment. It validates **both** bind addresses before
+starting either service. Non-loopback addresses (including `0.0.0.0`, `::`, LAN
+addresses and non-localhost DNS names) require `EVENTLENS_API_TOKEN` or the explicit
+`EVENTLENS_ALLOW_UNAUTHENTICATED=1` opt-out. Do not bypass this check by overriding
+the hostname in a direct `next`/npm command. Loopback is a network boundary, not
+authentication: exposing port 3000 through a tunnel/reverse proxy also exposes
+its `/api/*` proxy, so configure a token even if both processes bind loopback.
+
+For access outside this machine, use HTTPS at a trusted reverse proxy and a
+random shared token (at least 32 random characters, stored in your secret manager):
+
+```sh
+read -rs -p 'Shared API token: ' EVENTLENS_API_TOKEN; echo
+export EVENTLENS_API_TOKEN
+WEB_HOST=0.0.0.0 ./app/start.sh
+```
+
+The API stays on loopback. Every backend route, including saved runs, mutations,
+assistant downloads, `/docs` and `/openapi.json`, requires the token when set,
+even for local clients and even if the opt-out is also set. Send
+`Authorization: Bearer <token>`, or use HTTP Basic username **eventlens**, password
+**the token**. For browser access, open `/api/runs` on the frontend origin and
+answer the browser's Basic-auth challenge before using the app. The frontend
+forwards the client's Authorization header; it never injects the server token
+for unauthenticated visitors and the token is not bundled into browser JavaScript.
+The static app shell is not secret. Never put a token in a URL or `NEXT_PUBLIC_*`
+variable. Authentication is runtime configuration; changing the token needs a
+service restart, not a frontend rebuild. Only send credentials over HTTPS outside
+localhost. This is shared access, not per-user isolation or an internet-hardened
+multi-tenant service. All holders can read/change all research runs.
+
+Without a token or opt-out, the backend additionally rejects non-loopback clients
+and non-localhost Host names, including when uvicorn is launched directly.
+The launcher disables uvicorn proxy-header trust; untrusted `X-Forwarded-For`
+headers cannot grant local access. Do not enable forwarded-header trust on an
+unauthenticated standalone backend. API responses are marked `Cache-Control: no-store`.
+
+### Existing Devin preview
+
+The existing `https://eventlens--rrwd7nyg.preview.devinapps.com` preview is served
+by a long-running `app/start.sh` pair on ports 3000/8000, with platform routing to
+the frontend on 3000. No separate deployment manifest is in this repository.
+Devin sign-in is the access boundary there; the preview URL returns HTTP 401 to
+an unauthenticated external request. Start/restart that **already protected**
+preview with an explicit opt-out (build first):
+
+```sh
+EVENTLENS_ALLOW_UNAUTHENTICATED=1 WEB_HOST=0.0.0.0 ./app/start.sh
+```
+
+This exposes the frontend to the existing preview router, keeps the API on
+127.0.0.1:8000, and permits same-origin `/api/*` without a second login. The opt-out
+does **not** provide authentication itself. Use it only when a verified outer
+access boundary protects the frontend, and do not forward the backend port.
+There is deliberately no automatic preview-hostname bypass. Preserve this
+environment when replacing/restarting the preview process.
 
 ## Development and checks
 
@@ -104,4 +165,4 @@ are reported, never hidden. Forecast comparisons use identical test dates.
 
 The interface is a monochrome implementation of the proposal UI concepts.
 Charts are horizon, not annualized, quantities; evidence remains limited.
-This local research prototype is not an authenticated multi-user deployment.
+This research prototype is not a per-user authenticated multi-user deployment.
