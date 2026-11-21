@@ -102,9 +102,11 @@ def test_saved_run_answers_agree_with_immutable_results(client):
     answer, sources = ask(client, "What probability did this run use?", run_id=run["id"])
     assert f"{run['results']['probability']:.2%}, observed on 2026-09-01" in answer
     assert sources == [f"run:{run['id']}"]
-    answer, sources = ask(client, "What volatility did this run estimate?", run_id=run["id"])
-    assert f"{run['results']['horizon_volatility']:.3%} portfolio volatility over 20 trading days" in answer
-    assert sources == [f"run:{run['id']}"]
+    for question in ("What volatility did this run estimate?", "What is this portfolio's volatility forecast?",
+                     "What is this scenario's volatility forecast?"):
+        answer, sources = ask(client, question, run_id=run["id"])
+        assert f"{run['results']['horizon_volatility']:.3%} portfolio volatility over 20 trading days" in answer
+        assert sources == [f"run:{run['id']}"]
     answer, sources = ask(client, "What is the VaR and ES for this run?", run_id=run["id"])
     assert f"VaR {run['results']['var_95_pct']:.3f}%, ES {run['results']['es_95_pct']:.3f}%" in answer
     assert sources == [f"run:{run['id']}"]

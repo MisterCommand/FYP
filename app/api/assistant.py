@@ -139,17 +139,22 @@ def forecast_answer(text, request, run):
         return f"No volatility forecast is available for {', '.join(unsupported)}. Only SPY has price data here.", ()
     if DATE.search(text) or OTHER_DATE.search(text) or re.search(r"\bhistorical\b", text):
         return "I can show the latest dataset forecast, but can’t look up a forecast for a requested date.", ()
+    run_forecast = re.search(r"\b(?:this run|portfolio|scenario)\b", text) is not None
+    if run_forecast and not run:
+        return "Open a saved run to ask about its portfolio volatility.", ()
+    run_subjects = {"run", "portfolio", "scenario"} if run_forecast else set()
     subject = re.search(r"\b(?:forecast|volatility) (?:for|of|on) (?:the )?([a-z]+)\b", text)
     owner = re.search(r"\b([a-z]+)'s (?:volatility )?forecast\b", text)
-    if ((subject and subject[1] not in {"spy", "this", "selected", "next", "that"} and not HORIZON.match(text, subject.start(1)))
-            or (owner and owner[1] not in {"spy", "run", "model", "eventlens"})):
+    if ((subject and subject[1] not in {"spy", "this", "selected", "next", "that", *run_subjects}
+         and not HORIZON.match(text, subject.start(1)))
+            or (owner and owner[1] not in {"spy", "model", "eventlens", *run_subjects})):
         return "I can only show the SPY volatility forecast. Name SPY and a supported horizon (1, 5 or 20 trading days).", ()
 
     horizons = {HORIZONS.get(value) for value in HORIZON.findall(text)}
     if (len(horizons) > 1 or None in horizons
             or re.search(r"\b(?:next|one|two|a|\d+) (?:weeks?|months?|years?)\b", text)):
         return "Choose one supported forecast horizon: 1, 5 or 20 trading days.", ()
-    if run and re.search(r"\b(?:this run|portfolio|scenario)\b", text):
+    if run_forecast:
         horizon = run["request"]["horizon"]
         if horizons and horizon not in horizons:
             return f"This run used {horizon} trading days. Run a new scenario to change its horizon.", (f"run:{run['id']}",)
