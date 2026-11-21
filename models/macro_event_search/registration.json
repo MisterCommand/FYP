@@ -1,0 +1,155 @@
+{
+  "version": 1,
+  "families": {
+    "cpi_headline_mom": {
+      "development": [
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-11",
+        "2025-12",
+        "2026-03"
+      ],
+      "holdout": [
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10"
+      ],
+      "spy_holdout_events": 5
+    },
+    "cpi_headline_yoy": {
+      "development": [
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-03"
+      ],
+      "holdout": [
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10"
+      ],
+      "spy_holdout_events": 5
+    },
+    "payrolls": {
+      "development": [
+        "2024-09",
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-11",
+        "2025-12",
+        "2026-01"
+      ],
+      "holdout": [
+        "2026-02",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10"
+      ],
+      "spy_holdout_events": 7
+    },
+    "unemployment": {
+      "development": [
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-03"
+      ],
+      "holdout": [
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10"
+      ],
+      "spy_holdout_events": 6
+    }
+  },
+  "cutoff_days": [
+    3,
+    1
+  ],
+  "spy_pooled_only_families": [],
+  "pooled_strategy": "a_smart_pm",
+  "cluster": "official_release_utc",
+  "pm_cost": 0.02,
+  "spy_cost_per_side": 0.001,
+  "minimum_fit_meetings": 3,
+  "calibration_l2": 1,
+  "large_trade_notional": 1000,
+  "entropy_threshold": 0.5,
+  "disagreement_threshold": 0.5,
+  "reduced_exposure": 0.5,
+  "favorite_threshold": 0.5,
+  "longshot_threshold": 0.1,
+  "development_alpha": 0.1,
+  "holdout_alpha": 0.05,
+  "seed": 42,
+  "monte_carlo_permutations": 65536,
+  "exact_max_clusters": 16,
+  "strategies": [
+    "a_smart_pm",
+    "b_contrarian_pm",
+    "c_momentum_pm",
+    "d_calibration_pm",
+    "e_late_whale_pm",
+    "f_uncertainty_spy",
+    "h_placebo_pm"
+  ],
+  "missing_spy_after": "2026-10-07",
+  "horizon_exception": {
+    "cpi_headline_mom:2024-12": [
+      1
+    ]
+  }
+}
