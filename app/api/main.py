@@ -10,6 +10,7 @@ from forecast import forecast
 from schemas import (AnalysisRequest, Answer, Asset, AssistantRequest, Event,
                      EventDetail, Forecast, Run)
 import store
+from wallet import wallet_estimate
 
 app = FastAPI(title="EventLens research API", version="0.1.0")
 app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:3000"],
@@ -54,10 +55,13 @@ def event_detail(event_id: str, as_of: date | None = None):
     history = {}
     for outcome, group in rows[rows.date.le(day)].groupby("outcome"):
         history[outcome] = [{"date": r.date.date().isoformat(), "market_probability": float(r.market_probability)} for r in group.sort_values("date").itertuples()]
+    wallet = wallet_estimate(rows, day)
     return {**info, "history": history, "final_outcome": info["realized_outcome"],
-            "wallet_informed": {"available": False, "reason": "No wallet/settlement data ingested yet"},
+            "wallet_informed": wallet,
             "evidence": "Limited" if history else "Unavailable",
-            "evidence_rule": "Limited when probability observations exist by as_of; otherwise Unavailable. No wallet-level evidence. Lifetime volume is not point-in-time."}
+            "evidence_rule": "Limited when probability observations exist by as_of; otherwise Unavailable. "
+                             + ("Provisional wallet pilot; heuristic is not calibrated. " if wallet["available"] else "No wallet-level evidence at this cutoff. ")
+                             + "Lifetime volume is not point-in-time."}
 
 
 @app.get("/forecast", response_model=Forecast)
@@ -101,17 +105,28 @@ def assistant(request: AssistantRequest):
     words = set(re.findall(r"\b[a-z]+\b", request.question.lower()))
     run = require_run(request.run_id) if request.run_id else None
     event_id = request.event_id or (run["request"]["event_id"] if run else None)
-    event = event_detail(event_id) if event_id else None
+    event = event_detail(event_id, as_of=run["request"].get("as_of") if run else None) if event_id else None
     citations = ["datasets/forward_probabilities.csv", "datasets/index_daily.csv"]
     if run:
         citations.append(f"run:{run['id']}")
     if event:
         citations.append(f"event:{event_id}")
     if words & {"forecast", "forecasts", "volatility", "variance"}:
-        result = forecast(run["request"]["horizon"] if run else 5)
-        answer = f"SPY {result['horizon']}-day horizon volatility at {result['as_of']}: " + "; ".join(f"{name} {m['latest_volatility']:.3%}, OOS MSE {m['mse']:.6g}, QLIKE {m['qlike']:.4f}, n={m['n']}" for name, m in result["models"].items()) + ". These are research estimates, not investment advice."
+        horizon = request.horizon or (run["request"]["horizon"] if run else 5)
+        result = get_forecast(asset=request.asset, horizon=horizon)
+        answer = f"{result['asset']} {result['horizon']}-day horizon volatility at {result['as_of']}: " + "; ".join(f"{name} {m['latest_volatility']:.3%}, OOS MSE {m['mse']:.6g}, QLIKE {m['qlike']:.4f}, n={m['n']}" for name, m in result["models"].items()) + ". These are research estimates, not investment advice."
     elif words & {"wallet", "wallets", "differ", "why"}:
-        answer = "Wallet-informed probabilities are unavailable: No wallet/settlement data ingested yet. Market probabilities are raw traded prices. Forecasts differ because augmented OLS also uses the next meeting's No change probability and its five-day change; scenario estimates instead use conditional historical returns."
+        if event and event["wallet_informed"]["available"]:
+            wallet = event["wallet_informed"]
+            market = {s["outcome"]: s["market_probability"] for s in event["latest_snapshot"]}
+            answer = f"Wallet-informed estimate: {wallet['method']}. Signal date: {wallet['signal_timestamp']}. "
+            answer += "; ".join(f"{s['outcome']}: wallet {s['wallet_probability']:.4%} versus market {market[s['outcome']]:.4%} ({(s['wallet_probability'] - market[s['outcome']]) * 100:+.4f} percentage points)" for s in wallet["outcomes"])
+            answer += ". Active-wallet-weighted directional imbalance tilts each market logit by k=0.5, then probabilities are normalized across outcomes; missing imbalance gives zero tilt. This is not calibrated or validated predictive evidence."
+            citations.append("datasets/polymarket/wallet_cluster_pilot/fed_20260531_v1/daily_cluster_signals.csv")
+        else:
+            reason = event["wallet_informed"]["reason"] if event else "Supply an event_id or run_id to inspect wallet coverage"
+            answer = f"Wallet-informed estimate unavailable: {reason}."
+        answer += " Market probabilities are raw traded prices. Forecasts differ because augmented OLS also uses the next meeting's No change probability and its five-day change; scenario estimates instead use conditional historical returns. Wallet estimates are not used in forecasts or scenarios."
         if run:
             answer += " Run assumptions: " + " ".join(run["results"]["assumptions"])
     elif words & {"var", "shortfall", "es"}:
