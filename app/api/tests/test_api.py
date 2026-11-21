@@ -30,6 +30,34 @@ def test_assets_events(client):
     assert client.get("/events?asset=QQQ").status_code == 422
 
 
+@pytest.mark.parametrize("event_id", ["901498", "901497"])
+def test_overview_expectations_snapshot(client, event_id):
+    raw = client.get(f"/events/{event_id}").json()
+    response = client.get(f"/events/{event_id}?expectations=true")
+    assert response.status_code == 200
+    detail = response.json()
+    assert detail["history"] == raw["history"]
+    assert any(s["date"] > raw["meeting_date"] for s in raw["latest_snapshot"])
+    for snapshot in detail["latest_snapshot"]:
+        expected = max((p for p in raw["history"][snapshot["outcome"]]
+                        if p["date"] <= raw["meeting_date"]), key=lambda p: p["date"])
+        assert snapshot["date"] == expected["date"]
+        assert snapshot["market_probability"] == expected["market_probability"]
+    assert client.get(f"/events/{event_id}").json() == raw
+
+
+def test_overview_expectations_upcoming_empty_and_errors(client):
+    path = "/events/901493?as_of=2023-01-30"
+    latest = client.get(path).json()
+    upcoming = client.get(path + "&expectations=true").json()
+    assert upcoming["status"] == "upcoming"
+    assert upcoming["latest_snapshot"] == latest["latest_snapshot"]
+    early = client.get("/events/901493?as_of=2022-01-01&expectations=true").json()
+    assert early["latest_snapshot"] == [] and early["history"] == {}
+    assert client.get("/events/missing?expectations=true").status_code == 404
+    assert client.get(path + "&expectations=invalid").status_code == 422
+
+
 @pytest.mark.parametrize("horizon", [1, 5, 20])
 def test_forecast(client, horizon):
     response = client.get(f"/forecast?asset=SPY&horizon={horizon}")
