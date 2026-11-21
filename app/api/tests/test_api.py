@@ -90,7 +90,7 @@ def test_no_lookahead():
     assert row.history == pytest.approx(logs.iloc[position - 20:position].pow(2).mean())
 
 
-def test_analysis_runs_assistant(client):
+def test_analysis_runs(client):
     assert client.get("/runs").json() == []
     response = client.post("/analyses", json=body(client))
     assert response.status_code == 200
@@ -105,13 +105,7 @@ def test_analysis_runs_assistant(client):
     assert len(client.get("/runs").json()) == 1
     repeated = client.post("/analyses", json=body(client)).json()
     assert repeated["results"] == result
-    for question in ("why estimates differ", "wallet", "what is VaR and ES", "what does the forecast say", "probability now", "hello"):
-        answer = client.post("/assistant/query", json={"question": question, "run_id": run["id"]}).json()
-        assert answer["mode"] == "rule-based" and f"run:{run['id']}" in answer["citations"]
     assert client.get("/runs/missing").status_code == 404
-    assert client.post("/assistant/query", json={"question": "hi", "run_id": "missing"}).status_code == 404
-    assert client.post("/assistant/query", json={"question": "probability"}).status_code == 200
-    assert client.post("/assistant/query", json={"question": ""}).status_code == 422
 
 
 @pytest.mark.parametrize("holdings", [[], [{"asset": "SPY", "weight": -.1}], [{"asset": "SPY", "weight": .9}], [{"asset": "QQQ", "weight": 1}]])

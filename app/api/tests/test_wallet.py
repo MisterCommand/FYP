@@ -97,3 +97,18 @@ def test_assistant_wallet_context(client):
         answer = client.post("/assistant/query", json={"question": "wallet", "run_id": run["id"]}).json()
         assert expected in answer["answer"]
         assert f"run:{run['id']}" in answer["citations"]
+
+
+def test_assistant_wallet_comparison_and_download(client):
+    from assistant import WALLET_SIGNALS
+    from data import ROOT
+
+    answer = client.post("/assistant/query", json={
+        "question": "Why do estimates differ?", "event_id": "101772",
+    }).json()
+    assert "The baseline model uses past SPY returns" in answer["answer"]
+    assert "Uncalibrated heuristic tilt" in answer["answer"]
+    assert WALLET_SIGNALS in answer["citations"]
+    source = client.get("/assistant/sources/daily_cluster_signals.csv")
+    assert source.status_code == 200
+    assert source.content == (ROOT / WALLET_SIGNALS.removeprefix("datasets/")).read_bytes()

@@ -13,7 +13,11 @@ export function PageHeading({ eyebrow, title, description, children }: { eyebrow
 }
 
 export function Citation({ value }: { value: string }) {
-  if (value.startsWith("run:")) return <Link href={`/runs/${value.slice(4)}`}>Run {value.slice(4, 12)} ↗</Link>;
-  if (value.startsWith("event:")) return <Link href={`/events/${value.slice(6)}`}>Event {value.slice(6)} ↗</Link>;
+  if (value.startsWith("run:")) return <Link href={`/runs/${value.slice(4)}`} target="_blank" rel="noreferrer">Saved run {value.slice(4, 12)} ↗</Link>;
+  if (value.startsWith("event:")) return <Link href={`/events/${value.slice(6)}`} target="_blank" rel="noreferrer">Meeting details · {value.slice(6)} ↗</Link>;
+  if (value === "datasets/forward_probabilities.csv") return <a href="/api/assistant/sources/forward_probabilities.csv" download>Polymarket probabilities (CSV) ↓</a>;
+  if (value === "datasets/index_daily.csv") return <a href="/api/assistant/sources/index_daily.csv" download>Historical prices (CSV) ↓</a>;
+  if (value === "datasets/polymarket/wallet_cluster_pilot/fed_20260531_v1/daily_cluster_signals.csv") return <a href="/api/assistant/sources/daily_cluster_signals.csv" download>Wallet-cluster pilot signals (CSV) ↓</a>;
+  if (value === "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm") return <a href={value} target="_blank" rel="noreferrer">Federal Reserve meeting calendar ↗</a>;
   return <span>{value}</span>;
 }
