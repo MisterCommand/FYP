@@ -1,0 +1,10 @@
+key,value
+prereg_commit,a020b802e49483538fcce6e589b117a723dc21b6
+registration_sha256,34c48259bae2215f54db0af7ac5df6be3cff0763b19ef4cc6d07ee44db84acfe
+code_sha256,f85a567f473707d8b500d464ca00db5de8004036a3e8f6ad840b945a3dd78664
+development_manifest_sha256,1570f242eed7c3238765db7333ac0baa4be5519943ad9aa03f1c0965e3493ba0
+holdout_lock_sha256,ba356dbc4b48dc6becc72f7832e67809f837dcf27b495f2928d30bf550a8d6b3
+advanced_ids,
+frozen_platt,"[0.019074277260790265, 1.2554169047365566]"
+frozen_beta,0.012528610599285877
+fresh_status,"Fresh October PM collection exhausted: 175,564 participant records, 12,842 wallets, 176 pages; SPY window unavailable"
