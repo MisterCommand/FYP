@@ -28,6 +28,10 @@ def version():
     digest = hashlib.sha256()
     for name in ("index_daily.csv", "forward_probabilities.csv"):
         digest.update((ROOT / name).read_bytes())
+    for path in sorted((ROOT / "polymarket").rglob("*")):
+        if path.is_file():
+            digest.update(str(path.relative_to(ROOT)).encode())
+            digest.update(path.read_bytes())
     return digest.hexdigest()[:16]
 
 
