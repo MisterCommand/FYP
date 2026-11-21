@@ -52,6 +52,9 @@ def test_market_answer_uses_outcome_and_observation_date(client, question, expec
 @pytest.mark.parametrize(("question", "expected"), [
     ("What is the volatility forecast for TSLA?", "No volatility forecast is available for TSLA"),
     ("What is the 10-day volatility forecast?", "Choose one supported forecast horizon"),
+    ("What is the 1.5-day volatility forecast?", "Choose one supported forecast horizon"),
+    ("What is the twenty-one-day volatility forecast?", "Choose one supported forecast horizon"),
+    ("What is the forecast for twenty one trading days?", "Choose one supported forecast horizon"),
     ("What was the SPY forecast on September 1, 2026?", "can’t look up a forecast for a requested date"),
     ("What is the probability that it will rain tomorrow?", "I couldn’t match that"),
     ("What's the odds of a rate cut at the July 2026 meeting?", "Select the meeting you meant"),

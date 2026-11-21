@@ -16,8 +16,14 @@ MONTH_NUMBER = {name.lower(): i for i, name in enumerate(month_abbr) if i}
 DATE = re.compile(rf"\b(?:(?P<iso>\d{{4}}-\d{{2}}-\d{{2}})|(?P<month>{MONTHS})\.?\s+(?P<day>\d{{1,2}})(?:st|nd|rd|th)?(?:(?:,\s*|\s+)(?P<year>\d{{4}}))?)\b")
 MEETING = re.compile(rf"\b(?P<month>{MONTHS})(?:\s+(?P<year>\d{{4}}))?\s+(?:fomc\b|(?:fed\s+)?(?:meeting|rate decision)\b)")
 MEETING_IN = re.compile(rf"\b(?:fomc|meeting|rate decision) (?:in|for) (?P<month>{MONTHS})(?:\s+(?P<year>\d{{4}}))?\b")
-HORIZON_WORDS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "ten": 10, "twenty": 20, "thirty": 30}
-HORIZON = re.compile(rf"\b(\d+|{'|'.join(HORIZON_WORDS)})[ -]*(?:trading[ -]+)?(?:days?|d)\b")
+HORIZONS = {"1": 1, "one": 1, "5": 5, "five": 5, "20": 20, "twenty": 20}
+NUMBER_WORD = (
+    r"(?:zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|"
+    r"fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|"
+    r"ninety|hundred|thousand|half)"
+)
+HORIZON = re.compile(rf"(?<!\w)([+-]?(?:\d+(?:\.\d+)?|\.\d+)|{NUMBER_WORD}(?:[ -]+{NUMBER_WORD})*)"
+                     r"[ -]*(?:trading[ -]+)?(?:days?|d)\b")
 OTHER_DATE = re.compile(r"\b(?:yesterday|tomorrow|last (?:week|month|year)|\d{1,2}/\d{1,2})\b")
 ODDS = re.compile(r"\b(?:probabilit(?:y|ies)|odds|chance(?:s)?|likelihood|how likely)\b")
 FORECAST = re.compile(r"\b(?:forecast(?:s)?|volatility|qlike|mse)\b")
@@ -123,11 +129,11 @@ def forecast_answer(text, request, run):
     if DATE.search(text) or OTHER_DATE.search(text) or re.search(r"\bhistorical\b", text):
         return "I can show the latest dataset forecast, but can’t look up a forecast for a requested date.", ()
     subject = re.search(r"\b(?:forecast|volatility) (?:for|of|on) (?:the )?([a-z]+)\b", text)
-    if subject and subject[1] not in {"spy", "this", "selected", "next", "that", *HORIZON_WORDS}:
+    if subject and subject[1] not in {"spy", "this", "selected", "next", "that"} and not HORIZON.match(text, subject.start(1)):
         return "I can only show the SPY volatility forecast. Name SPY and a supported horizon (1, 5 or 20 trading days).", ()
 
-    horizons = {int(value) if value.isdigit() else HORIZON_WORDS[value] for value in HORIZON.findall(text)}
-    if (len(horizons) > 1 or horizons - {1, 5, 20}
+    horizons = {HORIZONS.get(value) for value in HORIZON.findall(text)}
+    if (len(horizons) > 1 or None in horizons
             or re.search(r"\b(?:next|one|two|a|\d+) (?:weeks?|months?|years?)\b", text)):
         return "Choose one supported forecast horizon: 1, 5 or 20 trading days.", ()
     if run and re.search(r"\b(?:this run|portfolio|scenario)\b", text):
