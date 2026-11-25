@@ -150,13 +150,12 @@ def build_cache(root, markets, events):
 
 
 def attach_prior(db, root):
-    fresh, _, reason = prior.fresh_cache(root.parent)
-    if fresh is None:
-        raise ValueError('Registered October FOMC history is required: ' + reason)
     for schema, path in (('fomc', root.parent / 'wallet_backtest_cache/trades.sqlite3'),
                          ('macro', root.parent / 'macro/trades.sqlite3')):
         db.execute(f'ATTACH DATABASE ? AS {schema}', (path.resolve().as_uri() + '?mode=ro',))
-    db.execute('ATTACH DATABASE ? AS fresh', (fresh.resolve().as_uri() + '?mode=ro',))
+    fresh, _, _ = prior.fresh_cache(root.parent)
+    if fresh:
+        db.execute('ATTACH DATABASE ? AS fresh', (fresh.resolve().as_uri() + '?mode=ro',))
 
 
 def skill_sql(db, with_pnl=False, before=None):

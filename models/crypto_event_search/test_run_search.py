@@ -41,7 +41,81 @@ def development(protocol):
         'advanced': ['btc/a_smart_pm'], 'ranks': {key: i+1 for i, key in enumerate(results)}, 'frozen': {}}
 
 
+def archived_cache(parent):
+    root = parent / 'crypto'
+    root.mkdir()
+    (root / 'spot').mkdir()
+    (root / 'discovery.json').write_text('{"selected": []}\n')
+    (root / 'inventory.json').write_text('{}\n')
+    for name, content in [('snapshots.json', '{}\n'), ('BTCUSDT_hourly.json', '[]\n'), ('ETHUSDT_hourly.json', '[]\n')]:
+        (root / 'spot' / name).write_text(content)
+    with sqlite3.connect(root / 'trades.sqlite3') as db:
+        search.prior.create_tables(db, {})
+        db.execute('INSERT INTO build VALUES (?,?,?)',
+            ('bc2964da68adb4dfeff825a5f53852e890007e09b73f876a3b50f505a56c4eb4', 0, 0))
+    fresh = parent / 'strategy_search/fresh/trades.sqlite3'
+    for path in (parent / 'wallet_backtest_cache/trades.sqlite3', parent / 'macro/trades.sqlite3', fresh):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with sqlite3.connect(path) as db:
+            db.execute('CREATE TABLE marker (value TEXT)')
+    return root, fresh
+
+
 class SearchTests(unittest.TestCase):
+    def test_archived_cache_validates_with_complete_october_and_runner_rejects_missing(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root, fresh = archived_cache(Path(folder))
+            protocol = {'families': {}}
+            search.validate_cache(root)
+            with patch.object(search.prior, 'fresh_cache', return_value=(fresh, {}, 'complete')):
+                self.assertEqual(search.prepare(root, protocol, 'development'), ([], []))
+                self.assertIn(str(fresh), search.inputs(root))
+            with patch.object(search.prior, 'fresh_cache', return_value=(None, {}, 'Fresh collection unavailable')):
+                for operation in (lambda: search.prepare(root, protocol, 'development'), lambda: search.inputs(root)):
+                    with self.assertRaisesRegex(ValueError, 'October FOMC history is required'):
+                        operation()
+            search.validate_cache(root)
+
+    def test_missing_october_history_fails_before_any_attachment(self):
+        with tempfile.TemporaryDirectory() as folder, sqlite3.connect(':memory:') as db:
+            with self.assertRaisesRegex(ValueError, 'October FOMC history is required: Fresh collection unavailable'):
+                search.attach_prior(db, Path(folder) / 'crypto')
+            self.assertEqual([r[1] for r in db.execute('PRAGMA database_list')], ['main'])
+
+    def test_incomplete_october_history_fails_before_any_attachment(self):
+        with tempfile.TemporaryDirectory() as folder, sqlite3.connect(':memory:') as db:
+            parent = Path(folder)
+            history = parent / 'strategy_search/fresh/606422'
+            history.mkdir(parents=True)
+            for status in ('budget_limit', 'error', 'collecting'):
+                with self.subTest(status=status):
+                    (history / 'summary.json').write_text(json.dumps({'status': status}))
+                    with self.assertRaisesRegex(ValueError, 'October FOMC history is required: Fresh collection not exhausted'):
+                        search.attach_prior(db, parent / 'crypto')
+                    self.assertEqual([r[1] for r in db.execute('PRAGMA database_list')], ['main'])
+
+    def test_complete_october_history_is_attached_with_other_prior_sources(self):
+        with tempfile.TemporaryDirectory() as folder, sqlite3.connect(':memory:') as db:
+            root, fresh = archived_cache(Path(folder))
+            with patch.object(search.prior, 'fresh_cache', return_value=(fresh, {}, 'complete')) as load:
+                search.attach_prior(db, root)
+            self.assertEqual(load.call_count, 2)
+            load.assert_called_with(root.parent)
+            self.assertEqual([r[1] for r in db.execute('PRAGMA database_list')], ['main', 'fomc', 'macro', 'fresh'])
+
+    def test_october_history_disappearing_during_attachment_fails_closed(self):
+        with tempfile.TemporaryDirectory() as folder, sqlite3.connect(':memory:') as db:
+            root, fresh = archived_cache(Path(folder))
+            with patch.object(search.prior, 'fresh_cache', side_effect=[(fresh, {}, 'complete'), (None, {}, 'unavailable')]):
+                with self.assertRaisesRegex(ValueError, 'October FOMC history disappeared'):
+                    search.attach_prior(db, root)
+
+    def test_invalid_october_cache_error_is_not_silently_ignored(self):
+        with sqlite3.connect(':memory:') as db, patch.object(search.prior, 'fresh_cache', side_effect=ValueError('Fresh metadata fingerprint mismatch')):
+            with self.assertRaisesRegex(ValueError, 'Fresh metadata fingerprint mismatch'):
+                search.attach_prior(db, Path('/unused/crypto'))
+            self.assertEqual([r[1] for r in db.execute('PRAGMA database_list')], ['main'])
+
     def test_split_is_chronological_latest_third(self):
         rows = [{'event_id': str(i), 'expiry': str(1000+i)} for i in range(61)]
         result = split_events(list(reversed(rows)))

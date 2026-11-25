@@ -77,6 +77,12 @@ Re-running either completed stage is rejected. Do not delete locks or create a
 fresh data root to retry this holdout. Reproduction of the locked study needs its
 archived raw data; a new discovery date produces a different research population.
 
+The registered runner requires the exhausted October FOMC training history
+before attaching prior sources or hashing inputs. This guard lives in
+`run_search.py`, outside the trade-cache parser fingerprint. The standalone
+feasibility utility retains its original optional-history behavior; it is not
+a registered strategy execution. The archived parser and cache remain unchanged.
+
 The primary metric, strict cutoff/entry/candle rules, seven fixed strategies,
 single pooled test, development gate and round-four Holm alpha are specified in
 the committed registration. Unadvanced strategy holdout returns are not computed.

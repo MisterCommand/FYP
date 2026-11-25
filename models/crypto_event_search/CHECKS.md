@@ -3,7 +3,9 @@
 All actual-data strategy performance followed preregistration commit
 `93662d3c6bdf8ee271af9a2dfe3c788b12b56597`. Development was frozen and committed
 in `042b8f3` before the only holdout invocation. No source, parameter, frozen
-input, fitted calibration or development result changed afterward. The retained
+input, fitted calibration or development result changed between that freeze and
+holdout. Subsequent review fixes retain the original execution-era provenance
+and study artifacts rather than regenerating their hashes. The retained
 lock and intermediate observations are external under
 `~/data/polymarket/crypto/study/`.
 

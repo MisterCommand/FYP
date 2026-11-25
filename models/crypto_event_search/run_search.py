@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 import subprocess
 
-from audit import (FOLDER, attach_prior, metadata, prior, skill_stream, validate_cache,
+from audit import (FOLDER, attach_prior as attach_prior_sources, metadata, prior, skill_stream, validate_cache,
                    write_csv)
 from build_panel import aggregate_flow, select_cohorts, window_flows
 from register import IDS
@@ -35,6 +35,19 @@ def registration():
 def hypotheses(spec):
     return {f'{family}/{strategy}': (family, strategy) for family in spec['families'] for strategy in IDS} | {
         'pooled/' + spec['pooled_strategy']: ('pooled', spec['pooled_strategy'])}
+
+
+def require_october_history(root):
+    fresh, _, reason = prior.fresh_cache(root.parent)
+    if fresh is None:
+        raise ValueError('Registered October FOMC history is required: ' + reason)
+
+
+def attach_prior(db, root):
+    require_october_history(root)
+    attach_prior_sources(db, root)
+    if 'fresh' not in {row[1] for row in db.execute('PRAGMA database_list')}:
+        raise ValueError('Registered October FOMC history disappeared during attachment')
 
 
 def prepare(root, spec, phase, needed=None):
@@ -129,6 +142,7 @@ def claim_holdout(path, spec, results, requested, manifest):
 
 def inputs(root):
     source = validate_cache(root)
+    require_october_history(root)
     files = [FOLDER / name for name in REGISTERED_FILES + ('run_search.py', 'signals.py', 'audit.py',
         'markets.py', 'feasibility.py', 'spots.py')]
     files += [ROOT / p for p in ('models/strategy_search/search.py', 'models/wallet_backtest/build_panel.py',
