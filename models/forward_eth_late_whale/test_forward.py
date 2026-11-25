@@ -5,6 +5,7 @@ from copy import deepcopy
 from datetime import datetime, timezone
 import io
 import gzip
+import hashlib
 import json
 import math
 from pathlib import Path
@@ -75,6 +76,79 @@ def collecting_fixture(root, status='exhausted', records=None):
 
 
 class ForwardTests(unittest.TestCase):
+    def test_missing_or_future_settlement_timestamp_is_pending(self):
+        _, _, now = described()
+        for values in ({}, {'closedTime': None, 'umaEndDate': ''}, {'closedTime': '2026-11-28T17:05:00Z'}):
+            with self.subTest(values=values):
+                raw = event()
+                raw['markets'][0].pop('closedTime')
+                raw['markets'][0].update(values)
+                with self.assertRaises(rule.Pending):
+                    rule.describe(raw, 0, now)
+
+    def test_uma_timestamp_is_sufficient_and_malformed_timestamp_still_fails(self):
+        _, market, now = described()
+        raw = event()
+        raw['markets'][0]['umaEndDate'] = raw['markets'][0].pop('closedTime')
+        self.assertEqual(rule.describe(raw, 0, now)[1].resolved_ts, market.resolved_ts)
+        raw['markets'][0]['umaEndDate'] = 'not-a-timestamp'
+        with self.assertRaises(ValueError) as caught:
+            rule.describe(raw, 0, now)
+        self.assertNotIsInstance(caught.exception, rule.Pending)
+
+    def test_pending_market_does_not_abort_batch_or_count_toward_n(self):
+        _, _, now = described()
+        pending = event()
+        pending['markets'][0].pop('closedTime')
+        ready = event()
+        ready['id'] = 'ready'
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            cache = root/'synthetic.sqlite3'
+            with sqlite3.connect(cache):
+                pass
+            output = io.StringIO()
+            collector = Mock()
+            with patch.object(score_forward, 'discover', return_value=[pending, ready]), patch.object(score_forward, 'cache_event', return_value=(cache, 'synthetic')), patch.object(score_forward, 'spot_eligible', return_value={}), patch.object(rule, 'features', return_value=observations()[0]), patch.object(rule.signals, 'metrics') as metrics, redirect_stdout(output):
+                status = score_forward.run(root, {**spec(), 'training_hashes': {}}, {'timestamp': 0}, collector, now)
+            self.assertEqual(status['n_eligible_dates'], 1)
+            self.assertEqual(status['n_pending_markets'], 1)
+            self.assertEqual(status['pending'][0]['event_id'], '1')
+            self.assertIn('Pending: 1;', output.getvalue())
+            self.assertEqual(json.loads((root/'progress.json').read_text())['pending'], status['pending'])
+            self.assertFalse((root/'single_look.json').exists())
+            collector.collect.assert_not_called()
+            metrics.assert_not_called()
+
+    def test_committed_amendment_preserves_original_freeze_and_protocol(self):
+        with tempfile.TemporaryDirectory() as folder:
+            repo = Path(folder)
+            local = repo/'models/forward_eth_late_whale'
+            local.mkdir(parents=True)
+            paths = ('models/forward_eth_late_whale/rule.py', 'models/forward_eth_late_whale/score_forward.py')
+            hashes = {}
+            for path in paths:
+                (repo/path).write_bytes(b'synthetic amended source\n')
+                hashes[path] = hashlib.sha256(b'synthetic amended source\n').hexdigest()
+            original = {'N': 762, 'code_hashes': dict.fromkeys(paths, 'old'), 'collector_hashes': {}, 'wallet_eligibility_proof': {'cutoff': 1}}
+            amended = {**original, 'code_hashes': hashes, 'amendments': [{'freeze_commit': 'freeze', 'before_post_freeze_scoring': True, 'rule_sha256': hashes[paths[0]], 'scorer_sha256': hashes[paths[1]]}]}
+            encoded = json.dumps(amended).encode()
+            (local/'registration.json').write_bytes(encoded)
+            (local/'FORWARD_PREREGISTRATION.md').write_bytes(b'Original protocol\n')
+            (local/'AMENDMENTS.md').write_bytes(b'Approved before scoring\n')
+            blobs = [json.dumps(original).encode(), encoded, b'Approved before scoring\n', b'Original protocol\n']
+            with patch.object(rule, 'FOLDER', local), patch.object(rule, 'REPO', repo), patch.object(score_forward, 'git', side_effect=['false', 'freeze', '2']), patch.object(score_forward.subprocess, 'check_output', side_effect=blobs), patch.object(score_forward.time, 'time', return_value=3):
+                registered, freeze = score_forward.registration()
+            self.assertEqual(freeze, {'commit': 'freeze', 'timestamp': 2})
+            self.assertEqual(registered['N'], 762)
+            for changed in ({**amended, 'N': 763}, {**amended, 'amendments': []}, {**amended, 'code_hashes': {}}):
+                with self.assertRaises(ValueError):
+                    score_forward.validate_amendment(changed, original, 'freeze')
+            (local/'AMENDMENTS.md').write_bytes(b'Uncommitted change\n')
+            with patch.object(rule, 'FOLDER', local), patch.object(rule, 'REPO', repo), patch.object(score_forward, 'git', side_effect=['false', 'freeze']), patch.object(score_forward.subprocess, 'check_output', side_effect=blobs):
+                with self.assertRaisesRegex(ValueError, 'Amendment is not committed'):
+                    score_forward.registration()
+
     def test_registration_refuses_an_uncommitted_freeze(self):
         with patch.object(score_forward, 'git', side_effect=['false', '']):
             with self.assertRaisesRegex(ValueError, 'committed forward registration'):

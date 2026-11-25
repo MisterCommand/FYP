@@ -1,6 +1,16 @@
 {
   "N": 762,
   "alpha": 0.01,
+  "amendments": [
+    {
+      "id": 1,
+      "before_post_freeze_scoring": true,
+      "freeze_commit": "9b37511a6b9446c6ba8cae7a1ec06e76710429b8",
+      "description": "Treat missing settlement timestamps as pending; validate committed code-only amendments without changing the freeze or protocol parameters.",
+      "rule_sha256": "be36347bfcbfb2a6e46646c682af5ba816e6b2cd66b04fbfc0eea3cd791f8dfe",
+      "scorer_sha256": "9b0140123b78f14438c7fd3493ffe7a32aa7f3824db9ed5dd8a186442e7662f0"
+    }
+  ],
   "cash_dates_in_primary_metric": true,
   "code_hashes": {
     "models/crypto_event_search/audit.py": "68d86f4b502582bf9fb54d92aa3f44259df3cb5d1941ebf393f41f56afd78345",
@@ -11,8 +21,8 @@
     "models/crypto_event_search/spots.py": "e201a11ccd7c7c9ed6b4dd591b0d1cc57c6dbfa71b18bd21d6682cd019f3183a",
     "models/forward_eth_late_whale/FORWARD_PREREGISTRATION.md": "5f46ee03a55771591355306882bfe7099878ac09f1ad3c690a65bd07b1cb2ab1",
     "models/forward_eth_late_whale/register_forward.py": "ef0d53d03edde0a4321eeb7cea0be4cb0e68b738d653883de0311847feca4938",
-    "models/forward_eth_late_whale/rule.py": "0c41a7c3b5bdd18bc602544033223260891a330e50f30ab5ae57440752f8a9fc",
-    "models/forward_eth_late_whale/score_forward.py": "d362237a2113adc28c70b13aec1724238e48db6ba34330ce2587bf9b532429cc",
+    "models/forward_eth_late_whale/rule.py": "be36347bfcbfb2a6e46646c682af5ba816e6b2cd66b04fbfc0eea3cd791f8dfe",
+    "models/forward_eth_late_whale/score_forward.py": "9b0140123b78f14438c7fd3493ffe7a32aa7f3824db9ed5dd8a186442e7662f0",
     "models/macro_event_search/feasibility.py": "fa7bcc484e52dd2129b0f5080e9b06b50ca82f4775a4f599d41883bfacd347bb",
     "models/strategy_search/search.py": "5ec77987037126aa12d52920cc551dedb363cf22fa1c795da3700b130e9d67b0",
     "models/wallet_backtest/backtest.py": "9563128867590f0579972167022e78b9f856e0a2286da86169361612e1cae0ca",

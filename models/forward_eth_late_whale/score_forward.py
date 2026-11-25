@@ -19,6 +19,21 @@ def git(*args):
     return subprocess.check_output(['git', *args], cwd=rule.REPO).decode().strip()
 
 
+def validate_amendment(spec, original, freeze_commit):
+    mutable = {'code_hashes', 'amendments'}
+    if {k: v for k, v in spec.items() if k not in mutable} != {k: v for k, v in original.items() if k not in mutable}:
+        raise ValueError('Amendments cannot change frozen protocol parameters')
+    allowed = {'models/forward_eth_late_whale/rule.py', 'models/forward_eth_late_whale/score_forward.py'}
+    if set(spec['code_hashes']) != set(original['code_hashes']) or any(
+            spec['code_hashes'][p] != value for p, value in original['code_hashes'].items() if p not in allowed):
+        raise ValueError('Amendment changes an unauthorized code hash')
+    amendments = spec.get('amendments', [])
+    if not amendments or any(a.get('freeze_commit') != freeze_commit or a.get('before_post_freeze_scoring') is not True for a in amendments):
+        raise ValueError('Amendment must preserve the original freeze and precede forward scoring')
+    if amendments[-1].get('rule_sha256') != spec['code_hashes']['models/forward_eth_late_whale/rule.py'] or amendments[-1].get('scorer_sha256') != spec['code_hashes']['models/forward_eth_late_whale/score_forward.py']:
+        raise ValueError('Amendment does not identify the pinned implementation')
+
+
 def registration():
     if git('rev-parse', '--is-shallow-repository') != 'false':
         raise ValueError('Full Git history is required to identify the freeze')
@@ -27,11 +42,21 @@ def registration():
     if len(commits) != 1:
         raise ValueError('Exactly one committed forward registration is required')
     commit = commits[0]
+    try:
+        spec = json.loads((rule.FOLDER/'registration.json').read_text())
+    except ValueError:
+        raise ValueError('Frozen registration changed') from None
     for name in ('registration.json', 'FORWARD_PREREGISTRATION.md'):
         blob = subprocess.check_output(['git', 'show', f'{commit}:{relative}{name}'], cwd=rule.REPO)
-        if blob.replace(b'\r\n', b'\n') != (rule.FOLDER/name).read_bytes().replace(b'\r\n', b'\n'):
+        current = (rule.FOLDER/name).read_bytes().replace(b'\r\n', b'\n')
+        if name == 'registration.json' and spec.get('amendments'):
+            validate_amendment(spec, json.loads(blob), commit)
+            for amended in ('registration.json', 'AMENDMENTS.md'):
+                committed = subprocess.check_output(['git', 'show', f'HEAD:{relative}{amended}'], cwd=rule.REPO)
+                if committed.replace(b'\r\n', b'\n') != (rule.FOLDER/amended).read_bytes().replace(b'\r\n', b'\n'):
+                    raise ValueError('Amendment is not committed')
+        elif blob.replace(b'\r\n', b'\n') != current:
             raise ValueError('Frozen registration changed')
-    spec = json.loads((rule.FOLDER/'registration.json').read_text())
     for name, expected in spec['code_hashes'].items():
         if rule.digest(rule.REPO/name) != expected:
             raise ValueError('Pinned rule/collector code changed: '+name)
@@ -158,12 +183,15 @@ def run(root, spec, freeze, collector, now):
             raise ValueError('Single look was claimed; no automatic retry is permitted')
         print('Single look already complete; not collecting or testing again.')
         return saved
-    rows, exclusions = [], []
+    rows, exclusions, pending = [], [], []
     events = discover(root, collector, freeze)
     candidates = []
     for event in events:
         try:
             info, market = rule.describe(event, freeze['timestamp'], now)
+        except rule.Pending as error:
+            pending.append({'event_id': str(event['id']), 'reason': str(error)})
+            continue
         except (rule.PreFreeze, rule.Ineligible) as error:
             exclusions.append({'event_id': str(event['id']), 'reason': str(error)})
             continue
@@ -184,8 +212,11 @@ def run(root, spec, freeze, collector, now):
                 continue
         rows.append({**row, 'cache_source_sha256': source, 'spot_hashes': spot_hashes})
     status = {**rule.progress(rows, spec), 'freeze': freeze, 'as_of': now,
-        'n_resolved_candidates': len(candidates), 'exclusions': exclusions, 'tested': False}
+        'n_resolved_candidates': len(candidates), 'exclusions': exclusions,
+        'n_pending_markets': len(pending), 'pending': pending, 'tested': False}
     rule.atomic_json(root/'progress.json', status)
+    for item in pending:
+        print(f"Pending: {item['event_id']}; {item['reason']}")
     print(f"Progress: n eligible={status['n_eligible_dates']}; n traded={status['n_traded_dates']}; N={spec['N']}; no interim look.")
     if status['n_eligible_dates'] < spec['N']:
         print('Test not computed; forward ROI and p-value remain undisclosed.')

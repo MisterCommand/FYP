@@ -26,6 +26,10 @@ class Ineligible(ValueError):
     pass
 
 
+class Pending(Ineligible):
+    pass
+
+
 def digest(path):
     path = Path(path)
     data = path.read_bytes()
@@ -62,6 +66,8 @@ def describe(event, freeze, now):
         raise Ineligible('Oracle is not the registered Binance ETHUSDT source')
     if not event.get('closed') or not raw.get('closed'):
         raise ValueError('Discovery returned an unresolved event')
+    if not any(raw.get(key) for key in ('closedTime', 'umaEndDate')):
+        raise Pending('Conservative settlement timestamp is missing')
     names, tokens = array(raw['outcomes']), array(raw['clobTokenIds'])
     prices = list(map(float, array(raw['outcomePrices'])))
     if set(names) != {'Up', 'Down'} or len(tokens) != 2 or len(set(tokens)) != 2:
@@ -73,7 +79,7 @@ def describe(event, freeze, now):
     if settled < info['expiry']:
         raise ValueError('Settlement precedes observation')
     if settled > now or info['expiry'] > now:
-        raise Ineligible('Conservative settlement timestamp is not yet available')
+        raise Pending('Conservative settlement timestamp is not yet available')
     rid = FAMILY + ':' + str(event['id'])
     by_name = dict(zip(names, map(str, tokens)))
     market = Market(str(raw['id']), rid, rid, raw['question'], raw['conditionId'].lower(),
