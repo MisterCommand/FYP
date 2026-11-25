@@ -1,0 +1,5072 @@
+{
+  "version": 1,
+  "search_round": 4,
+  "strategies": [
+    "a_smart_pm",
+    "b_contrarian_pm",
+    "c_momentum_pm",
+    "d_calibration_pm",
+    "e_late_whale_pm",
+    "g_spot_pm",
+    "h_placebo_pm"
+  ],
+  "families": {
+    "btc_above_daily": {
+      "development": [
+        "15930",
+        "17162",
+        "19193",
+        "21343",
+        "23067",
+        "24663",
+        "25537",
+        "27095",
+        "30439",
+        "32198",
+        "33442",
+        "34856",
+        "36656",
+        "38291",
+        "40059",
+        "42277",
+        "43033",
+        "44478",
+        "46230",
+        "48154",
+        "50270",
+        "52083",
+        "54095",
+        "56527",
+        "59031",
+        "60967",
+        "63030",
+        "65187",
+        "67796",
+        "76232",
+        "75491",
+        "79011",
+        "82972",
+        "86289",
+        "89428",
+        "92664",
+        "95866",
+        "98742",
+        "102587",
+        "105989",
+        "113767",
+        "121564",
+        "129373",
+        "137158",
+        "145478",
+        "153622",
+        "161811",
+        "170534",
+        "181471",
+        "189615",
+        "193717",
+        "197660",
+        "201416",
+        "205193",
+        "210688",
+        "217208",
+        "230284",
+        "239593",
+        "248147",
+        "259071",
+        "269748",
+        "283386",
+        "296847",
+        "310581",
+        "329423",
+        "343574",
+        "357776",
+        "371746",
+        "385693",
+        "399811",
+        "413694",
+        "427985",
+        "444987",
+        "458920",
+        "474288",
+        "488483",
+        "502489",
+        "517287",
+        "531167",
+        "545095"
+      ],
+      "holdout": [
+        "562587",
+        "576738",
+        "591121",
+        "605249",
+        "619165",
+        "633616",
+        "648200",
+        "662919",
+        "680869",
+        "703246",
+        "717846",
+        "733284",
+        "761866",
+        "781761",
+        "801611",
+        "821857",
+        "862400",
+        "871219",
+        "890359",
+        "916187",
+        "936872",
+        "959619",
+        "983351",
+        "1005110",
+        "1033699",
+        "1053963",
+        "1074544",
+        "1098535",
+        "1119679",
+        "1143496",
+        "1165153",
+        "1188984",
+        "1218457",
+        "1241186",
+        "1266673",
+        "1289174",
+        "1314690",
+        "1342183",
+        "1372731",
+        "1410639"
+      ]
+    },
+    "eth_above_daily": {
+      "development": [
+        "16251",
+        "17559",
+        "19911",
+        "21754",
+        "23416",
+        "24649",
+        "25538",
+        "27096",
+        "30440",
+        "32199",
+        "33443",
+        "34857",
+        "36657",
+        "38292",
+        "40061",
+        "42348",
+        "43028",
+        "44472",
+        "46223",
+        "48148",
+        "50252",
+        "52064",
+        "54081",
+        "56993",
+        "59010",
+        "60951",
+        "63019",
+        "65180",
+        "67783",
+        "76233",
+        "75480",
+        "79000",
+        "82230",
+        "85493",
+        "88620",
+        "91891",
+        "95068",
+        "98060",
+        "102583",
+        "105982",
+        "111885",
+        "119610",
+        "127249",
+        "135278",
+        "143392",
+        "153614",
+        "161801",
+        "170521",
+        "179313",
+        "188299",
+        "192732",
+        "196769",
+        "200487",
+        "205182",
+        "210682",
+        "217199",
+        "228139",
+        "237153",
+        "246046",
+        "256456",
+        "269736",
+        "283377",
+        "296826",
+        "310562",
+        "325747",
+        "339990",
+        "354313",
+        "371729",
+        "385676",
+        "399795",
+        "413683",
+        "427970",
+        "441593",
+        "455570",
+        "470819",
+        "488465",
+        "502451",
+        "517274",
+        "531124",
+        "545054"
+      ],
+      "holdout": [
+        "559047",
+        "573061",
+        "591091",
+        "605221",
+        "619145",
+        "633585",
+        "648183",
+        "662898",
+        "677165",
+        "699251",
+        "717830",
+        "733271",
+        "761818",
+        "781721",
+        "801577",
+        "821846",
+        "844164",
+        "871215",
+        "890354",
+        "916184",
+        "936866",
+        "959615",
+        "983346",
+        "1005106",
+        "1028595",
+        "1053960",
+        "1074541",
+        "1098529",
+        "1119675",
+        "1143493",
+        "1165150",
+        "1188981",
+        "1218454",
+        "1241183",
+        "1266666",
+        "1289165",
+        "1314682",
+        "1342174",
+        "1372726",
+        "1410634"
+      ]
+    },
+    "btc_updown_daily": {
+      "development": [
+        "20926",
+        "21202",
+        "21342",
+        "21758",
+        "22206",
+        "22482",
+        "22641",
+        "23073",
+        "23368",
+        "23612",
+        "23801",
+        "24164",
+        "24541",
+        "24817",
+        "25078",
+        "25516",
+        "26029",
+        "26528",
+        "26933",
+        "27894",
+        "28678",
+        "30424",
+        "30860",
+        "31941",
+        "32617",
+        "33353",
+        "34067",
+        "35121",
+        "35716",
+        "37043",
+        "37643",
+        "38871",
+        "40034",
+        "41096",
+        "42218",
+        "43329",
+        "45474",
+        "48149",
+        "50711",
+        "53076",
+        "55819",
+        "58489",
+        "61355",
+        "64072",
+        "67112",
+        "71592",
+        "75479",
+        "80684",
+        "84597",
+        "88621",
+        "92656",
+        "96565",
+        "101050",
+        "105118",
+        "111884",
+        "121555",
+        "131332",
+        "143391",
+        "153615",
+        "164138",
+        "174866",
+        "185885",
+        "192733",
+        "198554",
+        "203556",
+        "209117",
+        "217198",
+        "228138",
+        "241760",
+        "252315",
+        "264715",
+        "280004",
+        "296824",
+        "318275",
+        "336414",
+        "354312",
+        "371728",
+        "389094",
+        "410257"
+      ],
+      "holdout": [
+        "427969",
+        "444949",
+        "462378",
+        "481430",
+        "502450",
+        "523916",
+        "541687",
+        "559044",
+        "576711",
+        "597982",
+        "615693",
+        "633584",
+        "651825",
+        "670030",
+        "688303",
+        "710516",
+        "729692",
+        "752066",
+        "778445",
+        "801812",
+        "833785",
+        "859894",
+        "885916",
+        "916205",
+        "942687",
+        "976673",
+        "1005128",
+        "1033733",
+        "1059321",
+        "1086165",
+        "1119710",
+        "1148942",
+        "1177780",
+        "1205853",
+        "1235796",
+        "1272539",
+        "1302190",
+        "1333414",
+        "1365228",
+        "1399686"
+      ]
+    },
+    "eth_updown_daily": {
+      "development": [
+        "21222",
+        "21340",
+        "21708",
+        "22161",
+        "22625",
+        "22898",
+        "23198",
+        "23426",
+        "23736",
+        "24046",
+        "24330",
+        "24631",
+        "24993",
+        "25288",
+        "25522",
+        "26133",
+        "26693",
+        "27430",
+        "27903",
+        "29056",
+        "30503",
+        "31252",
+        "31944",
+        "32831",
+        "33545",
+        "34070",
+        "35124",
+        "36153",
+        "37125",
+        "37649",
+        "39244",
+        "40037",
+        "41095",
+        "42219",
+        "43855",
+        "45869",
+        "48152",
+        "50716",
+        "53080",
+        "55825",
+        "58495",
+        "60957",
+        "63512",
+        "67116",
+        "71591",
+        "75484",
+        "79842",
+        "83719",
+        "87812",
+        "91896",
+        "95864",
+        "100139",
+        "104249",
+        "109993",
+        "119614",
+        "129371",
+        "139143",
+        "149497",
+        "160033",
+        "170526",
+        "183592",
+        "191784",
+        "196775",
+        "201410",
+        "206606",
+        "213037",
+        "223967",
+        "234843",
+        "248144",
+        "259070",
+        "273103",
+        "290055",
+        "307195",
+        "325756",
+        "343565",
+        "361223",
+        "378819",
+        "399807",
+        "417103"
+      ],
+      "holdout": [
+        "434905",
+        "452037",
+        "470833",
+        "488481",
+        "506413",
+        "527527",
+        "548477",
+        "566180",
+        "584111",
+        "601545",
+        "619150",
+        "637219",
+        "655497",
+        "673514",
+        "696976",
+        "714194",
+        "733358",
+        "756837",
+        "781952",
+        "806785",
+        "833786",
+        "859895",
+        "885917",
+        "921548",
+        "948247",
+        "976674",
+        "1005129",
+        "1033734",
+        "1059323",
+        "1086172",
+        "1114456",
+        "1143521",
+        "1177782",
+        "1205855",
+        "1235798",
+        "1266698",
+        "1295885",
+        "1325891",
+        "1365229",
+        "1399687"
+      ]
+    },
+    "btc_updown_hourly": {
+      "development": [
+        "25668",
+        "26044",
+        "26428",
+        "27073",
+        "27749",
+        "28316",
+        "29181",
+        "29751",
+        "29743",
+        "29541",
+        "29564",
+        "33432",
+        "29737",
+        "29521",
+        "35335",
+        "36401",
+        "36767",
+        "37717",
+        "38953",
+        "39717",
+        "40413",
+        "41720",
+        "42789",
+        "43582",
+        "46260",
+        "48654",
+        "50814",
+        "53007",
+        "55332",
+        "57997",
+        "60325",
+        "62448",
+        "65065",
+        "68523",
+        "71694",
+        "75784",
+        "79891",
+        "83388",
+        "87162",
+        "90881",
+        "94504",
+        "98061",
+        "101386",
+        "105197",
+        "111410",
+        "120305",
+        "129262",
+        "138106",
+        "147805",
+        "157001",
+        "167030",
+        "176865",
+        "187039",
+        "192835",
+        "197350",
+        "201712",
+        "206248",
+        "212369",
+        "221580",
+        "231625",
+        "242131",
+        "251728",
+        "261980",
+        "276068",
+        "291602",
+        "307505",
+        "324602",
+        "339149",
+        "356347",
+        "372404",
+        "388096",
+        "404510",
+        "420132",
+        "436433",
+        "452201",
+        "469611",
+        "485878",
+        "501484"
+      ],
+      "holdout": [
+        "518911",
+        "535214",
+        "550769",
+        "567103",
+        "583523",
+        "599504",
+        "615568",
+        "632203",
+        "648853",
+        "665650",
+        "682308",
+        "698969",
+        "716155",
+        "733796",
+        "754762",
+        "778590",
+        "800772",
+        "825060",
+        "848863",
+        "874114",
+        "896913",
+        "924941",
+        "950289",
+        "975914",
+        "1002297",
+        "1028863",
+        "1051974",
+        "1075696",
+        "1102765",
+        "1127721",
+        "1153843",
+        "1180835",
+        "1206327",
+        "1234109",
+        "1261854",
+        "1288345",
+        "1317817",
+        "1349877",
+        "1384832"
+      ]
+    },
+    "eth_updown_hourly": {
+      "development": [
+        "26378",
+        "26988",
+        "27474",
+        "28088",
+        "28907",
+        "30217",
+        "30965",
+        "31793",
+        "32348",
+        "33061",
+        "33733",
+        "34475",
+        "35139",
+        "36004",
+        "36487",
+        "37510",
+        "38437",
+        "39041",
+        "40188",
+        "41039",
+        "41974",
+        "43095",
+        "44553",
+        "46829",
+        "49128",
+        "51073",
+        "53360",
+        "55772",
+        "58216",
+        "60436",
+        "62679",
+        "65092",
+        "67965",
+        "71546",
+        "75743",
+        "79583",
+        "83154",
+        "86809",
+        "90592",
+        "93909",
+        "97489",
+        "100785",
+        "104354",
+        "109317",
+        "117867",
+        "126410",
+        "135437",
+        "144437",
+        "153706",
+        "163072",
+        "172870",
+        "182385",
+        "190526",
+        "195043",
+        "199314",
+        "203897",
+        "208947",
+        "215806",
+        "228627",
+        "235649",
+        "245404",
+        "254665",
+        "264729",
+        "280405",
+        "295304",
+        "310916",
+        "327645",
+        "344653",
+        "360320",
+        "376158",
+        "391447",
+        "407353",
+        "422795",
+        "438425",
+        "453987",
+        "470832",
+        "486665",
+        "502180"
+      ],
+      "holdout": [
+        "519242",
+        "534865",
+        "550052",
+        "565897",
+        "581973",
+        "597576",
+        "613500",
+        "629268",
+        "645760",
+        "662062",
+        "677962",
+        "694328",
+        "711069",
+        "728103",
+        "748684",
+        "771231",
+        "790829",
+        "813911",
+        "838662",
+        "862492",
+        "885089",
+        "912689",
+        "935659",
+        "961507",
+        "987580",
+        "1013108",
+        "1037143",
+        "1060403",
+        "1084135",
+        "1109317",
+        "1134906",
+        "1159503",
+        "1186185",
+        "1211832",
+        "1238153",
+        "1265544",
+        "1291880",
+        "1319605",
+        "1352654",
+        "1386179"
+      ]
+    }
+  },
+  "events": {
+    "btc_above_daily:15930": {
+      "cutoff": 1735880460,
+      "expiry": 1735923660,
+      "eligible_contracts": 1,
+      "cluster": "2025-01-03"
+    },
+    "btc_above_daily:17162": {
+      "cutoff": 1738299660,
+      "expiry": 1738342860,
+      "eligible_contracts": 1,
+      "cluster": "2025-01-31"
+    },
+    "btc_above_daily:19193": {
+      "cutoff": 1740718860,
+      "expiry": 1740762060,
+      "eligible_contracts": 1,
+      "cluster": "2025-02-28"
+    },
+    "btc_above_daily:21343": {
+      "cutoff": 1743134460,
+      "expiry": 1743177660,
+      "eligible_contracts": 1,
+      "cluster": "2025-03-28"
+    },
+    "btc_above_daily:23067": {
+      "cutoff": 1745553660,
+      "expiry": 1745596860,
+      "eligible_contracts": 1,
+      "cluster": "2025-04-25"
+    },
+    "btc_above_daily:24663": {
+      "cutoff": 1747972860,
+      "expiry": 1748016060,
+      "eligible_contracts": 3,
+      "cluster": "2025-05-23"
+    },
+    "btc_above_daily:25537": {
+      "cutoff": 1749182460,
+      "expiry": 1749225660,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-06"
+    },
+    "btc_above_daily:27095": {
+      "cutoff": 1750392060,
+      "expiry": 1750435260,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-20"
+    },
+    "btc_above_daily:30439": {
+      "cutoff": 1752033660,
+      "expiry": 1752076860,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-09"
+    },
+    "btc_above_daily:32198": {
+      "cutoff": 1752811260,
+      "expiry": 1752854460,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-18"
+    },
+    "btc_above_daily:33442": {
+      "cutoff": 1753675260,
+      "expiry": 1753718460,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-28"
+    },
+    "btc_above_daily:34856": {
+      "cutoff": 1754452860,
+      "expiry": 1754496060,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-06"
+    },
+    "btc_above_daily:36656": {
+      "cutoff": 1755230460,
+      "expiry": 1755273660,
+      "eligible_contracts": 4,
+      "cluster": "2025-08-15"
+    },
+    "btc_above_daily:38291": {
+      "cutoff": 1756094460,
+      "expiry": 1756137660,
+      "eligible_contracts": 6,
+      "cluster": "2025-08-25"
+    },
+    "btc_above_daily:40059": {
+      "cutoff": 1756872060,
+      "expiry": 1756915260,
+      "eligible_contracts": 9,
+      "cluster": "2025-09-03"
+    },
+    "btc_above_daily:42277": {
+      "cutoff": 1757649660,
+      "expiry": 1757692860,
+      "eligible_contracts": 11,
+      "cluster": "2025-09-12"
+    },
+    "btc_above_daily:43033": {
+      "cutoff": 1758081660,
+      "expiry": 1758124860,
+      "eligible_contracts": 10,
+      "cluster": "2025-09-17"
+    },
+    "btc_above_daily:44478": {
+      "cutoff": 1758427260,
+      "expiry": 1758470460,
+      "eligible_contracts": 11,
+      "cluster": "2025-09-21"
+    },
+    "btc_above_daily:46230": {
+      "cutoff": 1758772860,
+      "expiry": 1758816060,
+      "eligible_contracts": 9,
+      "cluster": "2025-09-25"
+    },
+    "btc_above_daily:48154": {
+      "cutoff": 1759118460,
+      "expiry": 1759161660,
+      "eligible_contracts": 9,
+      "cluster": "2025-09-29"
+    },
+    "btc_above_daily:50270": {
+      "cutoff": 1759464060,
+      "expiry": 1759507260,
+      "eligible_contracts": 7,
+      "cluster": "2025-10-03"
+    },
+    "btc_above_daily:52083": {
+      "cutoff": 1759809660,
+      "expiry": 1759852860,
+      "eligible_contracts": 11,
+      "cluster": "2025-10-07"
+    },
+    "btc_above_daily:54095": {
+      "cutoff": 1760155260,
+      "expiry": 1760198460,
+      "eligible_contracts": 11,
+      "cluster": "2025-10-11"
+    },
+    "btc_above_daily:56527": {
+      "cutoff": 1760500860,
+      "expiry": 1760544060,
+      "eligible_contracts": 11,
+      "cluster": "2025-10-15"
+    },
+    "btc_above_daily:59031": {
+      "cutoff": 1760932860,
+      "expiry": 1760976060,
+      "eligible_contracts": 11,
+      "cluster": "2025-10-20"
+    },
+    "btc_above_daily:60967": {
+      "cutoff": 1761278460,
+      "expiry": 1761321660,
+      "eligible_contracts": 11,
+      "cluster": "2025-10-24"
+    },
+    "btc_above_daily:63030": {
+      "cutoff": 1761624060,
+      "expiry": 1761667260,
+      "eligible_contracts": 11,
+      "cluster": "2025-10-28"
+    },
+    "btc_above_daily:65187": {
+      "cutoff": 1761969660,
+      "expiry": 1762012860,
+      "eligible_contracts": 11,
+      "cluster": "2025-11-01"
+    },
+    "btc_above_daily:67796": {
+      "cutoff": 1762318860,
+      "expiry": 1762362060,
+      "eligible_contracts": 11,
+      "cluster": "2025-11-05"
+    },
+    "btc_above_daily:76232": {
+      "cutoff": 1762664460,
+      "expiry": 1762707660,
+      "eligible_contracts": 11,
+      "cluster": "2025-11-09"
+    },
+    "btc_above_daily:75491": {
+      "cutoff": 1763096460,
+      "expiry": 1763139660,
+      "eligible_contracts": 11,
+      "cluster": "2025-11-14"
+    },
+    "btc_above_daily:79011": {
+      "cutoff": 1763442060,
+      "expiry": 1763485260,
+      "eligible_contracts": 10,
+      "cluster": "2025-11-18"
+    },
+    "btc_above_daily:82972": {
+      "cutoff": 1763874060,
+      "expiry": 1763917260,
+      "eligible_contracts": 9,
+      "cluster": "2025-11-23"
+    },
+    "btc_above_daily:86289": {
+      "cutoff": 1764219660,
+      "expiry": 1764262860,
+      "eligible_contracts": 11,
+      "cluster": "2025-11-27"
+    },
+    "btc_above_daily:89428": {
+      "cutoff": 1764565260,
+      "expiry": 1764608460,
+      "eligible_contracts": 11,
+      "cluster": "2025-12-01"
+    },
+    "btc_above_daily:92664": {
+      "cutoff": 1764910860,
+      "expiry": 1764954060,
+      "eligible_contracts": 11,
+      "cluster": "2025-12-05"
+    },
+    "btc_above_daily:95866": {
+      "cutoff": 1765256460,
+      "expiry": 1765299660,
+      "eligible_contracts": 11,
+      "cluster": "2025-12-09"
+    },
+    "btc_above_daily:98742": {
+      "cutoff": 1765602060,
+      "expiry": 1765645260,
+      "eligible_contracts": 11,
+      "cluster": "2025-12-13"
+    },
+    "btc_above_daily:102587": {
+      "cutoff": 1766034060,
+      "expiry": 1766077260,
+      "eligible_contracts": 10,
+      "cluster": "2025-12-18"
+    },
+    "btc_above_daily:105989": {
+      "cutoff": 1766379660,
+      "expiry": 1766422860,
+      "eligible_contracts": 11,
+      "cluster": "2025-12-22"
+    },
+    "btc_above_daily:113767": {
+      "cutoff": 1766811660,
+      "expiry": 1766854860,
+      "eligible_contracts": 10,
+      "cluster": "2025-12-27"
+    },
+    "btc_above_daily:121564": {
+      "cutoff": 1767157260,
+      "expiry": 1767200460,
+      "eligible_contracts": 11,
+      "cluster": "2025-12-31"
+    },
+    "btc_above_daily:129373": {
+      "cutoff": 1767502860,
+      "expiry": 1767546060,
+      "eligible_contracts": 11,
+      "cluster": "2026-01-04"
+    },
+    "btc_above_daily:137158": {
+      "cutoff": 1767848460,
+      "expiry": 1767891660,
+      "eligible_contracts": 11,
+      "cluster": "2026-01-08"
+    },
+    "btc_above_daily:145478": {
+      "cutoff": 1768194060,
+      "expiry": 1768237260,
+      "eligible_contracts": 11,
+      "cluster": "2026-01-12"
+    },
+    "btc_above_daily:153622": {
+      "cutoff": 1768539660,
+      "expiry": 1768582860,
+      "eligible_contracts": 11,
+      "cluster": "2026-01-16"
+    },
+    "btc_above_daily:161811": {
+      "cutoff": 1768885260,
+      "expiry": 1768928460,
+      "eligible_contracts": 10,
+      "cluster": "2026-01-20"
+    },
+    "btc_above_daily:170534": {
+      "cutoff": 1769230860,
+      "expiry": 1769274060,
+      "eligible_contracts": 7,
+      "cluster": "2026-01-24"
+    },
+    "btc_above_daily:181471": {
+      "cutoff": 1769662860,
+      "expiry": 1769706060,
+      "eligible_contracts": 11,
+      "cluster": "2026-01-29"
+    },
+    "btc_above_daily:189615": {
+      "cutoff": 1770008460,
+      "expiry": 1770051660,
+      "eligible_contracts": 9,
+      "cluster": "2026-02-02"
+    },
+    "btc_above_daily:193717": {
+      "cutoff": 1770354060,
+      "expiry": 1770397260,
+      "eligible_contracts": 10,
+      "cluster": "2026-02-06"
+    },
+    "btc_above_daily:197660": {
+      "cutoff": 1770699660,
+      "expiry": 1770742860,
+      "eligible_contracts": 11,
+      "cluster": "2026-02-10"
+    },
+    "btc_above_daily:201416": {
+      "cutoff": 1771045260,
+      "expiry": 1771088460,
+      "eligible_contracts": 11,
+      "cluster": "2026-02-14"
+    },
+    "btc_above_daily:205193": {
+      "cutoff": 1771390860,
+      "expiry": 1771434060,
+      "eligible_contracts": 11,
+      "cluster": "2026-02-18"
+    },
+    "btc_above_daily:210688": {
+      "cutoff": 1771736460,
+      "expiry": 1771779660,
+      "eligible_contracts": 11,
+      "cluster": "2026-02-22"
+    },
+    "btc_above_daily:217208": {
+      "cutoff": 1772082060,
+      "expiry": 1772125260,
+      "eligible_contracts": 11,
+      "cluster": "2026-02-26"
+    },
+    "btc_above_daily:230284": {
+      "cutoff": 1772600460,
+      "expiry": 1772643660,
+      "eligible_contracts": 11,
+      "cluster": "2026-03-04"
+    },
+    "btc_above_daily:239593": {
+      "cutoff": 1772942460,
+      "expiry": 1772985660,
+      "eligible_contracts": 11,
+      "cluster": "2026-03-08"
+    },
+    "btc_above_daily:248147": {
+      "cutoff": 1773288060,
+      "expiry": 1773331260,
+      "eligible_contracts": 11,
+      "cluster": "2026-03-12"
+    },
+    "btc_above_daily:259071": {
+      "cutoff": 1773720060,
+      "expiry": 1773763260,
+      "eligible_contracts": 11,
+      "cluster": "2026-03-17"
+    },
+    "btc_above_daily:269748": {
+      "cutoff": 1774065660,
+      "expiry": 1774108860,
+      "eligible_contracts": 11,
+      "cluster": "2026-03-21"
+    },
+    "btc_above_daily:283386": {
+      "cutoff": 1774411260,
+      "expiry": 1774454460,
+      "eligible_contracts": 11,
+      "cluster": "2026-03-25"
+    },
+    "btc_above_daily:296847": {
+      "cutoff": 1774756860,
+      "expiry": 1774800060,
+      "eligible_contracts": 11,
+      "cluster": "2026-03-29"
+    },
+    "btc_above_daily:310581": {
+      "cutoff": 1775102460,
+      "expiry": 1775145660,
+      "eligible_contracts": 9,
+      "cluster": "2026-04-02"
+    },
+    "btc_above_daily:329423": {
+      "cutoff": 1775534460,
+      "expiry": 1775577660,
+      "eligible_contracts": 11,
+      "cluster": "2026-04-07"
+    },
+    "btc_above_daily:343574": {
+      "cutoff": 1775880060,
+      "expiry": 1775923260,
+      "eligible_contracts": 11,
+      "cluster": "2026-04-11"
+    },
+    "btc_above_daily:357776": {
+      "cutoff": 1776225660,
+      "expiry": 1776268860,
+      "eligible_contracts": 11,
+      "cluster": "2026-04-15"
+    },
+    "btc_above_daily:371746": {
+      "cutoff": 1776571260,
+      "expiry": 1776614460,
+      "eligible_contracts": 11,
+      "cluster": "2026-04-19"
+    },
+    "btc_above_daily:385693": {
+      "cutoff": 1776916860,
+      "expiry": 1776960060,
+      "eligible_contracts": 11,
+      "cluster": "2026-04-23"
+    },
+    "btc_above_daily:399811": {
+      "cutoff": 1777262460,
+      "expiry": 1777305660,
+      "eligible_contracts": 11,
+      "cluster": "2026-04-27"
+    },
+    "btc_above_daily:413694": {
+      "cutoff": 1777608060,
+      "expiry": 1777651260,
+      "eligible_contracts": 10,
+      "cluster": "2026-05-01"
+    },
+    "btc_above_daily:427985": {
+      "cutoff": 1777953660,
+      "expiry": 1777996860,
+      "eligible_contracts": 11,
+      "cluster": "2026-05-05"
+    },
+    "btc_above_daily:444987": {
+      "cutoff": 1778385660,
+      "expiry": 1778428860,
+      "eligible_contracts": 11,
+      "cluster": "2026-05-10"
+    },
+    "btc_above_daily:458920": {
+      "cutoff": 1778731260,
+      "expiry": 1778774460,
+      "eligible_contracts": 11,
+      "cluster": "2026-05-14"
+    },
+    "btc_above_daily:474288": {
+      "cutoff": 1779076860,
+      "expiry": 1779120060,
+      "eligible_contracts": 9,
+      "cluster": "2026-05-18"
+    },
+    "btc_above_daily:488483": {
+      "cutoff": 1779422460,
+      "expiry": 1779465660,
+      "eligible_contracts": 9,
+      "cluster": "2026-05-22"
+    },
+    "btc_above_daily:502489": {
+      "cutoff": 1779768060,
+      "expiry": 1779811260,
+      "eligible_contracts": 11,
+      "cluster": "2026-05-26"
+    },
+    "btc_above_daily:517287": {
+      "cutoff": 1780113660,
+      "expiry": 1780156860,
+      "eligible_contracts": 9,
+      "cluster": "2026-05-30"
+    },
+    "btc_above_daily:531167": {
+      "cutoff": 1780459260,
+      "expiry": 1780502460,
+      "eligible_contracts": 8,
+      "cluster": "2026-06-03"
+    },
+    "btc_above_daily:545095": {
+      "cutoff": 1780804860,
+      "expiry": 1780848060,
+      "eligible_contracts": 10,
+      "cluster": "2026-06-07"
+    },
+    "btc_above_daily:562587": {
+      "cutoff": 1781236860,
+      "expiry": 1781280060,
+      "eligible_contracts": 10,
+      "cluster": "2026-06-12"
+    },
+    "btc_above_daily:576738": {
+      "cutoff": 1781582460,
+      "expiry": 1781625660,
+      "eligible_contracts": 9,
+      "cluster": "2026-06-16"
+    },
+    "btc_above_daily:591121": {
+      "cutoff": 1781928060,
+      "expiry": 1781971260,
+      "eligible_contracts": 8,
+      "cluster": "2026-06-20"
+    },
+    "btc_above_daily:605249": {
+      "cutoff": 1782273660,
+      "expiry": 1782316860,
+      "eligible_contracts": 10,
+      "cluster": "2026-06-24"
+    },
+    "btc_above_daily:619165": {
+      "cutoff": 1782619260,
+      "expiry": 1782662460,
+      "eligible_contracts": 10,
+      "cluster": "2026-06-28"
+    },
+    "btc_above_daily:633616": {
+      "cutoff": 1782964860,
+      "expiry": 1783008060,
+      "eligible_contracts": 11,
+      "cluster": "2026-07-02"
+    },
+    "btc_above_daily:648200": {
+      "cutoff": 1783310460,
+      "expiry": 1783353660,
+      "eligible_contracts": 11,
+      "cluster": "2026-07-06"
+    },
+    "btc_above_daily:662919": {
+      "cutoff": 1783656060,
+      "expiry": 1783699260,
+      "eligible_contracts": 11,
+      "cluster": "2026-07-10"
+    },
+    "btc_above_daily:680869": {
+      "cutoff": 1784088060,
+      "expiry": 1784131260,
+      "eligible_contracts": 10,
+      "cluster": "2026-07-15"
+    },
+    "btc_above_daily:703246": {
+      "cutoff": 1784606460,
+      "expiry": 1784649660,
+      "eligible_contracts": 11,
+      "cluster": "2026-07-21"
+    },
+    "btc_above_daily:717846": {
+      "cutoff": 1784952060,
+      "expiry": 1784995260,
+      "eligible_contracts": 9,
+      "cluster": "2026-07-25"
+    },
+    "btc_above_daily:733284": {
+      "cutoff": 1785297660,
+      "expiry": 1785340860,
+      "eligible_contracts": 9,
+      "cluster": "2026-07-29"
+    },
+    "btc_above_daily:761866": {
+      "cutoff": 1785816060,
+      "expiry": 1785859260,
+      "eligible_contracts": 10,
+      "cluster": "2026-08-04"
+    },
+    "btc_above_daily:781761": {
+      "cutoff": 1786161660,
+      "expiry": 1786204860,
+      "eligible_contracts": 11,
+      "cluster": "2026-08-08"
+    },
+    "btc_above_daily:801611": {
+      "cutoff": 1786507260,
+      "expiry": 1786550460,
+      "eligible_contracts": 10,
+      "cluster": "2026-08-12"
+    },
+    "btc_above_daily:821857": {
+      "cutoff": 1786852860,
+      "expiry": 1786896060,
+      "eligible_contracts": 8,
+      "cluster": "2026-08-16"
+    },
+    "btc_above_daily:862400": {
+      "cutoff": 1787284860,
+      "expiry": 1787328060,
+      "eligible_contracts": 10,
+      "cluster": "2026-08-21"
+    },
+    "btc_above_daily:871219": {
+      "cutoff": 1787630460,
+      "expiry": 1787673660,
+      "eligible_contracts": 8,
+      "cluster": "2026-08-25"
+    },
+    "btc_above_daily:890359": {
+      "cutoff": 1787976060,
+      "expiry": 1788019260,
+      "eligible_contracts": 9,
+      "cluster": "2026-08-29"
+    },
+    "btc_above_daily:916187": {
+      "cutoff": 1788321660,
+      "expiry": 1788364860,
+      "eligible_contracts": 9,
+      "cluster": "2026-09-02"
+    },
+    "btc_above_daily:936872": {
+      "cutoff": 1788667260,
+      "expiry": 1788710460,
+      "eligible_contracts": 9,
+      "cluster": "2026-09-06"
+    },
+    "btc_above_daily:959619": {
+      "cutoff": 1789012860,
+      "expiry": 1789056060,
+      "eligible_contracts": 8,
+      "cluster": "2026-09-10"
+    },
+    "btc_above_daily:983351": {
+      "cutoff": 1789358460,
+      "expiry": 1789401660,
+      "eligible_contracts": 10,
+      "cluster": "2026-09-14"
+    },
+    "btc_above_daily:1005110": {
+      "cutoff": 1789704060,
+      "expiry": 1789747260,
+      "eligible_contracts": 11,
+      "cluster": "2026-09-18"
+    },
+    "btc_above_daily:1033699": {
+      "cutoff": 1790136060,
+      "expiry": 1790179260,
+      "eligible_contracts": 10,
+      "cluster": "2026-09-23"
+    },
+    "btc_above_daily:1053963": {
+      "cutoff": 1790481660,
+      "expiry": 1790524860,
+      "eligible_contracts": 10,
+      "cluster": "2026-09-27"
+    },
+    "btc_above_daily:1074544": {
+      "cutoff": 1790827260,
+      "expiry": 1790870460,
+      "eligible_contracts": 11,
+      "cluster": "2026-10-01"
+    },
+    "btc_above_daily:1098535": {
+      "cutoff": 1791172860,
+      "expiry": 1791216060,
+      "eligible_contracts": 11,
+      "cluster": "2026-10-05"
+    },
+    "btc_above_daily:1119679": {
+      "cutoff": 1791518400,
+      "expiry": 1791561600,
+      "eligible_contracts": 9,
+      "cluster": "2026-10-09"
+    },
+    "btc_above_daily:1143496": {
+      "cutoff": 1791864000,
+      "expiry": 1791907200,
+      "eligible_contracts": 10,
+      "cluster": "2026-10-13"
+    },
+    "btc_above_daily:1165153": {
+      "cutoff": 1792209600,
+      "expiry": 1792252800,
+      "eligible_contracts": 7,
+      "cluster": "2026-10-17"
+    },
+    "btc_above_daily:1188984": {
+      "cutoff": 1792555200,
+      "expiry": 1792598400,
+      "eligible_contracts": 10,
+      "cluster": "2026-10-21"
+    },
+    "btc_above_daily:1218457": {
+      "cutoff": 1792987200,
+      "expiry": 1793030400,
+      "eligible_contracts": 8,
+      "cluster": "2026-10-26"
+    },
+    "btc_above_daily:1241186": {
+      "cutoff": 1793332800,
+      "expiry": 1793376000,
+      "eligible_contracts": 10,
+      "cluster": "2026-10-30"
+    },
+    "btc_above_daily:1266673": {
+      "cutoff": 1793682000,
+      "expiry": 1793725200,
+      "eligible_contracts": 11,
+      "cluster": "2026-11-03"
+    },
+    "btc_above_daily:1289174": {
+      "cutoff": 1794027600,
+      "expiry": 1794070800,
+      "eligible_contracts": 9,
+      "cluster": "2026-11-07"
+    },
+    "btc_above_daily:1314690": {
+      "cutoff": 1794373200,
+      "expiry": 1794416400,
+      "eligible_contracts": 8,
+      "cluster": "2026-11-11"
+    },
+    "btc_above_daily:1342183": {
+      "cutoff": 1794718800,
+      "expiry": 1794762000,
+      "eligible_contracts": 6,
+      "cluster": "2026-11-15"
+    },
+    "btc_above_daily:1372731": {
+      "cutoff": 1795064400,
+      "expiry": 1795107600,
+      "eligible_contracts": 6,
+      "cluster": "2026-11-19"
+    },
+    "btc_above_daily:1410639": {
+      "cutoff": 1795496400,
+      "expiry": 1795539600,
+      "eligible_contracts": 9,
+      "cluster": "2026-11-24"
+    },
+    "eth_above_daily:16251": {
+      "cutoff": 1736485260,
+      "expiry": 1736528460,
+      "eligible_contracts": 1,
+      "cluster": "2025-01-10"
+    },
+    "eth_above_daily:17559": {
+      "cutoff": 1738904460,
+      "expiry": 1738947660,
+      "eligible_contracts": 1,
+      "cluster": "2025-02-07"
+    },
+    "eth_above_daily:19911": {
+      "cutoff": 1741323660,
+      "expiry": 1741366860,
+      "eligible_contracts": 1,
+      "cluster": "2025-03-07"
+    },
+    "eth_above_daily:21754": {
+      "cutoff": 1743739260,
+      "expiry": 1743782460,
+      "eligible_contracts": 1,
+      "cluster": "2025-04-04"
+    },
+    "eth_above_daily:23416": {
+      "cutoff": 1746158460,
+      "expiry": 1746201660,
+      "eligible_contracts": 1,
+      "cluster": "2025-05-02"
+    },
+    "eth_above_daily:24649": {
+      "cutoff": 1747972860,
+      "expiry": 1748016060,
+      "eligible_contracts": 1,
+      "cluster": "2025-05-23"
+    },
+    "eth_above_daily:25538": {
+      "cutoff": 1749182460,
+      "expiry": 1749225660,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-06"
+    },
+    "eth_above_daily:27096": {
+      "cutoff": 1750392060,
+      "expiry": 1750435260,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-20"
+    },
+    "eth_above_daily:30440": {
+      "cutoff": 1752033660,
+      "expiry": 1752076860,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-09"
+    },
+    "eth_above_daily:32199": {
+      "cutoff": 1752811260,
+      "expiry": 1752854460,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-18"
+    },
+    "eth_above_daily:33443": {
+      "cutoff": 1753675260,
+      "expiry": 1753718460,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-28"
+    },
+    "eth_above_daily:34857": {
+      "cutoff": 1754452860,
+      "expiry": 1754496060,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-06"
+    },
+    "eth_above_daily:36657": {
+      "cutoff": 1755230460,
+      "expiry": 1755273660,
+      "eligible_contracts": 5,
+      "cluster": "2025-08-15"
+    },
+    "eth_above_daily:38292": {
+      "cutoff": 1756094460,
+      "expiry": 1756137660,
+      "eligible_contracts": 9,
+      "cluster": "2025-08-25"
+    },
+    "eth_above_daily:40061": {
+      "cutoff": 1756872060,
+      "expiry": 1756915260,
+      "eligible_contracts": 7,
+      "cluster": "2025-09-03"
+    },
+    "eth_above_daily:42348": {
+      "cutoff": 1757736060,
+      "expiry": 1757779260,
+      "eligible_contracts": 6,
+      "cluster": "2025-09-13"
+    },
+    "eth_above_daily:43028": {
+      "cutoff": 1758081660,
+      "expiry": 1758124860,
+      "eligible_contracts": 10,
+      "cluster": "2025-09-17"
+    },
+    "eth_above_daily:44472": {
+      "cutoff": 1758427260,
+      "expiry": 1758470460,
+      "eligible_contracts": 10,
+      "cluster": "2025-09-21"
+    },
+    "eth_above_daily:46223": {
+      "cutoff": 1758772860,
+      "expiry": 1758816060,
+      "eligible_contracts": 9,
+      "cluster": "2025-09-25"
+    },
+    "eth_above_daily:48148": {
+      "cutoff": 1759118460,
+      "expiry": 1759161660,
+      "eligible_contracts": 9,
+      "cluster": "2025-09-29"
+    },
+    "eth_above_daily:50252": {
+      "cutoff": 1759464060,
+      "expiry": 1759507260,
+      "eligible_contracts": 5,
+      "cluster": "2025-10-03"
+    },
+    "eth_above_daily:52064": {
+      "cutoff": 1759809660,
+      "expiry": 1759852860,
+      "eligible_contracts": 4,
+      "cluster": "2025-10-07"
+    },
+    "eth_above_daily:54081": {
+      "cutoff": 1760155260,
+      "expiry": 1760198460,
+      "eligible_contracts": 10,
+      "cluster": "2025-10-11"
+    },
+    "eth_above_daily:56993": {
+      "cutoff": 1760587260,
+      "expiry": 1760630460,
+      "eligible_contracts": 11,
+      "cluster": "2025-10-16"
+    },
+    "eth_above_daily:59010": {
+      "cutoff": 1760932860,
+      "expiry": 1760976060,
+      "eligible_contracts": 11,
+      "cluster": "2025-10-20"
+    },
+    "eth_above_daily:60951": {
+      "cutoff": 1761278460,
+      "expiry": 1761321660,
+      "eligible_contracts": 11,
+      "cluster": "2025-10-24"
+    },
+    "eth_above_daily:63019": {
+      "cutoff": 1761624060,
+      "expiry": 1761667260,
+      "eligible_contracts": 11,
+      "cluster": "2025-10-28"
+    },
+    "eth_above_daily:65180": {
+      "cutoff": 1761969660,
+      "expiry": 1762012860,
+      "eligible_contracts": 11,
+      "cluster": "2025-11-01"
+    },
+    "eth_above_daily:67783": {
+      "cutoff": 1762318860,
+      "expiry": 1762362060,
+      "eligible_contracts": 10,
+      "cluster": "2025-11-05"
+    },
+    "eth_above_daily:76233": {
+      "cutoff": 1762664460,
+      "expiry": 1762707660,
+      "eligible_contracts": 11,
+      "cluster": "2025-11-09"
+    },
+    "eth_above_daily:75480": {
+      "cutoff": 1763096460,
+      "expiry": 1763139660,
+      "eligible_contracts": 11,
+      "cluster": "2025-11-14"
+    },
+    "eth_above_daily:79000": {
+      "cutoff": 1763442060,
+      "expiry": 1763485260,
+      "eligible_contracts": 10,
+      "cluster": "2025-11-18"
+    },
+    "eth_above_daily:82230": {
+      "cutoff": 1763787660,
+      "expiry": 1763830860,
+      "eligible_contracts": 9,
+      "cluster": "2025-11-22"
+    },
+    "eth_above_daily:85493": {
+      "cutoff": 1764133260,
+      "expiry": 1764176460,
+      "eligible_contracts": 11,
+      "cluster": "2025-11-26"
+    },
+    "eth_above_daily:88620": {
+      "cutoff": 1764478860,
+      "expiry": 1764522060,
+      "eligible_contracts": 7,
+      "cluster": "2025-11-30"
+    },
+    "eth_above_daily:91891": {
+      "cutoff": 1764824460,
+      "expiry": 1764867660,
+      "eligible_contracts": 11,
+      "cluster": "2025-12-04"
+    },
+    "eth_above_daily:95068": {
+      "cutoff": 1765170060,
+      "expiry": 1765213260,
+      "eligible_contracts": 11,
+      "cluster": "2025-12-08"
+    },
+    "eth_above_daily:98060": {
+      "cutoff": 1765515660,
+      "expiry": 1765558860,
+      "eligible_contracts": 11,
+      "cluster": "2025-12-12"
+    },
+    "eth_above_daily:102583": {
+      "cutoff": 1766034060,
+      "expiry": 1766077260,
+      "eligible_contracts": 11,
+      "cluster": "2025-12-18"
+    },
+    "eth_above_daily:105982": {
+      "cutoff": 1766379660,
+      "expiry": 1766422860,
+      "eligible_contracts": 11,
+      "cluster": "2025-12-22"
+    },
+    "eth_above_daily:111885": {
+      "cutoff": 1766725260,
+      "expiry": 1766768460,
+      "eligible_contracts": 10,
+      "cluster": "2025-12-26"
+    },
+    "eth_above_daily:119610": {
+      "cutoff": 1767070860,
+      "expiry": 1767114060,
+      "eligible_contracts": 11,
+      "cluster": "2025-12-30"
+    },
+    "eth_above_daily:127249": {
+      "cutoff": 1767416460,
+      "expiry": 1767459660,
+      "eligible_contracts": 7,
+      "cluster": "2026-01-03"
+    },
+    "eth_above_daily:135278": {
+      "cutoff": 1767762060,
+      "expiry": 1767805260,
+      "eligible_contracts": 11,
+      "cluster": "2026-01-07"
+    },
+    "eth_above_daily:143392": {
+      "cutoff": 1768107660,
+      "expiry": 1768150860,
+      "eligible_contracts": 7,
+      "cluster": "2026-01-11"
+    },
+    "eth_above_daily:153614": {
+      "cutoff": 1768539660,
+      "expiry": 1768582860,
+      "eligible_contracts": 9,
+      "cluster": "2026-01-16"
+    },
+    "eth_above_daily:161801": {
+      "cutoff": 1768885260,
+      "expiry": 1768928460,
+      "eligible_contracts": 10,
+      "cluster": "2026-01-20"
+    },
+    "eth_above_daily:170521": {
+      "cutoff": 1769230860,
+      "expiry": 1769274060,
+      "eligible_contracts": 5,
+      "cluster": "2026-01-24"
+    },
+    "eth_above_daily:179313": {
+      "cutoff": 1769576460,
+      "expiry": 1769619660,
+      "eligible_contracts": 10,
+      "cluster": "2026-01-28"
+    },
+    "eth_above_daily:188299": {
+      "cutoff": 1769922060,
+      "expiry": 1769965260,
+      "eligible_contracts": 6,
+      "cluster": "2026-02-01"
+    },
+    "eth_above_daily:192732": {
+      "cutoff": 1770267660,
+      "expiry": 1770310860,
+      "eligible_contracts": 9,
+      "cluster": "2026-02-05"
+    },
+    "eth_above_daily:196769": {
+      "cutoff": 1770613260,
+      "expiry": 1770656460,
+      "eligible_contracts": 8,
+      "cluster": "2026-02-09"
+    },
+    "eth_above_daily:200487": {
+      "cutoff": 1770958860,
+      "expiry": 1771002060,
+      "eligible_contracts": 11,
+      "cluster": "2026-02-13"
+    },
+    "eth_above_daily:205182": {
+      "cutoff": 1771390860,
+      "expiry": 1771434060,
+      "eligible_contracts": 10,
+      "cluster": "2026-02-18"
+    },
+    "eth_above_daily:210682": {
+      "cutoff": 1771736460,
+      "expiry": 1771779660,
+      "eligible_contracts": 11,
+      "cluster": "2026-02-22"
+    },
+    "eth_above_daily:217199": {
+      "cutoff": 1772082060,
+      "expiry": 1772125260,
+      "eligible_contracts": 11,
+      "cluster": "2026-02-26"
+    },
+    "eth_above_daily:228139": {
+      "cutoff": 1772514060,
+      "expiry": 1772557260,
+      "eligible_contracts": 11,
+      "cluster": "2026-03-03"
+    },
+    "eth_above_daily:237153": {
+      "cutoff": 1772859660,
+      "expiry": 1772902860,
+      "eligible_contracts": 7,
+      "cluster": "2026-03-07"
+    },
+    "eth_above_daily:246046": {
+      "cutoff": 1773201660,
+      "expiry": 1773244860,
+      "eligible_contracts": 10,
+      "cluster": "2026-03-11"
+    },
+    "eth_above_daily:256456": {
+      "cutoff": 1773633660,
+      "expiry": 1773676860,
+      "eligible_contracts": 11,
+      "cluster": "2026-03-16"
+    },
+    "eth_above_daily:269736": {
+      "cutoff": 1774065660,
+      "expiry": 1774108860,
+      "eligible_contracts": 6,
+      "cluster": "2026-03-21"
+    },
+    "eth_above_daily:283377": {
+      "cutoff": 1774411260,
+      "expiry": 1774454460,
+      "eligible_contracts": 10,
+      "cluster": "2026-03-25"
+    },
+    "eth_above_daily:296826": {
+      "cutoff": 1774756860,
+      "expiry": 1774800060,
+      "eligible_contracts": 8,
+      "cluster": "2026-03-29"
+    },
+    "eth_above_daily:310562": {
+      "cutoff": 1775102460,
+      "expiry": 1775145660,
+      "eligible_contracts": 10,
+      "cluster": "2026-04-02"
+    },
+    "eth_above_daily:325747": {
+      "cutoff": 1775448060,
+      "expiry": 1775491260,
+      "eligible_contracts": 11,
+      "cluster": "2026-04-06"
+    },
+    "eth_above_daily:339990": {
+      "cutoff": 1775793660,
+      "expiry": 1775836860,
+      "eligible_contracts": 10,
+      "cluster": "2026-04-10"
+    },
+    "eth_above_daily:354313": {
+      "cutoff": 1776139260,
+      "expiry": 1776182460,
+      "eligible_contracts": 9,
+      "cluster": "2026-04-14"
+    },
+    "eth_above_daily:371729": {
+      "cutoff": 1776571260,
+      "expiry": 1776614460,
+      "eligible_contracts": 10,
+      "cluster": "2026-04-19"
+    },
+    "eth_above_daily:385676": {
+      "cutoff": 1776916860,
+      "expiry": 1776960060,
+      "eligible_contracts": 11,
+      "cluster": "2026-04-23"
+    },
+    "eth_above_daily:399795": {
+      "cutoff": 1777262460,
+      "expiry": 1777305660,
+      "eligible_contracts": 9,
+      "cluster": "2026-04-27"
+    },
+    "eth_above_daily:413683": {
+      "cutoff": 1777608060,
+      "expiry": 1777651260,
+      "eligible_contracts": 9,
+      "cluster": "2026-05-01"
+    },
+    "eth_above_daily:427970": {
+      "cutoff": 1777953660,
+      "expiry": 1777996860,
+      "eligible_contracts": 10,
+      "cluster": "2026-05-05"
+    },
+    "eth_above_daily:441593": {
+      "cutoff": 1778299260,
+      "expiry": 1778342460,
+      "eligible_contracts": 6,
+      "cluster": "2026-05-09"
+    },
+    "eth_above_daily:455570": {
+      "cutoff": 1778644860,
+      "expiry": 1778688060,
+      "eligible_contracts": 8,
+      "cluster": "2026-05-13"
+    },
+    "eth_above_daily:470819": {
+      "cutoff": 1778990460,
+      "expiry": 1779033660,
+      "eligible_contracts": 6,
+      "cluster": "2026-05-17"
+    },
+    "eth_above_daily:488465": {
+      "cutoff": 1779422460,
+      "expiry": 1779465660,
+      "eligible_contracts": 9,
+      "cluster": "2026-05-22"
+    },
+    "eth_above_daily:502451": {
+      "cutoff": 1779768060,
+      "expiry": 1779811260,
+      "eligible_contracts": 11,
+      "cluster": "2026-05-26"
+    },
+    "eth_above_daily:517274": {
+      "cutoff": 1780113660,
+      "expiry": 1780156860,
+      "eligible_contracts": 6,
+      "cluster": "2026-05-30"
+    },
+    "eth_above_daily:531124": {
+      "cutoff": 1780459260,
+      "expiry": 1780502460,
+      "eligible_contracts": 10,
+      "cluster": "2026-06-03"
+    },
+    "eth_above_daily:545054": {
+      "cutoff": 1780804860,
+      "expiry": 1780848060,
+      "eligible_contracts": 7,
+      "cluster": "2026-06-07"
+    },
+    "eth_above_daily:559047": {
+      "cutoff": 1781150460,
+      "expiry": 1781193660,
+      "eligible_contracts": 6,
+      "cluster": "2026-06-11"
+    },
+    "eth_above_daily:573061": {
+      "cutoff": 1781496060,
+      "expiry": 1781539260,
+      "eligible_contracts": 8,
+      "cluster": "2026-06-15"
+    },
+    "eth_above_daily:591091": {
+      "cutoff": 1781928060,
+      "expiry": 1781971260,
+      "eligible_contracts": 5,
+      "cluster": "2026-06-20"
+    },
+    "eth_above_daily:605221": {
+      "cutoff": 1782273660,
+      "expiry": 1782316860,
+      "eligible_contracts": 10,
+      "cluster": "2026-06-24"
+    },
+    "eth_above_daily:619145": {
+      "cutoff": 1782619260,
+      "expiry": 1782662460,
+      "eligible_contracts": 9,
+      "cluster": "2026-06-28"
+    },
+    "eth_above_daily:633585": {
+      "cutoff": 1782964860,
+      "expiry": 1783008060,
+      "eligible_contracts": 10,
+      "cluster": "2026-07-02"
+    },
+    "eth_above_daily:648183": {
+      "cutoff": 1783310460,
+      "expiry": 1783353660,
+      "eligible_contracts": 7,
+      "cluster": "2026-07-06"
+    },
+    "eth_above_daily:662898": {
+      "cutoff": 1783656060,
+      "expiry": 1783699260,
+      "eligible_contracts": 6,
+      "cluster": "2026-07-10"
+    },
+    "eth_above_daily:677165": {
+      "cutoff": 1784001660,
+      "expiry": 1784044860,
+      "eligible_contracts": 6,
+      "cluster": "2026-07-14"
+    },
+    "eth_above_daily:699251": {
+      "cutoff": 1784520060,
+      "expiry": 1784563260,
+      "eligible_contracts": 6,
+      "cluster": "2026-07-20"
+    },
+    "eth_above_daily:717830": {
+      "cutoff": 1784952060,
+      "expiry": 1784995260,
+      "eligible_contracts": 4,
+      "cluster": "2026-07-25"
+    },
+    "eth_above_daily:733271": {
+      "cutoff": 1785297660,
+      "expiry": 1785340860,
+      "eligible_contracts": 8,
+      "cluster": "2026-07-29"
+    },
+    "eth_above_daily:761818": {
+      "cutoff": 1785816060,
+      "expiry": 1785859260,
+      "eligible_contracts": 6,
+      "cluster": "2026-08-04"
+    },
+    "eth_above_daily:781721": {
+      "cutoff": 1786161660,
+      "expiry": 1786204860,
+      "eligible_contracts": 3,
+      "cluster": "2026-08-08"
+    },
+    "eth_above_daily:801577": {
+      "cutoff": 1786507260,
+      "expiry": 1786550460,
+      "eligible_contracts": 6,
+      "cluster": "2026-08-12"
+    },
+    "eth_above_daily:821846": {
+      "cutoff": 1786852860,
+      "expiry": 1786896060,
+      "eligible_contracts": 4,
+      "cluster": "2026-08-16"
+    },
+    "eth_above_daily:844164": {
+      "cutoff": 1787198460,
+      "expiry": 1787241660,
+      "eligible_contracts": 7,
+      "cluster": "2026-08-20"
+    },
+    "eth_above_daily:871215": {
+      "cutoff": 1787630460,
+      "expiry": 1787673660,
+      "eligible_contracts": 8,
+      "cluster": "2026-08-25"
+    },
+    "eth_above_daily:890354": {
+      "cutoff": 1787976060,
+      "expiry": 1788019260,
+      "eligible_contracts": 10,
+      "cluster": "2026-08-29"
+    },
+    "eth_above_daily:916184": {
+      "cutoff": 1788321660,
+      "expiry": 1788364860,
+      "eligible_contracts": 8,
+      "cluster": "2026-09-02"
+    },
+    "eth_above_daily:936866": {
+      "cutoff": 1788667260,
+      "expiry": 1788710460,
+      "eligible_contracts": 7,
+      "cluster": "2026-09-06"
+    },
+    "eth_above_daily:959615": {
+      "cutoff": 1789012860,
+      "expiry": 1789056060,
+      "eligible_contracts": 9,
+      "cluster": "2026-09-10"
+    },
+    "eth_above_daily:983346": {
+      "cutoff": 1789358460,
+      "expiry": 1789401660,
+      "eligible_contracts": 10,
+      "cluster": "2026-09-14"
+    },
+    "eth_above_daily:1005106": {
+      "cutoff": 1789704060,
+      "expiry": 1789747260,
+      "eligible_contracts": 10,
+      "cluster": "2026-09-18"
+    },
+    "eth_above_daily:1028595": {
+      "cutoff": 1790049660,
+      "expiry": 1790092860,
+      "eligible_contracts": 7,
+      "cluster": "2026-09-22"
+    },
+    "eth_above_daily:1053960": {
+      "cutoff": 1790481660,
+      "expiry": 1790524860,
+      "eligible_contracts": 6,
+      "cluster": "2026-09-27"
+    },
+    "eth_above_daily:1074541": {
+      "cutoff": 1790827260,
+      "expiry": 1790870460,
+      "eligible_contracts": 10,
+      "cluster": "2026-10-01"
+    },
+    "eth_above_daily:1098529": {
+      "cutoff": 1791172860,
+      "expiry": 1791216060,
+      "eligible_contracts": 10,
+      "cluster": "2026-10-05"
+    },
+    "eth_above_daily:1119675": {
+      "cutoff": 1791518400,
+      "expiry": 1791561600,
+      "eligible_contracts": 7,
+      "cluster": "2026-10-09"
+    },
+    "eth_above_daily:1143493": {
+      "cutoff": 1791864000,
+      "expiry": 1791907200,
+      "eligible_contracts": 7,
+      "cluster": "2026-10-13"
+    },
+    "eth_above_daily:1165150": {
+      "cutoff": 1792209600,
+      "expiry": 1792252800,
+      "eligible_contracts": 5,
+      "cluster": "2026-10-17"
+    },
+    "eth_above_daily:1188981": {
+      "cutoff": 1792555200,
+      "expiry": 1792598400,
+      "eligible_contracts": 7,
+      "cluster": "2026-10-21"
+    },
+    "eth_above_daily:1218454": {
+      "cutoff": 1792987200,
+      "expiry": 1793030400,
+      "eligible_contracts": 7,
+      "cluster": "2026-10-26"
+    },
+    "eth_above_daily:1241183": {
+      "cutoff": 1793332800,
+      "expiry": 1793376000,
+      "eligible_contracts": 8,
+      "cluster": "2026-10-30"
+    },
+    "eth_above_daily:1266666": {
+      "cutoff": 1793682000,
+      "expiry": 1793725200,
+      "eligible_contracts": 10,
+      "cluster": "2026-11-03"
+    },
+    "eth_above_daily:1289165": {
+      "cutoff": 1794027600,
+      "expiry": 1794070800,
+      "eligible_contracts": 4,
+      "cluster": "2026-11-07"
+    },
+    "eth_above_daily:1314682": {
+      "cutoff": 1794373200,
+      "expiry": 1794416400,
+      "eligible_contracts": 7,
+      "cluster": "2026-11-11"
+    },
+    "eth_above_daily:1342174": {
+      "cutoff": 1794718800,
+      "expiry": 1794762000,
+      "eligible_contracts": 4,
+      "cluster": "2026-11-15"
+    },
+    "eth_above_daily:1372726": {
+      "cutoff": 1795064400,
+      "expiry": 1795107600,
+      "eligible_contracts": 8,
+      "cluster": "2026-11-19"
+    },
+    "eth_above_daily:1410634": {
+      "cutoff": 1795496400,
+      "expiry": 1795539600,
+      "eligible_contracts": 7,
+      "cluster": "2026-11-24"
+    },
+    "btc_updown_daily:20926": {
+      "cutoff": 1742011260,
+      "expiry": 1742054460,
+      "eligible_contracts": 1,
+      "cluster": "2025-03-15"
+    },
+    "btc_updown_daily:21202": {
+      "cutoff": 1742443260,
+      "expiry": 1742486460,
+      "eligible_contracts": 1,
+      "cluster": "2025-03-20"
+    },
+    "btc_updown_daily:21342": {
+      "cutoff": 1742875260,
+      "expiry": 1742918460,
+      "eligible_contracts": 1,
+      "cluster": "2025-03-25"
+    },
+    "btc_updown_daily:21758": {
+      "cutoff": 1743307260,
+      "expiry": 1743350460,
+      "eligible_contracts": 1,
+      "cluster": "2025-03-30"
+    },
+    "btc_updown_daily:22206": {
+      "cutoff": 1743825660,
+      "expiry": 1743868860,
+      "eligible_contracts": 1,
+      "cluster": "2025-04-05"
+    },
+    "btc_updown_daily:22482": {
+      "cutoff": 1744257660,
+      "expiry": 1744300860,
+      "eligible_contracts": 1,
+      "cluster": "2025-04-10"
+    },
+    "btc_updown_daily:22641": {
+      "cutoff": 1744776060,
+      "expiry": 1744819260,
+      "eligible_contracts": 1,
+      "cluster": "2025-04-16"
+    },
+    "btc_updown_daily:23073": {
+      "cutoff": 1745208060,
+      "expiry": 1745251260,
+      "eligible_contracts": 1,
+      "cluster": "2025-04-21"
+    },
+    "btc_updown_daily:23368": {
+      "cutoff": 1745640060,
+      "expiry": 1745683260,
+      "eligible_contracts": 1,
+      "cluster": "2025-04-26"
+    },
+    "btc_updown_daily:23612": {
+      "cutoff": 1746072060,
+      "expiry": 1746115260,
+      "eligible_contracts": 1,
+      "cluster": "2025-05-01"
+    },
+    "btc_updown_daily:23801": {
+      "cutoff": 1746504060,
+      "expiry": 1746547260,
+      "eligible_contracts": 1,
+      "cluster": "2025-05-06"
+    },
+    "btc_updown_daily:24164": {
+      "cutoff": 1747022460,
+      "expiry": 1747065660,
+      "eligible_contracts": 1,
+      "cluster": "2025-05-12"
+    },
+    "btc_updown_daily:24541": {
+      "cutoff": 1747454460,
+      "expiry": 1747497660,
+      "eligible_contracts": 1,
+      "cluster": "2025-05-17"
+    },
+    "btc_updown_daily:24817": {
+      "cutoff": 1747886460,
+      "expiry": 1747929660,
+      "eligible_contracts": 1,
+      "cluster": "2025-05-22"
+    },
+    "btc_updown_daily:25078": {
+      "cutoff": 1748318460,
+      "expiry": 1748361660,
+      "eligible_contracts": 1,
+      "cluster": "2025-05-27"
+    },
+    "btc_updown_daily:25516": {
+      "cutoff": 1748750460,
+      "expiry": 1748793660,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-01"
+    },
+    "btc_updown_daily:26029": {
+      "cutoff": 1749268860,
+      "expiry": 1749312060,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-07"
+    },
+    "btc_updown_daily:26528": {
+      "cutoff": 1749700860,
+      "expiry": 1749744060,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-12"
+    },
+    "btc_updown_daily:26933": {
+      "cutoff": 1750132860,
+      "expiry": 1750176060,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-17"
+    },
+    "btc_updown_daily:27894": {
+      "cutoff": 1750564860,
+      "expiry": 1750608060,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-22"
+    },
+    "btc_updown_daily:28678": {
+      "cutoff": 1750996860,
+      "expiry": 1751040060,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-27"
+    },
+    "btc_updown_daily:30424": {
+      "cutoff": 1751515260,
+      "expiry": 1751558460,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-03"
+    },
+    "btc_updown_daily:30860": {
+      "cutoff": 1751947260,
+      "expiry": 1751990460,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-08"
+    },
+    "btc_updown_daily:31941": {
+      "cutoff": 1752379260,
+      "expiry": 1752422460,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-13"
+    },
+    "btc_updown_daily:32617": {
+      "cutoff": 1752811260,
+      "expiry": 1752854460,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-18"
+    },
+    "btc_updown_daily:33353": {
+      "cutoff": 1753243260,
+      "expiry": 1753286460,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-23"
+    },
+    "btc_updown_daily:34067": {
+      "cutoff": 1753761660,
+      "expiry": 1753804860,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-29"
+    },
+    "btc_updown_daily:35121": {
+      "cutoff": 1754193660,
+      "expiry": 1754236860,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-03"
+    },
+    "btc_updown_daily:35716": {
+      "cutoff": 1754625660,
+      "expiry": 1754668860,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-08"
+    },
+    "btc_updown_daily:37043": {
+      "cutoff": 1755057660,
+      "expiry": 1755100860,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-13"
+    },
+    "btc_updown_daily:37643": {
+      "cutoff": 1755489660,
+      "expiry": 1755532860,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-18"
+    },
+    "btc_updown_daily:38871": {
+      "cutoff": 1755921660,
+      "expiry": 1755964860,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-23"
+    },
+    "btc_updown_daily:40034": {
+      "cutoff": 1756440060,
+      "expiry": 1756483260,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-29"
+    },
+    "btc_updown_daily:41096": {
+      "cutoff": 1756872060,
+      "expiry": 1756915260,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-03"
+    },
+    "btc_updown_daily:42218": {
+      "cutoff": 1757304060,
+      "expiry": 1757347260,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-08"
+    },
+    "btc_updown_daily:43329": {
+      "cutoff": 1757736060,
+      "expiry": 1757779260,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-13"
+    },
+    "btc_updown_daily:45474": {
+      "cutoff": 1758168060,
+      "expiry": 1758211260,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-18"
+    },
+    "btc_updown_daily:48149": {
+      "cutoff": 1758686460,
+      "expiry": 1758729660,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-24"
+    },
+    "btc_updown_daily:50711": {
+      "cutoff": 1759118460,
+      "expiry": 1759161660,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-29"
+    },
+    "btc_updown_daily:53076": {
+      "cutoff": 1759550460,
+      "expiry": 1759593660,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-04"
+    },
+    "btc_updown_daily:55819": {
+      "cutoff": 1759982460,
+      "expiry": 1760025660,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-09"
+    },
+    "btc_updown_daily:58489": {
+      "cutoff": 1760414460,
+      "expiry": 1760457660,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-14"
+    },
+    "btc_updown_daily:61355": {
+      "cutoff": 1760932860,
+      "expiry": 1760976060,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-20"
+    },
+    "btc_updown_daily:64072": {
+      "cutoff": 1761364860,
+      "expiry": 1761408060,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-25"
+    },
+    "btc_updown_daily:67112": {
+      "cutoff": 1761796860,
+      "expiry": 1761840060,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-30"
+    },
+    "btc_updown_daily:71592": {
+      "cutoff": 1762232460,
+      "expiry": 1762275660,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-04"
+    },
+    "btc_updown_daily:75479": {
+      "cutoff": 1762664460,
+      "expiry": 1762707660,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-09"
+    },
+    "btc_updown_daily:80684": {
+      "cutoff": 1763182860,
+      "expiry": 1763226060,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-15"
+    },
+    "btc_updown_daily:84597": {
+      "cutoff": 1763614860,
+      "expiry": 1763658060,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-20"
+    },
+    "btc_updown_daily:88621": {
+      "cutoff": 1764046860,
+      "expiry": 1764090060,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-25"
+    },
+    "btc_updown_daily:92656": {
+      "cutoff": 1764478860,
+      "expiry": 1764522060,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-30"
+    },
+    "btc_updown_daily:96565": {
+      "cutoff": 1764910860,
+      "expiry": 1764954060,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-05"
+    },
+    "btc_updown_daily:101050": {
+      "cutoff": 1765429260,
+      "expiry": 1765472460,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-11"
+    },
+    "btc_updown_daily:105118": {
+      "cutoff": 1765861260,
+      "expiry": 1765904460,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-16"
+    },
+    "btc_updown_daily:111884": {
+      "cutoff": 1766293260,
+      "expiry": 1766336460,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-21"
+    },
+    "btc_updown_daily:121555": {
+      "cutoff": 1766725260,
+      "expiry": 1766768460,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-26"
+    },
+    "btc_updown_daily:131332": {
+      "cutoff": 1767157260,
+      "expiry": 1767200460,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-31"
+    },
+    "btc_updown_daily:143391": {
+      "cutoff": 1767675660,
+      "expiry": 1767718860,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-06"
+    },
+    "btc_updown_daily:153615": {
+      "cutoff": 1768107660,
+      "expiry": 1768150860,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-11"
+    },
+    "btc_updown_daily:164138": {
+      "cutoff": 1768539660,
+      "expiry": 1768582860,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-16"
+    },
+    "btc_updown_daily:174866": {
+      "cutoff": 1768971660,
+      "expiry": 1769014860,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-21"
+    },
+    "btc_updown_daily:185885": {
+      "cutoff": 1769403660,
+      "expiry": 1769446860,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-26"
+    },
+    "btc_updown_daily:192733": {
+      "cutoff": 1769835660,
+      "expiry": 1769878860,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-31"
+    },
+    "btc_updown_daily:198554": {
+      "cutoff": 1770354060,
+      "expiry": 1770397260,
+      "eligible_contracts": 1,
+      "cluster": "2026-02-06"
+    },
+    "btc_updown_daily:203556": {
+      "cutoff": 1770786060,
+      "expiry": 1770829260,
+      "eligible_contracts": 1,
+      "cluster": "2026-02-11"
+    },
+    "btc_updown_daily:209117": {
+      "cutoff": 1771218060,
+      "expiry": 1771261260,
+      "eligible_contracts": 1,
+      "cluster": "2026-02-16"
+    },
+    "btc_updown_daily:217198": {
+      "cutoff": 1771650060,
+      "expiry": 1771693260,
+      "eligible_contracts": 1,
+      "cluster": "2026-02-21"
+    },
+    "btc_updown_daily:228138": {
+      "cutoff": 1772082060,
+      "expiry": 1772125260,
+      "eligible_contracts": 1,
+      "cluster": "2026-02-26"
+    },
+    "btc_updown_daily:241760": {
+      "cutoff": 1772600460,
+      "expiry": 1772643660,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-04"
+    },
+    "btc_updown_daily:252315": {
+      "cutoff": 1773028860,
+      "expiry": 1773072060,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-09"
+    },
+    "btc_updown_daily:264715": {
+      "cutoff": 1773460860,
+      "expiry": 1773504060,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-14"
+    },
+    "btc_updown_daily:280004": {
+      "cutoff": 1773892860,
+      "expiry": 1773936060,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-19"
+    },
+    "btc_updown_daily:296824": {
+      "cutoff": 1774324860,
+      "expiry": 1774368060,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-24"
+    },
+    "btc_updown_daily:318275": {
+      "cutoff": 1774843260,
+      "expiry": 1774886460,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-30"
+    },
+    "btc_updown_daily:336414": {
+      "cutoff": 1775275260,
+      "expiry": 1775318460,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-04"
+    },
+    "btc_updown_daily:354312": {
+      "cutoff": 1775707260,
+      "expiry": 1775750460,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-09"
+    },
+    "btc_updown_daily:371728": {
+      "cutoff": 1776139260,
+      "expiry": 1776182460,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-14"
+    },
+    "btc_updown_daily:389094": {
+      "cutoff": 1776571260,
+      "expiry": 1776614460,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-19"
+    },
+    "btc_updown_daily:410257": {
+      "cutoff": 1777089660,
+      "expiry": 1777132860,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-25"
+    },
+    "btc_updown_daily:427969": {
+      "cutoff": 1777521660,
+      "expiry": 1777564860,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-30"
+    },
+    "btc_updown_daily:444949": {
+      "cutoff": 1777953660,
+      "expiry": 1777996860,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-05"
+    },
+    "btc_updown_daily:462378": {
+      "cutoff": 1778385660,
+      "expiry": 1778428860,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-10"
+    },
+    "btc_updown_daily:481430": {
+      "cutoff": 1778817660,
+      "expiry": 1778860860,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-15"
+    },
+    "btc_updown_daily:502450": {
+      "cutoff": 1779336060,
+      "expiry": 1779379260,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-21"
+    },
+    "btc_updown_daily:523916": {
+      "cutoff": 1779854460,
+      "expiry": 1779897660,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-27"
+    },
+    "btc_updown_daily:541687": {
+      "cutoff": 1780286460,
+      "expiry": 1780329660,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-01"
+    },
+    "btc_updown_daily:559044": {
+      "cutoff": 1780718460,
+      "expiry": 1780761660,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-06"
+    },
+    "btc_updown_daily:576711": {
+      "cutoff": 1781150460,
+      "expiry": 1781193660,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-11"
+    },
+    "btc_updown_daily:597982": {
+      "cutoff": 1781668860,
+      "expiry": 1781712060,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-17"
+    },
+    "btc_updown_daily:615693": {
+      "cutoff": 1782100860,
+      "expiry": 1782144060,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-22"
+    },
+    "btc_updown_daily:633584": {
+      "cutoff": 1782532860,
+      "expiry": 1782576060,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-27"
+    },
+    "btc_updown_daily:651825": {
+      "cutoff": 1782964860,
+      "expiry": 1783008060,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-02"
+    },
+    "btc_updown_daily:670030": {
+      "cutoff": 1783396860,
+      "expiry": 1783440060,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-07"
+    },
+    "btc_updown_daily:688303": {
+      "cutoff": 1783828860,
+      "expiry": 1783872060,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-12"
+    },
+    "btc_updown_daily:710516": {
+      "cutoff": 1784347260,
+      "expiry": 1784390460,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-18"
+    },
+    "btc_updown_daily:729692": {
+      "cutoff": 1784779260,
+      "expiry": 1784822460,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-23"
+    },
+    "btc_updown_daily:752066": {
+      "cutoff": 1785211260,
+      "expiry": 1785254460,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-28"
+    },
+    "btc_updown_daily:778445": {
+      "cutoff": 1785643260,
+      "expiry": 1785686460,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-02"
+    },
+    "btc_updown_daily:801812": {
+      "cutoff": 1786075260,
+      "expiry": 1786118460,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-07"
+    },
+    "btc_updown_daily:833785": {
+      "cutoff": 1786593660,
+      "expiry": 1786636860,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-13"
+    },
+    "btc_updown_daily:859894": {
+      "cutoff": 1787025660,
+      "expiry": 1787068860,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-18"
+    },
+    "btc_updown_daily:885916": {
+      "cutoff": 1787457660,
+      "expiry": 1787500860,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-23"
+    },
+    "btc_updown_daily:916205": {
+      "cutoff": 1787889660,
+      "expiry": 1787932860,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-28"
+    },
+    "btc_updown_daily:942687": {
+      "cutoff": 1788321660,
+      "expiry": 1788364860,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-02"
+    },
+    "btc_updown_daily:976673": {
+      "cutoff": 1788840060,
+      "expiry": 1788883260,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-08"
+    },
+    "btc_updown_daily:1005128": {
+      "cutoff": 1789272060,
+      "expiry": 1789315260,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-13"
+    },
+    "btc_updown_daily:1033733": {
+      "cutoff": 1789704060,
+      "expiry": 1789747260,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-18"
+    },
+    "btc_updown_daily:1059321": {
+      "cutoff": 1790136060,
+      "expiry": 1790179260,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-23"
+    },
+    "btc_updown_daily:1086165": {
+      "cutoff": 1790568060,
+      "expiry": 1790611260,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-28"
+    },
+    "btc_updown_daily:1119710": {
+      "cutoff": 1791086400,
+      "expiry": 1791129600,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-04"
+    },
+    "btc_updown_daily:1148942": {
+      "cutoff": 1791518460,
+      "expiry": 1791561660,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-09"
+    },
+    "btc_updown_daily:1177780": {
+      "cutoff": 1791950460,
+      "expiry": 1791993660,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-14"
+    },
+    "btc_updown_daily:1205853": {
+      "cutoff": 1792382460,
+      "expiry": 1792425660,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-19"
+    },
+    "btc_updown_daily:1235796": {
+      "cutoff": 1792814460,
+      "expiry": 1792857660,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-24"
+    },
+    "btc_updown_daily:1272539": {
+      "cutoff": 1793332860,
+      "expiry": 1793376060,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-30"
+    },
+    "btc_updown_daily:1302190": {
+      "cutoff": 1793768460,
+      "expiry": 1793811660,
+      "eligible_contracts": 1,
+      "cluster": "2026-11-04"
+    },
+    "btc_updown_daily:1333414": {
+      "cutoff": 1794200460,
+      "expiry": 1794243660,
+      "eligible_contracts": 1,
+      "cluster": "2026-11-09"
+    },
+    "btc_updown_daily:1365228": {
+      "cutoff": 1794546060,
+      "expiry": 1794589260,
+      "eligible_contracts": 1,
+      "cluster": "2026-11-13"
+    },
+    "btc_updown_daily:1399686": {
+      "cutoff": 1794978060,
+      "expiry": 1795021260,
+      "eligible_contracts": 1,
+      "cluster": "2026-11-18"
+    },
+    "eth_updown_daily:21222": {
+      "cutoff": 1742356860,
+      "expiry": 1742400060,
+      "eligible_contracts": 1,
+      "cluster": "2025-03-19"
+    },
+    "eth_updown_daily:21340": {
+      "cutoff": 1742788860,
+      "expiry": 1742832060,
+      "eligible_contracts": 1,
+      "cluster": "2025-03-24"
+    },
+    "eth_updown_daily:21708": {
+      "cutoff": 1743220860,
+      "expiry": 1743264060,
+      "eligible_contracts": 1,
+      "cluster": "2025-03-29"
+    },
+    "eth_updown_daily:22161": {
+      "cutoff": 1743739260,
+      "expiry": 1743782460,
+      "eligible_contracts": 1,
+      "cluster": "2025-04-04"
+    },
+    "eth_updown_daily:22625": {
+      "cutoff": 1744516860,
+      "expiry": 1744560060,
+      "eligible_contracts": 1,
+      "cluster": "2025-04-13"
+    },
+    "eth_updown_daily:22898": {
+      "cutoff": 1744948860,
+      "expiry": 1744992060,
+      "eligible_contracts": 1,
+      "cluster": "2025-04-18"
+    },
+    "eth_updown_daily:23198": {
+      "cutoff": 1745380860,
+      "expiry": 1745424060,
+      "eligible_contracts": 1,
+      "cluster": "2025-04-23"
+    },
+    "eth_updown_daily:23426": {
+      "cutoff": 1745812860,
+      "expiry": 1745856060,
+      "eligible_contracts": 1,
+      "cluster": "2025-04-28"
+    },
+    "eth_updown_daily:23736": {
+      "cutoff": 1746244860,
+      "expiry": 1746288060,
+      "eligible_contracts": 1,
+      "cluster": "2025-05-03"
+    },
+    "eth_updown_daily:24046": {
+      "cutoff": 1746763260,
+      "expiry": 1746806460,
+      "eligible_contracts": 1,
+      "cluster": "2025-05-09"
+    },
+    "eth_updown_daily:24330": {
+      "cutoff": 1747195260,
+      "expiry": 1747238460,
+      "eligible_contracts": 1,
+      "cluster": "2025-05-14"
+    },
+    "eth_updown_daily:24631": {
+      "cutoff": 1747627260,
+      "expiry": 1747670460,
+      "eligible_contracts": 1,
+      "cluster": "2025-05-19"
+    },
+    "eth_updown_daily:24993": {
+      "cutoff": 1748059260,
+      "expiry": 1748102460,
+      "eligible_contracts": 1,
+      "cluster": "2025-05-24"
+    },
+    "eth_updown_daily:25288": {
+      "cutoff": 1748491260,
+      "expiry": 1748534460,
+      "eligible_contracts": 1,
+      "cluster": "2025-05-29"
+    },
+    "eth_updown_daily:25522": {
+      "cutoff": 1748923260,
+      "expiry": 1748966460,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-03"
+    },
+    "eth_updown_daily:26133": {
+      "cutoff": 1749355260,
+      "expiry": 1749398460,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-08"
+    },
+    "eth_updown_daily:26693": {
+      "cutoff": 1749787260,
+      "expiry": 1749830460,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-13"
+    },
+    "eth_updown_daily:27430": {
+      "cutoff": 1750305660,
+      "expiry": 1750348860,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-19"
+    },
+    "eth_updown_daily:27903": {
+      "cutoff": 1750737660,
+      "expiry": 1750780860,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-24"
+    },
+    "eth_updown_daily:29056": {
+      "cutoff": 1751169660,
+      "expiry": 1751212860,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-29"
+    },
+    "eth_updown_daily:30503": {
+      "cutoff": 1751601660,
+      "expiry": 1751644860,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-04"
+    },
+    "eth_updown_daily:31252": {
+      "cutoff": 1752033660,
+      "expiry": 1752076860,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-09"
+    },
+    "eth_updown_daily:31944": {
+      "cutoff": 1752465660,
+      "expiry": 1752508860,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-14"
+    },
+    "eth_updown_daily:32831": {
+      "cutoff": 1752897660,
+      "expiry": 1752940860,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-19"
+    },
+    "eth_updown_daily:33545": {
+      "cutoff": 1753329660,
+      "expiry": 1753372860,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-24"
+    },
+    "eth_updown_daily:34070": {
+      "cutoff": 1753761660,
+      "expiry": 1753804860,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-29"
+    },
+    "eth_updown_daily:35124": {
+      "cutoff": 1754280060,
+      "expiry": 1754323260,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-04"
+    },
+    "eth_updown_daily:36153": {
+      "cutoff": 1754712060,
+      "expiry": 1754755260,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-09"
+    },
+    "eth_updown_daily:37125": {
+      "cutoff": 1755144060,
+      "expiry": 1755187260,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-14"
+    },
+    "eth_updown_daily:37649": {
+      "cutoff": 1755576060,
+      "expiry": 1755619260,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-19"
+    },
+    "eth_updown_daily:39244": {
+      "cutoff": 1756008060,
+      "expiry": 1756051260,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-24"
+    },
+    "eth_updown_daily:40037": {
+      "cutoff": 1756440060,
+      "expiry": 1756483260,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-29"
+    },
+    "eth_updown_daily:41095": {
+      "cutoff": 1756872060,
+      "expiry": 1756915260,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-03"
+    },
+    "eth_updown_daily:42219": {
+      "cutoff": 1757304060,
+      "expiry": 1757347260,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-08"
+    },
+    "eth_updown_daily:43855": {
+      "cutoff": 1757822460,
+      "expiry": 1757865660,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-14"
+    },
+    "eth_updown_daily:45869": {
+      "cutoff": 1758254460,
+      "expiry": 1758297660,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-19"
+    },
+    "eth_updown_daily:48152": {
+      "cutoff": 1758686460,
+      "expiry": 1758729660,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-24"
+    },
+    "eth_updown_daily:50716": {
+      "cutoff": 1759118460,
+      "expiry": 1759161660,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-29"
+    },
+    "eth_updown_daily:53080": {
+      "cutoff": 1759550460,
+      "expiry": 1759593660,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-04"
+    },
+    "eth_updown_daily:55825": {
+      "cutoff": 1759982460,
+      "expiry": 1760025660,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-09"
+    },
+    "eth_updown_daily:58495": {
+      "cutoff": 1760414460,
+      "expiry": 1760457660,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-14"
+    },
+    "eth_updown_daily:60957": {
+      "cutoff": 1760846460,
+      "expiry": 1760889660,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-19"
+    },
+    "eth_updown_daily:63512": {
+      "cutoff": 1761278460,
+      "expiry": 1761321660,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-24"
+    },
+    "eth_updown_daily:67116": {
+      "cutoff": 1761796860,
+      "expiry": 1761840060,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-30"
+    },
+    "eth_updown_daily:71591": {
+      "cutoff": 1762232460,
+      "expiry": 1762275660,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-04"
+    },
+    "eth_updown_daily:75484": {
+      "cutoff": 1762664460,
+      "expiry": 1762707660,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-09"
+    },
+    "eth_updown_daily:79842": {
+      "cutoff": 1763096460,
+      "expiry": 1763139660,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-14"
+    },
+    "eth_updown_daily:83719": {
+      "cutoff": 1763528460,
+      "expiry": 1763571660,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-19"
+    },
+    "eth_updown_daily:87812": {
+      "cutoff": 1763960460,
+      "expiry": 1764003660,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-24"
+    },
+    "eth_updown_daily:91896": {
+      "cutoff": 1764392460,
+      "expiry": 1764435660,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-29"
+    },
+    "eth_updown_daily:95864": {
+      "cutoff": 1764824460,
+      "expiry": 1764867660,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-04"
+    },
+    "eth_updown_daily:100139": {
+      "cutoff": 1765342860,
+      "expiry": 1765386060,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-10"
+    },
+    "eth_updown_daily:104249": {
+      "cutoff": 1765774860,
+      "expiry": 1765818060,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-15"
+    },
+    "eth_updown_daily:109993": {
+      "cutoff": 1766206860,
+      "expiry": 1766250060,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-20"
+    },
+    "eth_updown_daily:119614": {
+      "cutoff": 1766638860,
+      "expiry": 1766682060,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-25"
+    },
+    "eth_updown_daily:129371": {
+      "cutoff": 1767070860,
+      "expiry": 1767114060,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-30"
+    },
+    "eth_updown_daily:139143": {
+      "cutoff": 1767502860,
+      "expiry": 1767546060,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-04"
+    },
+    "eth_updown_daily:149497": {
+      "cutoff": 1767934860,
+      "expiry": 1767978060,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-09"
+    },
+    "eth_updown_daily:160033": {
+      "cutoff": 1768366860,
+      "expiry": 1768410060,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-14"
+    },
+    "eth_updown_daily:170526": {
+      "cutoff": 1768798860,
+      "expiry": 1768842060,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-19"
+    },
+    "eth_updown_daily:183592": {
+      "cutoff": 1769317260,
+      "expiry": 1769360460,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-25"
+    },
+    "eth_updown_daily:191784": {
+      "cutoff": 1769749260,
+      "expiry": 1769792460,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-30"
+    },
+    "eth_updown_daily:196775": {
+      "cutoff": 1770181260,
+      "expiry": 1770224460,
+      "eligible_contracts": 1,
+      "cluster": "2026-02-04"
+    },
+    "eth_updown_daily:201410": {
+      "cutoff": 1770613260,
+      "expiry": 1770656460,
+      "eligible_contracts": 1,
+      "cluster": "2026-02-09"
+    },
+    "eth_updown_daily:206606": {
+      "cutoff": 1771045260,
+      "expiry": 1771088460,
+      "eligible_contracts": 1,
+      "cluster": "2026-02-14"
+    },
+    "eth_updown_daily:213037": {
+      "cutoff": 1771477260,
+      "expiry": 1771520460,
+      "eligible_contracts": 1,
+      "cluster": "2026-02-19"
+    },
+    "eth_updown_daily:223967": {
+      "cutoff": 1771909260,
+      "expiry": 1771952460,
+      "eligible_contracts": 1,
+      "cluster": "2026-02-24"
+    },
+    "eth_updown_daily:234843": {
+      "cutoff": 1772341260,
+      "expiry": 1772384460,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-01"
+    },
+    "eth_updown_daily:248144": {
+      "cutoff": 1772859660,
+      "expiry": 1772902860,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-07"
+    },
+    "eth_updown_daily:259070": {
+      "cutoff": 1773288060,
+      "expiry": 1773331260,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-12"
+    },
+    "eth_updown_daily:273103": {
+      "cutoff": 1773720060,
+      "expiry": 1773763260,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-17"
+    },
+    "eth_updown_daily:290055": {
+      "cutoff": 1774152060,
+      "expiry": 1774195260,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-22"
+    },
+    "eth_updown_daily:307195": {
+      "cutoff": 1774584060,
+      "expiry": 1774627260,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-27"
+    },
+    "eth_updown_daily:325756": {
+      "cutoff": 1775016060,
+      "expiry": 1775059260,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-01"
+    },
+    "eth_updown_daily:343565": {
+      "cutoff": 1775448060,
+      "expiry": 1775491260,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-06"
+    },
+    "eth_updown_daily:361223": {
+      "cutoff": 1775880060,
+      "expiry": 1775923260,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-11"
+    },
+    "eth_updown_daily:378819": {
+      "cutoff": 1776312060,
+      "expiry": 1776355260,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-16"
+    },
+    "eth_updown_daily:399807": {
+      "cutoff": 1776830460,
+      "expiry": 1776873660,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-22"
+    },
+    "eth_updown_daily:417103": {
+      "cutoff": 1777262460,
+      "expiry": 1777305660,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-27"
+    },
+    "eth_updown_daily:434905": {
+      "cutoff": 1777694460,
+      "expiry": 1777737660,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-02"
+    },
+    "eth_updown_daily:452037": {
+      "cutoff": 1778126460,
+      "expiry": 1778169660,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-07"
+    },
+    "eth_updown_daily:470833": {
+      "cutoff": 1778558460,
+      "expiry": 1778601660,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-12"
+    },
+    "eth_updown_daily:488481": {
+      "cutoff": 1778990460,
+      "expiry": 1779033660,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-17"
+    },
+    "eth_updown_daily:506413": {
+      "cutoff": 1779422460,
+      "expiry": 1779465660,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-22"
+    },
+    "eth_updown_daily:527527": {
+      "cutoff": 1779940860,
+      "expiry": 1779984060,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-28"
+    },
+    "eth_updown_daily:548477": {
+      "cutoff": 1780459260,
+      "expiry": 1780502460,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-03"
+    },
+    "eth_updown_daily:566180": {
+      "cutoff": 1780891260,
+      "expiry": 1780934460,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-08"
+    },
+    "eth_updown_daily:584111": {
+      "cutoff": 1781323260,
+      "expiry": 1781366460,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-13"
+    },
+    "eth_updown_daily:601545": {
+      "cutoff": 1781755260,
+      "expiry": 1781798460,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-18"
+    },
+    "eth_updown_daily:619150": {
+      "cutoff": 1782187260,
+      "expiry": 1782230460,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-23"
+    },
+    "eth_updown_daily:637219": {
+      "cutoff": 1782619260,
+      "expiry": 1782662460,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-28"
+    },
+    "eth_updown_daily:655497": {
+      "cutoff": 1783051260,
+      "expiry": 1783094460,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-03"
+    },
+    "eth_updown_daily:673514": {
+      "cutoff": 1783483260,
+      "expiry": 1783526460,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-08"
+    },
+    "eth_updown_daily:696976": {
+      "cutoff": 1783915260,
+      "expiry": 1783958460,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-13"
+    },
+    "eth_updown_daily:714194": {
+      "cutoff": 1784433660,
+      "expiry": 1784476860,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-19"
+    },
+    "eth_updown_daily:733358": {
+      "cutoff": 1784865660,
+      "expiry": 1784908860,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-24"
+    },
+    "eth_updown_daily:756837": {
+      "cutoff": 1785297660,
+      "expiry": 1785340860,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-29"
+    },
+    "eth_updown_daily:781952": {
+      "cutoff": 1785729660,
+      "expiry": 1785772860,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-03"
+    },
+    "eth_updown_daily:806785": {
+      "cutoff": 1786161660,
+      "expiry": 1786204860,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-08"
+    },
+    "eth_updown_daily:833786": {
+      "cutoff": 1786593660,
+      "expiry": 1786636860,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-13"
+    },
+    "eth_updown_daily:859895": {
+      "cutoff": 1787025660,
+      "expiry": 1787068860,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-18"
+    },
+    "eth_updown_daily:885917": {
+      "cutoff": 1787457660,
+      "expiry": 1787500860,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-23"
+    },
+    "eth_updown_daily:921548": {
+      "cutoff": 1787976060,
+      "expiry": 1788019260,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-29"
+    },
+    "eth_updown_daily:948247": {
+      "cutoff": 1788408060,
+      "expiry": 1788451260,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-03"
+    },
+    "eth_updown_daily:976674": {
+      "cutoff": 1788840060,
+      "expiry": 1788883260,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-08"
+    },
+    "eth_updown_daily:1005129": {
+      "cutoff": 1789272060,
+      "expiry": 1789315260,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-13"
+    },
+    "eth_updown_daily:1033734": {
+      "cutoff": 1789704060,
+      "expiry": 1789747260,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-18"
+    },
+    "eth_updown_daily:1059323": {
+      "cutoff": 1790136060,
+      "expiry": 1790179260,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-23"
+    },
+    "eth_updown_daily:1086172": {
+      "cutoff": 1790568060,
+      "expiry": 1790611260,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-28"
+    },
+    "eth_updown_daily:1114456": {
+      "cutoff": 1791000000,
+      "expiry": 1791043200,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-03"
+    },
+    "eth_updown_daily:1143521": {
+      "cutoff": 1791432060,
+      "expiry": 1791475260,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-08"
+    },
+    "eth_updown_daily:1177782": {
+      "cutoff": 1791950460,
+      "expiry": 1791993660,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-14"
+    },
+    "eth_updown_daily:1205855": {
+      "cutoff": 1792382460,
+      "expiry": 1792425660,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-19"
+    },
+    "eth_updown_daily:1235798": {
+      "cutoff": 1792814460,
+      "expiry": 1792857660,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-24"
+    },
+    "eth_updown_daily:1266698": {
+      "cutoff": 1793246460,
+      "expiry": 1793289660,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-29"
+    },
+    "eth_updown_daily:1295885": {
+      "cutoff": 1793682060,
+      "expiry": 1793725260,
+      "eligible_contracts": 1,
+      "cluster": "2026-11-03"
+    },
+    "eth_updown_daily:1325891": {
+      "cutoff": 1794114060,
+      "expiry": 1794157260,
+      "eligible_contracts": 1,
+      "cluster": "2026-11-08"
+    },
+    "eth_updown_daily:1365229": {
+      "cutoff": 1794546060,
+      "expiry": 1794589260,
+      "eligible_contracts": 1,
+      "cluster": "2026-11-13"
+    },
+    "eth_updown_daily:1399687": {
+      "cutoff": 1794978060,
+      "expiry": 1795021260,
+      "eligible_contracts": 1,
+      "cluster": "2026-11-18"
+    },
+    "btc_updown_hourly:25668": {
+      "cutoff": 1748892600,
+      "expiry": 1748894400,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-02"
+    },
+    "btc_updown_hourly:26044": {
+      "cutoff": 1749295800,
+      "expiry": 1749297600,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-07"
+    },
+    "btc_updown_hourly:26428": {
+      "cutoff": 1749695400,
+      "expiry": 1749697200,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-12"
+    },
+    "btc_updown_hourly:27073": {
+      "cutoff": 1750091400,
+      "expiry": 1750093200,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-16"
+    },
+    "btc_updown_hourly:27749": {
+      "cutoff": 1750487400,
+      "expiry": 1750489200,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-21"
+    },
+    "btc_updown_hourly:28316": {
+      "cutoff": 1750883400,
+      "expiry": 1750885200,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-25"
+    },
+    "btc_updown_hourly:29181": {
+      "cutoff": 1751279400,
+      "expiry": 1751281200,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-30"
+    },
+    "btc_updown_hourly:29751": {
+      "cutoff": 1751671800,
+      "expiry": 1751673600,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-05"
+    },
+    "btc_updown_hourly:29743": {
+      "cutoff": 1752067800,
+      "expiry": 1752069600,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-09"
+    },
+    "btc_updown_hourly:29541": {
+      "cutoff": 1752463800,
+      "expiry": 1752465600,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-14"
+    },
+    "btc_updown_hourly:29564": {
+      "cutoff": 1752859800,
+      "expiry": 1752861600,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-18"
+    },
+    "btc_updown_hourly:33432": {
+      "cutoff": 1753255800,
+      "expiry": 1753257600,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-23"
+    },
+    "btc_updown_hourly:29737": {
+      "cutoff": 1753651800,
+      "expiry": 1753653600,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-27"
+    },
+    "btc_updown_hourly:29521": {
+      "cutoff": 1754047800,
+      "expiry": 1754049600,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-01"
+    },
+    "btc_updown_hourly:35335": {
+      "cutoff": 1754440200,
+      "expiry": 1754442000,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-06"
+    },
+    "btc_updown_hourly:36401": {
+      "cutoff": 1754836200,
+      "expiry": 1754838000,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-10"
+    },
+    "btc_updown_hourly:36767": {
+      "cutoff": 1755228600,
+      "expiry": 1755230400,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-15"
+    },
+    "btc_updown_hourly:37717": {
+      "cutoff": 1755624600,
+      "expiry": 1755626400,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-19"
+    },
+    "btc_updown_hourly:38953": {
+      "cutoff": 1756020600,
+      "expiry": 1756022400,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-24"
+    },
+    "btc_updown_hourly:39717": {
+      "cutoff": 1756416600,
+      "expiry": 1756418400,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-28"
+    },
+    "btc_updown_hourly:40413": {
+      "cutoff": 1756812600,
+      "expiry": 1756814400,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-02"
+    },
+    "btc_updown_hourly:41720": {
+      "cutoff": 1757205000,
+      "expiry": 1757206800,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-07"
+    },
+    "btc_updown_hourly:42789": {
+      "cutoff": 1757601000,
+      "expiry": 1757602800,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-11"
+    },
+    "btc_updown_hourly:43582": {
+      "cutoff": 1757997000,
+      "expiry": 1757998800,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-16"
+    },
+    "btc_updown_hourly:46260": {
+      "cutoff": 1758393000,
+      "expiry": 1758394800,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-20"
+    },
+    "btc_updown_hourly:48654": {
+      "cutoff": 1758789000,
+      "expiry": 1758790800,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-25"
+    },
+    "btc_updown_hourly:50814": {
+      "cutoff": 1759185000,
+      "expiry": 1759186800,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-29"
+    },
+    "btc_updown_hourly:53007": {
+      "cutoff": 1759581000,
+      "expiry": 1759582800,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-04"
+    },
+    "btc_updown_hourly:55332": {
+      "cutoff": 1759973400,
+      "expiry": 1759975200,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-09"
+    },
+    "btc_updown_hourly:57997": {
+      "cutoff": 1760369400,
+      "expiry": 1760371200,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-13"
+    },
+    "btc_updown_hourly:60325": {
+      "cutoff": 1760765400,
+      "expiry": 1760767200,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-18"
+    },
+    "btc_updown_hourly:62448": {
+      "cutoff": 1761161400,
+      "expiry": 1761163200,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-22"
+    },
+    "btc_updown_hourly:65065": {
+      "cutoff": 1761557400,
+      "expiry": 1761559200,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-27"
+    },
+    "btc_updown_hourly:68523": {
+      "cutoff": 1761953400,
+      "expiry": 1761955200,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-01"
+    },
+    "btc_updown_hourly:71694": {
+      "cutoff": 1762356600,
+      "expiry": 1762358400,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-05"
+    },
+    "btc_updown_hourly:75784": {
+      "cutoff": 1762749000,
+      "expiry": 1762750800,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-10"
+    },
+    "btc_updown_hourly:79891": {
+      "cutoff": 1763145000,
+      "expiry": 1763146800,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-14"
+    },
+    "btc_updown_hourly:83388": {
+      "cutoff": 1763544600,
+      "expiry": 1763546400,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-19"
+    },
+    "btc_updown_hourly:87162": {
+      "cutoff": 1763940600,
+      "expiry": 1763942400,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-24"
+    },
+    "btc_updown_hourly:90881": {
+      "cutoff": 1764336600,
+      "expiry": 1764338400,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-28"
+    },
+    "btc_updown_hourly:94504": {
+      "cutoff": 1764732600,
+      "expiry": 1764734400,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-03"
+    },
+    "btc_updown_hourly:98061": {
+      "cutoff": 1765128600,
+      "expiry": 1765130400,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-07"
+    },
+    "btc_updown_hourly:101386": {
+      "cutoff": 1765521000,
+      "expiry": 1765522800,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-12"
+    },
+    "btc_updown_hourly:105197": {
+      "cutoff": 1765917000,
+      "expiry": 1765918800,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-16"
+    },
+    "btc_updown_hourly:111410": {
+      "cutoff": 1766316600,
+      "expiry": 1766318400,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-21"
+    },
+    "btc_updown_hourly:120305": {
+      "cutoff": 1766716200,
+      "expiry": 1766718000,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-26"
+    },
+    "btc_updown_hourly:129262": {
+      "cutoff": 1767112200,
+      "expiry": 1767114000,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-30"
+    },
+    "btc_updown_hourly:138106": {
+      "cutoff": 1767508200,
+      "expiry": 1767510000,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-04"
+    },
+    "btc_updown_hourly:147805": {
+      "cutoff": 1767904200,
+      "expiry": 1767906000,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-08"
+    },
+    "btc_updown_hourly:157001": {
+      "cutoff": 1768300200,
+      "expiry": 1768302000,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-13"
+    },
+    "btc_updown_hourly:167030": {
+      "cutoff": 1768699800,
+      "expiry": 1768701600,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-18"
+    },
+    "btc_updown_hourly:176865": {
+      "cutoff": 1769095800,
+      "expiry": 1769097600,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-22"
+    },
+    "btc_updown_hourly:187039": {
+      "cutoff": 1769495400,
+      "expiry": 1769497200,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-27"
+    },
+    "btc_updown_hourly:192835": {
+      "cutoff": 1769891400,
+      "expiry": 1769893200,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-31"
+    },
+    "btc_updown_hourly:197350": {
+      "cutoff": 1770287400,
+      "expiry": 1770289200,
+      "eligible_contracts": 1,
+      "cluster": "2026-02-05"
+    },
+    "btc_updown_hourly:201712": {
+      "cutoff": 1770683400,
+      "expiry": 1770685200,
+      "eligible_contracts": 1,
+      "cluster": "2026-02-10"
+    },
+    "btc_updown_hourly:206248": {
+      "cutoff": 1771075800,
+      "expiry": 1771077600,
+      "eligible_contracts": 1,
+      "cluster": "2026-02-14"
+    },
+    "btc_updown_hourly:212369": {
+      "cutoff": 1771471800,
+      "expiry": 1771473600,
+      "eligible_contracts": 1,
+      "cluster": "2026-02-19"
+    },
+    "btc_updown_hourly:221580": {
+      "cutoff": 1771867800,
+      "expiry": 1771869600,
+      "eligible_contracts": 1,
+      "cluster": "2026-02-23"
+    },
+    "btc_updown_hourly:231625": {
+      "cutoff": 1772263800,
+      "expiry": 1772265600,
+      "eligible_contracts": 1,
+      "cluster": "2026-02-28"
+    },
+    "btc_updown_hourly:242131": {
+      "cutoff": 1772659800,
+      "expiry": 1772661600,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-04"
+    },
+    "btc_updown_hourly:251728": {
+      "cutoff": 1773052200,
+      "expiry": 1773054000,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-09"
+    },
+    "btc_updown_hourly:261980": {
+      "cutoff": 1773448200,
+      "expiry": 1773450000,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-14"
+    },
+    "btc_updown_hourly:276068": {
+      "cutoff": 1773840600,
+      "expiry": 1773842400,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-18"
+    },
+    "btc_updown_hourly:291602": {
+      "cutoff": 1774236600,
+      "expiry": 1774238400,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-23"
+    },
+    "btc_updown_hourly:307505": {
+      "cutoff": 1774636200,
+      "expiry": 1774638000,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-27"
+    },
+    "btc_updown_hourly:324602": {
+      "cutoff": 1775032200,
+      "expiry": 1775034000,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-01"
+    },
+    "btc_updown_hourly:339149": {
+      "cutoff": 1775421000,
+      "expiry": 1775422800,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-05"
+    },
+    "btc_updown_hourly:356347": {
+      "cutoff": 1775802600,
+      "expiry": 1775804400,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-10"
+    },
+    "btc_updown_hourly:372404": {
+      "cutoff": 1776198600,
+      "expiry": 1776200400,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-14"
+    },
+    "btc_updown_hourly:388096": {
+      "cutoff": 1776591000,
+      "expiry": 1776592800,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-19"
+    },
+    "btc_updown_hourly:404510": {
+      "cutoff": 1776987000,
+      "expiry": 1776988800,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-24"
+    },
+    "btc_updown_hourly:420132": {
+      "cutoff": 1777383000,
+      "expiry": 1777384800,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-28"
+    },
+    "btc_updown_hourly:436433": {
+      "cutoff": 1777779000,
+      "expiry": 1777780800,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-03"
+    },
+    "btc_updown_hourly:452201": {
+      "cutoff": 1778175000,
+      "expiry": 1778176800,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-07"
+    },
+    "btc_updown_hourly:469611": {
+      "cutoff": 1778571000,
+      "expiry": 1778572800,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-12"
+    },
+    "btc_updown_hourly:485878": {
+      "cutoff": 1778967000,
+      "expiry": 1778968800,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-16"
+    },
+    "btc_updown_hourly:501484": {
+      "cutoff": 1779359400,
+      "expiry": 1779361200,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-21"
+    },
+    "btc_updown_hourly:518911": {
+      "cutoff": 1779769800,
+      "expiry": 1779771600,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-26"
+    },
+    "btc_updown_hourly:535214": {
+      "cutoff": 1780165800,
+      "expiry": 1780167600,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-30"
+    },
+    "btc_updown_hourly:550769": {
+      "cutoff": 1780561800,
+      "expiry": 1780563600,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-04"
+    },
+    "btc_updown_hourly:567103": {
+      "cutoff": 1780957800,
+      "expiry": 1780959600,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-08"
+    },
+    "btc_updown_hourly:583523": {
+      "cutoff": 1781353800,
+      "expiry": 1781355600,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-13"
+    },
+    "btc_updown_hourly:599504": {
+      "cutoff": 1781749800,
+      "expiry": 1781751600,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-18"
+    },
+    "btc_updown_hourly:615568": {
+      "cutoff": 1782142200,
+      "expiry": 1782144000,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-22"
+    },
+    "btc_updown_hourly:632203": {
+      "cutoff": 1782541800,
+      "expiry": 1782543600,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-27"
+    },
+    "btc_updown_hourly:648853": {
+      "cutoff": 1782937800,
+      "expiry": 1782939600,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-01"
+    },
+    "btc_updown_hourly:665650": {
+      "cutoff": 1783333800,
+      "expiry": 1783335600,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-06"
+    },
+    "btc_updown_hourly:682308": {
+      "cutoff": 1783729800,
+      "expiry": 1783731600,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-11"
+    },
+    "btc_updown_hourly:698969": {
+      "cutoff": 1784125800,
+      "expiry": 1784127600,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-15"
+    },
+    "btc_updown_hourly:716155": {
+      "cutoff": 1784521800,
+      "expiry": 1784523600,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-20"
+    },
+    "btc_updown_hourly:733796": {
+      "cutoff": 1784914200,
+      "expiry": 1784916000,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-24"
+    },
+    "btc_updown_hourly:754762": {
+      "cutoff": 1785310200,
+      "expiry": 1785312000,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-29"
+    },
+    "btc_updown_hourly:778590": {
+      "cutoff": 1785706200,
+      "expiry": 1785708000,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-02"
+    },
+    "btc_updown_hourly:800772": {
+      "cutoff": 1786102200,
+      "expiry": 1786104000,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-07"
+    },
+    "btc_updown_hourly:825060": {
+      "cutoff": 1786498200,
+      "expiry": 1786500000,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-12"
+    },
+    "btc_updown_hourly:848863": {
+      "cutoff": 1786894200,
+      "expiry": 1786896000,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-16"
+    },
+    "btc_updown_hourly:874114": {
+      "cutoff": 1787290200,
+      "expiry": 1787292000,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-21"
+    },
+    "btc_updown_hourly:896913": {
+      "cutoff": 1787682600,
+      "expiry": 1787684400,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-25"
+    },
+    "btc_updown_hourly:924941": {
+      "cutoff": 1788078600,
+      "expiry": 1788080400,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-30"
+    },
+    "btc_updown_hourly:950289": {
+      "cutoff": 1788474600,
+      "expiry": 1788476400,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-03"
+    },
+    "btc_updown_hourly:975914": {
+      "cutoff": 1788874200,
+      "expiry": 1788876000,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-08"
+    },
+    "btc_updown_hourly:1002297": {
+      "cutoff": 1789270200,
+      "expiry": 1789272000,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-13"
+    },
+    "btc_updown_hourly:1028863": {
+      "cutoff": 1789666200,
+      "expiry": 1789668000,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-17"
+    },
+    "btc_updown_hourly:1051974": {
+      "cutoff": 1790062200,
+      "expiry": 1790064000,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-22"
+    },
+    "btc_updown_hourly:1075696": {
+      "cutoff": 1790454600,
+      "expiry": 1790456400,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-26"
+    },
+    "btc_updown_hourly:1102765": {
+      "cutoff": 1790850600,
+      "expiry": 1790852400,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-01"
+    },
+    "btc_updown_hourly:1127721": {
+      "cutoff": 1791246600,
+      "expiry": 1791248400,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-06"
+    },
+    "btc_updown_hourly:1153843": {
+      "cutoff": 1791642600,
+      "expiry": 1791644400,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-10"
+    },
+    "btc_updown_hourly:1180835": {
+      "cutoff": 1792038600,
+      "expiry": 1792040400,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-15"
+    },
+    "btc_updown_hourly:1206327": {
+      "cutoff": 1792434600,
+      "expiry": 1792436400,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-19"
+    },
+    "btc_updown_hourly:1234109": {
+      "cutoff": 1792830600,
+      "expiry": 1792832400,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-24"
+    },
+    "btc_updown_hourly:1261854": {
+      "cutoff": 1793223000,
+      "expiry": 1793224800,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-28"
+    },
+    "btc_updown_hourly:1288345": {
+      "cutoff": 1793629800,
+      "expiry": 1793631600,
+      "eligible_contracts": 1,
+      "cluster": "2026-11-02"
+    },
+    "btc_updown_hourly:1317817": {
+      "cutoff": 1794025800,
+      "expiry": 1794027600,
+      "eligible_contracts": 1,
+      "cluster": "2026-11-07"
+    },
+    "btc_updown_hourly:1349877": {
+      "cutoff": 1794414600,
+      "expiry": 1794416400,
+      "eligible_contracts": 1,
+      "cluster": "2026-11-11"
+    },
+    "btc_updown_hourly:1384832": {
+      "cutoff": 1794810600,
+      "expiry": 1794812400,
+      "eligible_contracts": 1,
+      "cluster": "2026-11-16"
+    },
+    "eth_updown_hourly:26378": {
+      "cutoff": 1749616200,
+      "expiry": 1749618000,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-11"
+    },
+    "eth_updown_hourly:26988": {
+      "cutoff": 1750001400,
+      "expiry": 1750003200,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-15"
+    },
+    "eth_updown_hourly:27474": {
+      "cutoff": 1750386600,
+      "expiry": 1750388400,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-20"
+    },
+    "eth_updown_hourly:28088": {
+      "cutoff": 1750771800,
+      "expiry": 1750773600,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-24"
+    },
+    "eth_updown_hourly:28907": {
+      "cutoff": 1751157000,
+      "expiry": 1751158800,
+      "eligible_contracts": 1,
+      "cluster": "2025-06-29"
+    },
+    "eth_updown_hourly:30217": {
+      "cutoff": 1751542200,
+      "expiry": 1751544000,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-03"
+    },
+    "eth_updown_hourly:30965": {
+      "cutoff": 1751927400,
+      "expiry": 1751929200,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-07"
+    },
+    "eth_updown_hourly:31793": {
+      "cutoff": 1752312600,
+      "expiry": 1752314400,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-12"
+    },
+    "eth_updown_hourly:32348": {
+      "cutoff": 1752697800,
+      "expiry": 1752699600,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-16"
+    },
+    "eth_updown_hourly:33061": {
+      "cutoff": 1753083000,
+      "expiry": 1753084800,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-21"
+    },
+    "eth_updown_hourly:33733": {
+      "cutoff": 1753471800,
+      "expiry": 1753473600,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-25"
+    },
+    "eth_updown_hourly:34475": {
+      "cutoff": 1753857000,
+      "expiry": 1753858800,
+      "eligible_contracts": 1,
+      "cluster": "2025-07-30"
+    },
+    "eth_updown_hourly:35139": {
+      "cutoff": 1754242200,
+      "expiry": 1754244000,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-03"
+    },
+    "eth_updown_hourly:36004": {
+      "cutoff": 1754627400,
+      "expiry": 1754629200,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-08"
+    },
+    "eth_updown_hourly:36487": {
+      "cutoff": 1755009000,
+      "expiry": 1755010800,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-12"
+    },
+    "eth_updown_hourly:37510": {
+      "cutoff": 1755394200,
+      "expiry": 1755396000,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-17"
+    },
+    "eth_updown_hourly:38437": {
+      "cutoff": 1755779400,
+      "expiry": 1755781200,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-21"
+    },
+    "eth_updown_hourly:39041": {
+      "cutoff": 1756164600,
+      "expiry": 1756166400,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-26"
+    },
+    "eth_updown_hourly:40188": {
+      "cutoff": 1756549800,
+      "expiry": 1756551600,
+      "eligible_contracts": 1,
+      "cluster": "2025-08-30"
+    },
+    "eth_updown_hourly:41039": {
+      "cutoff": 1756938600,
+      "expiry": 1756940400,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-03"
+    },
+    "eth_updown_hourly:41974": {
+      "cutoff": 1757323800,
+      "expiry": 1757325600,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-08"
+    },
+    "eth_updown_hourly:43095": {
+      "cutoff": 1757709000,
+      "expiry": 1757710800,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-12"
+    },
+    "eth_updown_hourly:44553": {
+      "cutoff": 1758094200,
+      "expiry": 1758096000,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-17"
+    },
+    "eth_updown_hourly:46829": {
+      "cutoff": 1758479400,
+      "expiry": 1758481200,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-21"
+    },
+    "eth_updown_hourly:49128": {
+      "cutoff": 1758864600,
+      "expiry": 1758866400,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-26"
+    },
+    "eth_updown_hourly:51073": {
+      "cutoff": 1759249800,
+      "expiry": 1759251600,
+      "eligible_contracts": 1,
+      "cluster": "2025-09-30"
+    },
+    "eth_updown_hourly:53360": {
+      "cutoff": 1759635000,
+      "expiry": 1759636800,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-05"
+    },
+    "eth_updown_hourly:55772": {
+      "cutoff": 1760020200,
+      "expiry": 1760022000,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-09"
+    },
+    "eth_updown_hourly:58216": {
+      "cutoff": 1760409000,
+      "expiry": 1760410800,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-14"
+    },
+    "eth_updown_hourly:60436": {
+      "cutoff": 1760794200,
+      "expiry": 1760796000,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-18"
+    },
+    "eth_updown_hourly:62679": {
+      "cutoff": 1761179400,
+      "expiry": 1761181200,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-23"
+    },
+    "eth_updown_hourly:65092": {
+      "cutoff": 1761564600,
+      "expiry": 1761566400,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-27"
+    },
+    "eth_updown_hourly:67965": {
+      "cutoff": 1761949800,
+      "expiry": 1761951600,
+      "eligible_contracts": 1,
+      "cluster": "2025-10-31"
+    },
+    "eth_updown_hourly:71546": {
+      "cutoff": 1762342200,
+      "expiry": 1762344000,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-05"
+    },
+    "eth_updown_hourly:75743": {
+      "cutoff": 1762741800,
+      "expiry": 1762743600,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-10"
+    },
+    "eth_updown_hourly:79583": {
+      "cutoff": 1763127000,
+      "expiry": 1763128800,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-14"
+    },
+    "eth_updown_hourly:83154": {
+      "cutoff": 1763512200,
+      "expiry": 1763514000,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-19"
+    },
+    "eth_updown_hourly:86809": {
+      "cutoff": 1763904600,
+      "expiry": 1763906400,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-23"
+    },
+    "eth_updown_hourly:90592": {
+      "cutoff": 1764289800,
+      "expiry": 1764291600,
+      "eligible_contracts": 1,
+      "cluster": "2025-11-28"
+    },
+    "eth_updown_hourly:93909": {
+      "cutoff": 1764675000,
+      "expiry": 1764676800,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-02"
+    },
+    "eth_updown_hourly:97489": {
+      "cutoff": 1765060200,
+      "expiry": 1765062000,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-06"
+    },
+    "eth_updown_hourly:100785": {
+      "cutoff": 1765445400,
+      "expiry": 1765447200,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-11"
+    },
+    "eth_updown_hourly:104354": {
+      "cutoff": 1765830600,
+      "expiry": 1765832400,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-15"
+    },
+    "eth_updown_hourly:109317": {
+      "cutoff": 1766219400,
+      "expiry": 1766221200,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-20"
+    },
+    "eth_updown_hourly:117867": {
+      "cutoff": 1766608200,
+      "expiry": 1766610000,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-24"
+    },
+    "eth_updown_hourly:126410": {
+      "cutoff": 1766993400,
+      "expiry": 1766995200,
+      "eligible_contracts": 1,
+      "cluster": "2025-12-29"
+    },
+    "eth_updown_hourly:135437": {
+      "cutoff": 1767382200,
+      "expiry": 1767384000,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-02"
+    },
+    "eth_updown_hourly:144437": {
+      "cutoff": 1767767400,
+      "expiry": 1767769200,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-07"
+    },
+    "eth_updown_hourly:153706": {
+      "cutoff": 1768156200,
+      "expiry": 1768158000,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-11"
+    },
+    "eth_updown_hourly:163072": {
+      "cutoff": 1768541400,
+      "expiry": 1768543200,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-16"
+    },
+    "eth_updown_hourly:172870": {
+      "cutoff": 1768933800,
+      "expiry": 1768935600,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-20"
+    },
+    "eth_updown_hourly:182385": {
+      "cutoff": 1769319000,
+      "expiry": 1769320800,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-25"
+    },
+    "eth_updown_hourly:190526": {
+      "cutoff": 1769707800,
+      "expiry": 1769709600,
+      "eligible_contracts": 1,
+      "cluster": "2026-01-29"
+    },
+    "eth_updown_hourly:195043": {
+      "cutoff": 1770093000,
+      "expiry": 1770094800,
+      "eligible_contracts": 1,
+      "cluster": "2026-02-03"
+    },
+    "eth_updown_hourly:199314": {
+      "cutoff": 1770478200,
+      "expiry": 1770480000,
+      "eligible_contracts": 1,
+      "cluster": "2026-02-07"
+    },
+    "eth_updown_hourly:203897": {
+      "cutoff": 1770867000,
+      "expiry": 1770868800,
+      "eligible_contracts": 1,
+      "cluster": "2026-02-12"
+    },
+    "eth_updown_hourly:208947": {
+      "cutoff": 1771252200,
+      "expiry": 1771254000,
+      "eligible_contracts": 1,
+      "cluster": "2026-02-16"
+    },
+    "eth_updown_hourly:215806": {
+      "cutoff": 1771637400,
+      "expiry": 1771639200,
+      "eligible_contracts": 1,
+      "cluster": "2026-02-21"
+    },
+    "eth_updown_hourly:228627": {
+      "cutoff": 1772022600,
+      "expiry": 1772024400,
+      "eligible_contracts": 1,
+      "cluster": "2026-02-25"
+    },
+    "eth_updown_hourly:235649": {
+      "cutoff": 1772407800,
+      "expiry": 1772409600,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-02"
+    },
+    "eth_updown_hourly:245404": {
+      "cutoff": 1772793000,
+      "expiry": 1772794800,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-06"
+    },
+    "eth_updown_hourly:254665": {
+      "cutoff": 1773174600,
+      "expiry": 1773176400,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-10"
+    },
+    "eth_updown_hourly:264729": {
+      "cutoff": 1773559800,
+      "expiry": 1773561600,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-15"
+    },
+    "eth_updown_hourly:280405": {
+      "cutoff": 1773945000,
+      "expiry": 1773946800,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-19"
+    },
+    "eth_updown_hourly:295304": {
+      "cutoff": 1774330200,
+      "expiry": 1774332000,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-24"
+    },
+    "eth_updown_hourly:310916": {
+      "cutoff": 1774722600,
+      "expiry": 1774724400,
+      "eligible_contracts": 1,
+      "cluster": "2026-03-28"
+    },
+    "eth_updown_hourly:327645": {
+      "cutoff": 1775107800,
+      "expiry": 1775109600,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-02"
+    },
+    "eth_updown_hourly:344653": {
+      "cutoff": 1775518200,
+      "expiry": 1775520000,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-07"
+    },
+    "eth_updown_hourly:360320": {
+      "cutoff": 1775903400,
+      "expiry": 1775905200,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-11"
+    },
+    "eth_updown_hourly:376158": {
+      "cutoff": 1776288600,
+      "expiry": 1776290400,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-15"
+    },
+    "eth_updown_hourly:391447": {
+      "cutoff": 1776673800,
+      "expiry": 1776675600,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-20"
+    },
+    "eth_updown_hourly:407353": {
+      "cutoff": 1777059000,
+      "expiry": 1777060800,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-24"
+    },
+    "eth_updown_hourly:422795": {
+      "cutoff": 1777444200,
+      "expiry": 1777446000,
+      "eligible_contracts": 1,
+      "cluster": "2026-04-29"
+    },
+    "eth_updown_hourly:438425": {
+      "cutoff": 1777829400,
+      "expiry": 1777831200,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-03"
+    },
+    "eth_updown_hourly:453987": {
+      "cutoff": 1778218200,
+      "expiry": 1778220000,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-08"
+    },
+    "eth_updown_hourly:470832": {
+      "cutoff": 1778603400,
+      "expiry": 1778605200,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-12"
+    },
+    "eth_updown_hourly:486665": {
+      "cutoff": 1778988600,
+      "expiry": 1778990400,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-17"
+    },
+    "eth_updown_hourly:502180": {
+      "cutoff": 1779373800,
+      "expiry": 1779375600,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-21"
+    },
+    "eth_updown_hourly:519242": {
+      "cutoff": 1779773400,
+      "expiry": 1779775200,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-26"
+    },
+    "eth_updown_hourly:534865": {
+      "cutoff": 1780158600,
+      "expiry": 1780160400,
+      "eligible_contracts": 1,
+      "cluster": "2026-05-30"
+    },
+    "eth_updown_hourly:550052": {
+      "cutoff": 1780543800,
+      "expiry": 1780545600,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-04"
+    },
+    "eth_updown_hourly:565897": {
+      "cutoff": 1780929000,
+      "expiry": 1780930800,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-08"
+    },
+    "eth_updown_hourly:581973": {
+      "cutoff": 1781314200,
+      "expiry": 1781316000,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-13"
+    },
+    "eth_updown_hourly:597576": {
+      "cutoff": 1781703000,
+      "expiry": 1781704800,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-17"
+    },
+    "eth_updown_hourly:613500": {
+      "cutoff": 1782088200,
+      "expiry": 1782090000,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-22"
+    },
+    "eth_updown_hourly:629268": {
+      "cutoff": 1782477000,
+      "expiry": 1782478800,
+      "eligible_contracts": 1,
+      "cluster": "2026-06-26"
+    },
+    "eth_updown_hourly:645760": {
+      "cutoff": 1782862200,
+      "expiry": 1782864000,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-01"
+    },
+    "eth_updown_hourly:662062": {
+      "cutoff": 1783247400,
+      "expiry": 1783249200,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-05"
+    },
+    "eth_updown_hourly:677962": {
+      "cutoff": 1783632600,
+      "expiry": 1783634400,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-09"
+    },
+    "eth_updown_hourly:694328": {
+      "cutoff": 1784017800,
+      "expiry": 1784019600,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-14"
+    },
+    "eth_updown_hourly:711069": {
+      "cutoff": 1784403000,
+      "expiry": 1784404800,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-18"
+    },
+    "eth_updown_hourly:728103": {
+      "cutoff": 1784788200,
+      "expiry": 1784790000,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-23"
+    },
+    "eth_updown_hourly:748684": {
+      "cutoff": 1785177000,
+      "expiry": 1785178800,
+      "eligible_contracts": 1,
+      "cluster": "2026-07-27"
+    },
+    "eth_updown_hourly:771231": {
+      "cutoff": 1785562200,
+      "expiry": 1785564000,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-01"
+    },
+    "eth_updown_hourly:790829": {
+      "cutoff": 1785947400,
+      "expiry": 1785949200,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-05"
+    },
+    "eth_updown_hourly:813911": {
+      "cutoff": 1786332600,
+      "expiry": 1786334400,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-10"
+    },
+    "eth_updown_hourly:838662": {
+      "cutoff": 1786717800,
+      "expiry": 1786719600,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-14"
+    },
+    "eth_updown_hourly:862492": {
+      "cutoff": 1787103000,
+      "expiry": 1787104800,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-19"
+    },
+    "eth_updown_hourly:885089": {
+      "cutoff": 1787488200,
+      "expiry": 1787490000,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-23"
+    },
+    "eth_updown_hourly:912689": {
+      "cutoff": 1787873400,
+      "expiry": 1787875200,
+      "eligible_contracts": 1,
+      "cluster": "2026-08-28"
+    },
+    "eth_updown_hourly:935659": {
+      "cutoff": 1788258600,
+      "expiry": 1788260400,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-01"
+    },
+    "eth_updown_hourly:961507": {
+      "cutoff": 1788651000,
+      "expiry": 1788652800,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-06"
+    },
+    "eth_updown_hourly:987580": {
+      "cutoff": 1789036200,
+      "expiry": 1789038000,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-10"
+    },
+    "eth_updown_hourly:1013108": {
+      "cutoff": 1789421400,
+      "expiry": 1789423200,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-14"
+    },
+    "eth_updown_hourly:1037143": {
+      "cutoff": 1789806600,
+      "expiry": 1789808400,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-19"
+    },
+    "eth_updown_hourly:1060403": {
+      "cutoff": 1790191800,
+      "expiry": 1790193600,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-23"
+    },
+    "eth_updown_hourly:1084135": {
+      "cutoff": 1790577000,
+      "expiry": 1790578800,
+      "eligible_contracts": 1,
+      "cluster": "2026-09-28"
+    },
+    "eth_updown_hourly:1109317": {
+      "cutoff": 1790962200,
+      "expiry": 1790964000,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-02"
+    },
+    "eth_updown_hourly:1134906": {
+      "cutoff": 1791347400,
+      "expiry": 1791349200,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-07"
+    },
+    "eth_updown_hourly:1159503": {
+      "cutoff": 1791732600,
+      "expiry": 1791734400,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-11"
+    },
+    "eth_updown_hourly:1186185": {
+      "cutoff": 1792121400,
+      "expiry": 1792123200,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-16"
+    },
+    "eth_updown_hourly:1211832": {
+      "cutoff": 1792506600,
+      "expiry": 1792508400,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-20"
+    },
+    "eth_updown_hourly:1238153": {
+      "cutoff": 1792891800,
+      "expiry": 1792893600,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-25"
+    },
+    "eth_updown_hourly:1265544": {
+      "cutoff": 1793277000,
+      "expiry": 1793278800,
+      "eligible_contracts": 1,
+      "cluster": "2026-10-29"
+    },
+    "eth_updown_hourly:1291880": {
+      "cutoff": 1793673000,
+      "expiry": 1793674800,
+      "eligible_contracts": 1,
+      "cluster": "2026-11-03"
+    },
+    "eth_updown_hourly:1319605": {
+      "cutoff": 1794058200,
+      "expiry": 1794060000,
+      "eligible_contracts": 1,
+      "cluster": "2026-11-07"
+    },
+    "eth_updown_hourly:1352654": {
+      "cutoff": 1794443400,
+      "expiry": 1794445200,
+      "eligible_contracts": 1,
+      "cluster": "2026-11-12"
+    },
+    "eth_updown_hourly:1386179": {
+      "cutoff": 1794828600,
+      "expiry": 1794830400,
+      "eligible_contracts": 1,
+      "cluster": "2026-11-16"
+    }
+  },
+  "cutoff": {
+    "daily_hours_before_observation": 12,
+    "hourly_minutes_before_observation": 30,
+    "weekly_fraction_before_observation": 0.5
+  },
+  "flow_lookback_seconds": 604800,
+  "momentum_lookback": "equal to time between cutoff and observation",
+  "late_whale_lookback_seconds": 86400,
+  "large_trade_notional": 1000,
+  "pm_cost": 0.02,
+  "minimum_fit_meetings": 3,
+  "calibration_l2": 1,
+  "favorite_threshold": 0.5,
+  "longshot_threshold": 0.1,
+  "spot_threshold": 0.05,
+  "spot_vol_days": 30,
+  "spot_hourly_closes": 720,
+  "development_alpha": 0.1,
+  "holdout_alpha": 0.01,
+  "seed": 42,
+  "monte_carlo_permutations": 65536,
+  "exact_max_clusters": 16,
+  "pooled_strategy": "a_smart_pm",
+  "cluster": "UTC resolution observation date",
+  "primary": "equal-weight resolution-date after-cost ROI, including cash as zero",
+  "coverage_sha256": "35fa508a3a25d144bd550647e0c80352ac584e10fa013b201d3edbb0bc18864b",
+  "family_coverage_sha256": "6f81aab960307c91e812bd65f60bd56d0b8f084f57fa48c62bf1ac6ffb0aa22f",
+  "resolution_sha256": "7335634c28ce72317280408ca8045be31b1ea65acf518dd6130c8e13c29e1686"
+}
