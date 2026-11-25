@@ -1,5 +1,5 @@
 {
-  "N": 762,
+  "N": 191,
   "alpha": 0.01,
   "amendments": [
     {
@@ -17,6 +17,20 @@
       "description": "Stream hashes in bounded chunks, preserving binary SHA-256 and CRLF-normalized text SHA-256 exactly.",
       "rule_sha256": "162ee6abcad4fe8f89f3cb60cf7bece3b320ece727288ef4be3af800251f8e41",
       "scorer_sha256": "9b0140123b78f14438c7fd3493ffe7a32aa7f3824db9ed5dd8a186442e7662f0"
+    },
+    {
+      "id": 3,
+      "before_post_freeze_scoring": true,
+      "freeze_commit": "9b37511a6b9446c6ba8cae7a1ec06e76710429b8",
+      "description": "Anthony selected N=191 before any post-freeze data was scored; the only earlier run saw zero eligible markets. About June 2027 rather than January 2029 fits his FYP. All other protocol parameters remain unchanged.",
+      "sample_size_change": {"from": 762, "to": 191, "chosen_by": "Anthony"},
+      "power_caveat": "Approximately 80% power only if the full observed effect is real; about 23% if the effect is half, assuming stable pooled variance and independent dates.",
+      "power_at_full_observed_effect": 0.8015416242043212,
+      "power_at_half_observed_effect": 0.22977026869668016,
+      "expected_completion": "about June 2027",
+      "rule_sha256": "162ee6abcad4fe8f89f3cb60cf7bece3b320ece727288ef4be3af800251f8e41",
+      "scorer_sha256": "02f696a68302fc4e563549b16161a03840668d22540f4ab32bce207261e9b5e0",
+      "preregistration_sha256": "384b259d8e357b76891b1ec2ef26c66bdf338b0ff0095bb1b7abcc754186290c"
     }
   ],
   "cash_dates_in_primary_metric": true,
@@ -27,10 +41,10 @@
     "models/crypto_event_search/markets.py": "73e4e7622b9ad8b8602b395c6f7fcfa92157f0f07e4c7062f3a331a948e4e40c",
     "models/crypto_event_search/signals.py": "0bfec1514df7c888cdc38f1f9f013b43c744787aa304d8df3d172dc6abcd2692",
     "models/crypto_event_search/spots.py": "e201a11ccd7c7c9ed6b4dd591b0d1cc57c6dbfa71b18bd21d6682cd019f3183a",
-    "models/forward_eth_late_whale/FORWARD_PREREGISTRATION.md": "5f46ee03a55771591355306882bfe7099878ac09f1ad3c690a65bd07b1cb2ab1",
+    "models/forward_eth_late_whale/FORWARD_PREREGISTRATION.md": "384b259d8e357b76891b1ec2ef26c66bdf338b0ff0095bb1b7abcc754186290c",
     "models/forward_eth_late_whale/register_forward.py": "ef0d53d03edde0a4321eeb7cea0be4cb0e68b738d653883de0311847feca4938",
     "models/forward_eth_late_whale/rule.py": "162ee6abcad4fe8f89f3cb60cf7bece3b320ece727288ef4be3af800251f8e41",
-    "models/forward_eth_late_whale/score_forward.py": "9b0140123b78f14438c7fd3493ffe7a32aa7f3824db9ed5dd8a186442e7662f0",
+    "models/forward_eth_late_whale/score_forward.py": "02f696a68302fc4e563549b16161a03840668d22540f4ab32bce207261e9b5e0",
     "models/macro_event_search/feasibility.py": "fa7bcc484e52dd2129b0f5080e9b06b50ca82f4775a4f599d41883bfacd347bb",
     "models/strategy_search/search.py": "5ec77987037126aa12d52920cc551dedb363cf22fa1c795da3700b130e9d67b0",
     "models/wallet_backtest/backtest.py": "9563128867590f0579972167022e78b9f856e0a2286da86169361612e1cae0ca",

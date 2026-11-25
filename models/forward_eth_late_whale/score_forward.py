@@ -20,10 +20,17 @@ def git(*args):
 
 
 def validate_amendment(spec, original, freeze_commit):
-    mutable = {'code_hashes', 'amendments'}
+    mutable = {'N', 'code_hashes', 'amendments'}
     if {k: v for k, v in spec.items() if k not in mutable} != {k: v for k, v in original.items() if k not in mutable}:
         raise ValueError('Amendments cannot change frozen protocol parameters')
     allowed = {'models/forward_eth_late_whale/rule.py', 'models/forward_eth_late_whale/score_forward.py'}
+    resized = spec.get('N') != original.get('N')
+    if resized:
+        authorization = {'from': 762, 'to': 191, 'chosen_by': 'Anthony'}
+        if original.get('N') != 762 or spec.get('N') != 191 or not any(
+                a.get('sample_size_change') == authorization for a in spec.get('amendments', [])):
+            raise ValueError('Only the declared Anthony pre-scoring N=191 amendment is authorized')
+        allowed.add('models/forward_eth_late_whale/FORWARD_PREREGISTRATION.md')
     if set(spec['code_hashes']) != set(original['code_hashes']) or any(
             spec['code_hashes'][p] != value for p, value in original['code_hashes'].items() if p not in allowed):
         raise ValueError('Amendment changes an unauthorized code hash')
@@ -50,13 +57,18 @@ def registration():
         blob = subprocess.check_output(['git', 'show', f'{commit}:{relative}{name}'], cwd=rule.REPO)
         current = (rule.FOLDER/name).read_bytes().replace(b'\r\n', b'\n')
         if name == 'registration.json' and spec.get('amendments'):
-            validate_amendment(spec, json.loads(blob), commit)
+            original = json.loads(blob)
+            validate_amendment(spec, original, commit)
             for amended in ('registration.json', 'AMENDMENTS.md'):
                 committed = subprocess.check_output(['git', 'show', f'HEAD:{relative}{amended}'], cwd=rule.REPO)
                 if committed.replace(b'\r\n', b'\n') != (rule.FOLDER/amended).read_bytes().replace(b'\r\n', b'\n'):
                     raise ValueError('Amendment is not committed')
         elif blob.replace(b'\r\n', b'\n') != current:
-            raise ValueError('Frozen registration changed')
+            if name != 'FORWARD_PREREGISTRATION.md' or not spec.get('amendments') or spec.get('N') == original.get('N'):
+                raise ValueError('Frozen registration changed')
+            committed = subprocess.check_output(['git', 'show', f'HEAD:{relative}{name}'], cwd=rule.REPO)
+            if committed.replace(b'\r\n', b'\n') != current:
+                raise ValueError('Amendment is not committed')
     for name, expected in spec['code_hashes'].items():
         if rule.digest(rule.REPO/name) != expected:
             raise ValueError('Pinned rule/collector code changed: '+name)

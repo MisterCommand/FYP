@@ -158,29 +158,69 @@ class ForwardTests(unittest.TestCase):
             repo = Path(folder)
             local = repo/'models/forward_eth_late_whale'
             local.mkdir(parents=True)
-            paths = ('models/forward_eth_late_whale/rule.py', 'models/forward_eth_late_whale/score_forward.py')
+            paths = ('models/forward_eth_late_whale/rule.py', 'models/forward_eth_late_whale/score_forward.py', 'models/forward_eth_late_whale/FORWARD_PREREGISTRATION.md')
             hashes = {}
             for path in paths:
                 (repo/path).write_bytes(b'synthetic amended source\n')
                 hashes[path] = hashlib.sha256(b'synthetic amended source\n').hexdigest()
-            original = {'N': 762, 'code_hashes': dict.fromkeys(paths, 'old'), 'collector_hashes': {}, 'wallet_eligibility_proof': {'cutoff': 1}}
-            amended = {**original, 'code_hashes': hashes, 'amendments': [{'freeze_commit': 'freeze', 'before_post_freeze_scoring': True, 'rule_sha256': hashes[paths[0]], 'scorer_sha256': hashes[paths[1]]}]}
+            original = {'N': 762, 'alpha': .01, 'interim_looks': [], 'code_hashes': dict.fromkeys(paths, 'old'), 'collector_hashes': {}, 'wallet_eligibility_proof': {'cutoff': 1}}
+            amended = {**original, 'N': 191, 'code_hashes': hashes, 'amendments': [{'freeze_commit': 'freeze', 'before_post_freeze_scoring': True, 'rule_sha256': hashes[paths[0]], 'scorer_sha256': hashes[paths[1]], 'sample_size_change': {'from': 762, 'to': 191, 'chosen_by': 'Anthony'}}]}
             encoded = json.dumps(amended).encode()
             (local/'registration.json').write_bytes(encoded)
-            (local/'FORWARD_PREREGISTRATION.md').write_bytes(b'Original protocol\n')
             (local/'AMENDMENTS.md').write_bytes(b'Approved before scoring\n')
-            blobs = [json.dumps(original).encode(), encoded, b'Approved before scoring\n', b'Original protocol\n']
+            blobs = [json.dumps(original).encode(), encoded, b'Approved before scoring\n', b'Original protocol\n', b'synthetic amended source\n']
             with patch.object(rule, 'FOLDER', local), patch.object(rule, 'REPO', repo), patch.object(score_forward, 'git', side_effect=['false', 'freeze', '2']), patch.object(score_forward.subprocess, 'check_output', side_effect=blobs), patch.object(score_forward.time, 'time', return_value=3):
                 registered, freeze = score_forward.registration()
             self.assertEqual(freeze, {'commit': 'freeze', 'timestamp': 2})
-            self.assertEqual(registered['N'], 762)
-            for changed in ({**amended, 'N': 763}, {**amended, 'amendments': []}, {**amended, 'code_hashes': {}}):
+            self.assertEqual(registered['N'], 191)
+            for changed in ({**amended, 'N': 763}, {**amended, 'amendments': []}, {**amended, 'code_hashes': {}}, {**amended, 'alpha': .05}, {**amended, 'interim_looks': [95]}):
                 with self.assertRaises(ValueError):
                     score_forward.validate_amendment(changed, original, 'freeze')
             (local/'AMENDMENTS.md').write_bytes(b'Uncommitted change\n')
             with patch.object(rule, 'FOLDER', local), patch.object(rule, 'REPO', repo), patch.object(score_forward, 'git', side_effect=['false', 'freeze']), patch.object(score_forward.subprocess, 'check_output', side_effect=blobs):
                 with self.assertRaisesRegex(ValueError, 'Amendment is not committed'):
                     score_forward.registration()
+            (local/'AMENDMENTS.md').write_bytes(b'Approved before scoring\n')
+            (local/'FORWARD_PREREGISTRATION.md').write_bytes(b'Uncommitted protocol\n')
+            with patch.object(rule, 'FOLDER', local), patch.object(rule, 'REPO', repo), patch.object(score_forward, 'git', side_effect=['false', 'freeze']), patch.object(score_forward.subprocess, 'check_output', side_effect=blobs):
+                with self.assertRaisesRegex(ValueError, 'Amendment is not committed'):
+                    score_forward.registration()
+
+    def test_n_amendment_requires_explicit_pre_scoring_authorization(self):
+        paths = ('models/forward_eth_late_whale/rule.py', 'models/forward_eth_late_whale/score_forward.py')
+        original = {'N': 762, 'code_hashes': dict.fromkeys(paths, 'unchanged')}
+        declaration = {'freeze_commit': 'freeze', 'before_post_freeze_scoring': True,
+            'rule_sha256': 'unchanged', 'scorer_sha256': 'unchanged'}
+        code_only = {**original, 'amendments': [declaration]}
+        score_forward.validate_amendment(code_only, original, 'freeze')
+        with self.assertRaisesRegex(ValueError, 'N=191 amendment'):
+            score_forward.validate_amendment({**code_only, 'N': 191}, original, 'freeze')
+        declaration['sample_size_change'] = {'from': 762, 'to': 191, 'chosen_by': 'Anthony'}
+        score_forward.validate_amendment({**code_only, 'N': 191}, original, 'freeze')
+        declaration['before_post_freeze_scoring'] = False
+        with self.assertRaisesRegex(ValueError, 'precede forward scoring'):
+            score_forward.validate_amendment({**code_only, 'N': 191}, original, 'freeze')
+
+    def test_n191_has_no_interim_and_exactly_one_terminal_look(self):
+        base = observations()[0]
+        rows = [{**base, 'cutoff': base['cutoff']+index*86400,
+            'expiry': base['expiry']+index*86400,
+            'cluster': datetime.fromtimestamp(base['expiry']+index*86400, timezone.utc).date().isoformat()}
+            for index in range(191)]
+        protocol = {**spec(), 'N': 191}
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            with patch.object(rule.audit.prior, 'pm_return', return_value=(0., False)) as roi, patch.object(rule.signals, 'metrics', return_value={'metric': 0., 'p': 1., 'n_trades': 0, 'n_contracts': 191}) as metrics:
+                for count in (95, 190):
+                    status = rule.terminal_look(rows[:count], protocol, {'timestamp': 0}, root, root/'report.md')
+                    self.assertEqual(status['n_eligible_dates'], count)
+                roi.assert_not_called()
+                metrics.assert_not_called()
+                rule.terminal_look(rows, protocol, {'timestamp': 0, 'commit': 'freeze'}, root, root/'report.md')
+                self.assertEqual(roi.call_count, 191)
+                metrics.assert_called_once()
+                with self.assertRaisesRegex(ValueError, 'already'):
+                    rule.terminal_look(rows, protocol, {'timestamp': 0}, root, root/'report.md')
 
     def test_registration_refuses_an_uncommitted_freeze(self):
         with patch.object(score_forward, 'git', side_effect=['false', '']):

@@ -1,7 +1,10 @@
 # Frozen forward ETH late-whale test
 
 Read `FORWARD_PREREGISTRATION.md` and `registration.json`. There is one rule,
-one fixed N=762 and no interim. Normalized source hashes and the Git freeze are
+one fixed N=191 and no interim, expected about June 2027. Anthony chose this
+before any post-freeze data was scored, to fit his FYP; see `AMENDMENTS.md`.
+Power is approximately 80% at the full observed effect, only 23% at half.
+Normalized source hashes and the original Git eligibility freeze are
 checked before any network collection. Historical power calculation only:
 
 ```sh
@@ -9,10 +12,13 @@ checked before any network collection. Historical power calculation only:
 ```
 
 That generator refuses to overwrite a committed registration. Never regenerate
-or resize this test. The scorer refuses edits to the frozen sources/registration.
+or resize this test again. The scorer accepts only explicitly committed
+amendments and refuses other changes to frozen sources/registration.
 
-Schedule from the dedicated detached freeze worktree, which remains stable when
-the development repository switches branches. Exact command on this machine:
+Schedule only after updating the dedicated detached worktree to the approved
+N=191 amendment commit (see `SCHEDULING.md`), not the original N=762 checkout.
+The worktree remains stable when the development repository switches branches.
+Exact command on this machine:
 
 ```sh
 /home/ubuntu/data/polymarket/wallet_backtest_env/bin/python /home/ubuntu/repos/FYP-eth-late-whale-forward/models/forward_eth_late_whale/score_forward.py

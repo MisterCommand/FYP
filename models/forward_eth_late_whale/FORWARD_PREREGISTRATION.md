@@ -1,17 +1,25 @@
 # Forward ETH daily late-whale test — round 5
 
-**Exactly one hypothesis, one fixed terminal look at N=762 eligible resolved
+**Exactly one hypothesis, one fixed terminal look at N=191 eligible resolved
 dates, one-sided alpha 0.01. No interim look, tuning, resizing, alternate
 cutoff, replacement rule, placebo, subgroup test or second attempt.** Round 4
 did not establish an edge. Its ETH late-whale estimate motivates this new,
 genuinely prospective test; it is not independent evidence of an edge.
+
+**Pre-scoring amendment 3:** Anthony selected N=191 to finish about June 2027
+rather than January 2029, fitting his FYP. The only earlier real run saw zero
+eligible markets; no post-freeze data had been scored when this was chosen.
+See `AMENDMENTS.md`. Power is approximately 80% only if the full observed
+effect is real, and approximately 23% at half that effect.
 
 ## Freeze and eligible population
 
 The freeze is the **committer Unix timestamp** of the unique Git commit first
 adding this directory's `registration.json`. This definition avoids a circular
 self-hash: the runner obtains that immutable commit and timestamp from full Git
-history and compares this Markdown and JSON with their blobs in that commit.
+history. The original blobs remain in that commit. The loader validates
+explicit, committed pre-scoring amendments to this Markdown and JSON without
+moving the original freeze; all other protocol parameters remain fixed.
 No forward data may be scored before that commit. Only markets with **cutoff
 strictly greater than** that timestamp qualify; equality and everything earlier
 are refused before trade collection or features. Later implementation/evidence
@@ -76,22 +84,29 @@ is rerun. Each historical date appears once, including cash dates:
 | Holdout | 40 | 25 | .625000 | .1708451202 | .3018568830 |
 | Pooled | 119 | 91 | .764706 | .1528870944 | .4433035079 |
 
-Use the **half-pooled-mean planning effect**, delta=.07644354721. The normal
-approximation is `ceil((Phi^-1(.99)+Phi^-1(.80))^2*s^2/delta^2)`:
-**N=762 eligible dates**, approximately 583 traded dates. At the full observed
-effect .1528870944, the same calculation gives **N=191**, about 146 traded
-dates. That second calculation is descriptive, **not** an alternative stopping
-rule. Pooled variance and both effects include cash dates, so dividing N by
-the trade rate again would double-count nontrading. This is approximate 80%
-power under stable variance, effect, cadence and date independence, not a
-guarantee; effect selection, fat tails, dependence and nonstationarity can
-make it optimistic. The selected historical sample is only 119 dates.
+The normal approximation is
+`ceil((Phi^-1(.99)+Phi^-1(.80))^2*s^2/delta^2)`. The historical half-pooled-mean
+calculation, delta=.07644354721, required 762 dates (about January 2029).
+Anthony instead selected **N=191 eligible dates**, about **146 traded dates**,
+before any post-freeze scoring, so the test fits his FYP and can finish about
+June 2027. This is the full-observed-effect calculation, delta=.1528870944,
+not the more conservative half-effect target. Historical planning calculations
+remain in the JSON for transparency; only N=191 is a stopping rule.
 
-At one eligible daily date per day, N requires 762 calendar dates. If the freeze
-is November 25, 2026 before the November 26 cutoff, the first date is November
-26 and the nominal final date is **December 26, 2028**. Applying the historical
-119/120 eligibility rate gives about 769 daily opportunities, **January 2,
-2029**. These are planning forecasts, not alternate stops. The realized horizon
+With N=191, approximate power is
+`1-Phi(Phi^-1(.99)-sqrt(191)*delta/s)`: **80% only if the full observed effect
+is real, about 23% if the effect is half** (.22977 using pooled variance).
+Pooled variance and both effects include cash dates, so dividing N by the
+trade rate again would double-count nontrading. Stable variance, effect,
+cadence and date independence are assumptions, not guarantees; effect selection,
+fat tails, dependence and nonstationarity can make power optimistic. The selected
+historical sample is only 119 dates. A null result will not exclude the half effect.
+
+At one eligible daily date per day, N requires 191 calendar dates. With the
+unchanged November 25, 2026 freeze and first date November 26, the nominal final
+date is **June 4, 2027**. Applying the historical 119/120 eligibility rate gives
+about 193 daily opportunities, **June 6, 2027**. These are planning forecasts,
+not alternate stops. The realized horizon
 depends on listing, settlement and data availability. There is **no interim
 date**, no N/2 look and no O'Brien–Fleming option.
 
@@ -124,10 +139,13 @@ responses; refuse duplicate/cyclic cursors and off-series events. Do not trust
 endDate to exclude prospective candidates. Raw histories, caches, progress,
 source fingerprints and locks live in `~/data/polymarket/forward_eth_late_whale/`,
 never Git. Freeze the existing prior corpus as hashed in the JSON. Collector,
-parser or registration changes cause refusal rather than silent protocol drift.
+parser or undeclared registration changes cause refusal rather than silent
+protocol drift. Only explicitly committed pre-scoring amendments are accepted.
 
-Run from a dedicated checkout of the freeze, not a checkout reused for unrelated
-branches. The runner has no N, alpha, freeze-time, strategy or data-root override.
+Run from a dedicated checkout of the approved amendment commit, not a checkout
+reused for unrelated branches or the superseded original-code checkout. The
+eligibility freeze remains the original commit. See `SCHEDULING.md`. The runner
+has no N, alpha, freeze-time, strategy or data-root override.
 No report exists before N. Publish a failure as well as a pass. Round-five
 selection, only 119 planning dates, changing trade rates, fees and market rules,
 participant records rather than executable quotes, capacity, dependence and

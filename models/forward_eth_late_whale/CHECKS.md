@@ -1,5 +1,8 @@
 # Freeze and initial forward check
 
+**Current target: N=191, about June 2027 (amendment 3).** The logs and hashes
+below describe the original zero-eligible run, before that pre-scoring choice.
+
 Freeze commit: `9b37511a6b9446c6ba8cae7a1ec06e76710429b8`.
 Committer time: **2026-11-25T13:24:22Z**, Unix **1795613062**.
 This commit contains the complete registration, rule, scorer and tests, before
@@ -47,12 +50,15 @@ progress and raw Gamma responses are under
 `~/data/polymarket/forward_eth_late_whale/`. Historical crypto study files are
 unchanged; no earlier market was scored as forward data.
 
-## Planning interpretation
+## Current planning interpretation
 
-N=762 counts eligible dates, **including cash**. At the observed 91/119 trade
-rate, expect about 583 traded dates, not 762 trades. At daily eligible cadence
-the nominal endpoint is December 26, 2028; allowing the historical 119/120 common
-eligibility rate gives approximately January 2, 2029. Neither forecast is a
-stopping rule. The full-effect N=191 calculation is not an alternative look.
-No interim is registered. Cron is documented, **not installed**. Keep the
-dedicated freeze worktree and the external archives/locks intact.
+N=191 counts eligible dates, **including cash**. At the observed 91/119 trade
+rate, expect about 146 traded dates. The nominal endpoint is June 4, 2027;
+allowing the historical 119/120 common eligibility rate gives approximately
+June 6, 2027. Anthony selected this before any post-freeze data was scored to
+fit his FYP, rather than the original approximately January 2029 endpoint.
+Approximate power is 80% only at the full observed effect and 23% at half.
+Neither calendar forecast is a stopping rule. No interim is registered.
+Cron is documented, **not installed**. The original operational checkout has
+not been updated or executed for this amendment; see `SCHEDULING.md` before
+enabling a job. Keep the external archives/locks intact.
