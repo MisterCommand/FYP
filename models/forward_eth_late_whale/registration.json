@@ -1,0 +1,135 @@
+{
+  "N": 191,
+  "alpha": 0.01,
+  "amendments": [
+    {
+      "id": 1,
+      "before_post_freeze_scoring": true,
+      "freeze_commit": "9b37511a6b9446c6ba8cae7a1ec06e76710429b8",
+      "description": "Treat missing settlement timestamps as pending; validate committed code-only amendments without changing the freeze or protocol parameters.",
+      "rule_sha256": "be36347bfcbfb2a6e46646c682af5ba816e6b2cd66b04fbfc0eea3cd791f8dfe",
+      "scorer_sha256": "9b0140123b78f14438c7fd3493ffe7a32aa7f3824db9ed5dd8a186442e7662f0"
+    },
+    {
+      "id": 2,
+      "before_post_freeze_scoring": true,
+      "freeze_commit": "9b37511a6b9446c6ba8cae7a1ec06e76710429b8",
+      "description": "Stream hashes in bounded chunks, preserving binary SHA-256 and CRLF-normalized text SHA-256 exactly.",
+      "rule_sha256": "162ee6abcad4fe8f89f3cb60cf7bece3b320ece727288ef4be3af800251f8e41",
+      "scorer_sha256": "9b0140123b78f14438c7fd3493ffe7a32aa7f3824db9ed5dd8a186442e7662f0"
+    },
+    {
+      "id": 3,
+      "before_post_freeze_scoring": true,
+      "freeze_commit": "9b37511a6b9446c6ba8cae7a1ec06e76710429b8",
+      "description": "Anthony selected N=191 before any post-freeze data was scored; the only earlier run saw zero eligible markets. About June 2027 rather than January 2029 fits his FYP. All other protocol parameters remain unchanged.",
+      "sample_size_change": {"from": 762, "to": 191, "chosen_by": "Anthony"},
+      "power_caveat": "Approximately 80% power only if the full observed effect is real; about 23% if the effect is half, assuming stable pooled variance and independent dates.",
+      "power_at_full_observed_effect": 0.8015416242043212,
+      "power_at_half_observed_effect": 0.22977026869668016,
+      "expected_completion": "about June 2027",
+      "rule_sha256": "162ee6abcad4fe8f89f3cb60cf7bece3b320ece727288ef4be3af800251f8e41",
+      "scorer_sha256": "02f696a68302fc4e563549b16161a03840668d22540f4ab32bce207261e9b5e0",
+      "preregistration_sha256": "384b259d8e357b76891b1ec2ef26c66bdf338b0ff0095bb1b7abcc754186290c"
+    }
+  ],
+  "cash_dates_in_primary_metric": true,
+  "code_hashes": {
+    "models/crypto_event_search/audit.py": "68d86f4b502582bf9fb54d92aa3f44259df3cb5d1941ebf393f41f56afd78345",
+    "models/crypto_event_search/event_coverage.csv": "35fa508a3a25d144bd550647e0c80352ac584e10fa013b201d3edbb0bc18864b",
+    "models/crypto_event_search/feasibility.py": "9c408f37c1f6acafd5c82ad5841a07e45adeba1aa69b527c36f7416b7a0cc462",
+    "models/crypto_event_search/markets.py": "73e4e7622b9ad8b8602b395c6f7fcfa92157f0f07e4c7062f3a331a948e4e40c",
+    "models/crypto_event_search/signals.py": "0bfec1514df7c888cdc38f1f9f013b43c744787aa304d8df3d172dc6abcd2692",
+    "models/crypto_event_search/spots.py": "e201a11ccd7c7c9ed6b4dd591b0d1cc57c6dbfa71b18bd21d6682cd019f3183a",
+    "models/forward_eth_late_whale/FORWARD_PREREGISTRATION.md": "384b259d8e357b76891b1ec2ef26c66bdf338b0ff0095bb1b7abcc754186290c",
+    "models/forward_eth_late_whale/register_forward.py": "ef0d53d03edde0a4321eeb7cea0be4cb0e68b738d653883de0311847feca4938",
+    "models/forward_eth_late_whale/rule.py": "162ee6abcad4fe8f89f3cb60cf7bece3b320ece727288ef4be3af800251f8e41",
+    "models/forward_eth_late_whale/score_forward.py": "02f696a68302fc4e563549b16161a03840668d22540f4ab32bce207261e9b5e0",
+    "models/macro_event_search/feasibility.py": "fa7bcc484e52dd2129b0f5080e9b06b50ca82f4775a4f599d41883bfacd347bb",
+    "models/strategy_search/search.py": "5ec77987037126aa12d52920cc551dedb363cf22fa1c795da3700b130e9d67b0",
+    "models/wallet_backtest/backtest.py": "9563128867590f0579972167022e78b9f856e0a2286da86169361612e1cae0ca",
+    "models/wallet_backtest/build_panel.py": "e5e70ba3d5f1b4814a86ce75c4c74f4fb3357ab9f235190b7d1f441565bd3538"
+  },
+  "collector_hashes": {
+    "feasibility/collect_meetings.py": "fc7234e35e9ce14957e0fef5c4428947a721f352ed37441a1a2eba5b30bd7e29",
+    "feasibility/scripts/scripts/polymarket/collect_pilot.py": "dde8eda50a84960d55d4c7a8a2c723dbb6fd9cc088fea0e61146ef8dcbba54e0"
+  },
+  "cutoff_seconds_before_observation": 43200,
+  "data_root": "data/polymarket/forward_eth_late_whale",
+  "exact_max_clusters": 16,
+  "family": "eth_updown_daily",
+  "freeze_definition": "committer Unix timestamp of the unique Git commit first adding this registration.json; cutoff strictly greater",
+  "historical": {
+    "development": {
+      "dates": 79,
+      "mean_roi": 0.14379442312153656,
+      "trade_rate": 0.8354430379746836,
+      "traded_dates": 66,
+      "variance_ddof1": 0.519461082110144
+    },
+    "holdout": {
+      "dates": 40,
+      "mean_roi": 0.17084512024319826,
+      "trade_rate": 0.625,
+      "traded_dates": 25,
+      "variance_ddof1": 0.3018568830133238
+    },
+    "pooled": {
+      "dates": 119,
+      "mean_roi": 0.15288709442293547,
+      "trade_rate": 0.7647058823529411,
+      "traded_dates": 91,
+      "variance_ddof1": 0.44330350785428413
+    }
+  },
+  "historical_eligible_rate": 0.9916666666666667,
+  "interim_looks": [],
+  "large_trade_notional": 1000,
+  "late_whale_lookback_seconds": 86400,
+  "monte_carlo_permutations": 65536,
+  "observed_full_effect": {
+    "N": 191,
+    "effect": 0.15288709442293547,
+    "expected_traded_dates": 146.05882352941177
+  },
+  "planning_half_effect": {
+    "N": 762,
+    "effect": 0.07644354721146773,
+    "expected_traded_dates": 582.7058823529411
+  },
+  "pm_cost": 0.02,
+  "power": 0.8,
+  "power_method": "Normal approximation: ceil((z_.99+z_.80)^2 * unbiased per-date variance / effect^2); cash dates retained, no extra trade-rate division",
+  "schema": 1,
+  "search_round": 5,
+  "seed": 42,
+  "series_id": "40",
+  "strategy": "e_late_whale_pm",
+  "test": "one-sided date-cluster sign-flip, mean ROI > 0, p < .01; first N eligible dates only",
+  "training_hashes": {
+    "crypto/study/development_observations.csv": "ad1710503966ce86291e80c68a7b96c2003f4cc17e43b01189db32a253e46aff",
+    "crypto/study/holdout_observations.csv": "e5d7c60ea3c3a9b988c2d0bcfafb800194668bc60d9c1ad37fa5a4e8515fe1dd",
+    "crypto/trades.sqlite3": "65b15eff8dc127e4eeecf8129dd4064fce440a4d5cae01e2cc23de48301fab6a",
+    "macro/trades.sqlite3": "dcb97c4565bdf9e65c5eae74258434024bf71f1cec2e676605bf67a32e6eb945",
+    "strategy_search/fresh/606422/summary.json": "3afb1e6baf32fb58f1978c7272509fb60d249d84fbbba654ed0942fc7059012a",
+    "strategy_search/fresh/event.json": "8b40159da6a77e6b0d049256264e87928f4e19eaa3b54a5eadb2d3bdb8ef1a86",
+    "strategy_search/fresh/trades.sqlite3": "314f38b45f4283bb213ceb56c78df9d1d33f14f85a6e2fad2fafdd36b85a144c",
+    "wallet_backtest_cache/trades.sqlite3": "daecb41292e8bf18586712a2cd7c8f7671aac93b2c6e6441017be9f62131c97c"
+  },
+  "wallet_eligibility_proof": {
+    "argument": "Minimum-five/positive-gross qualification is monotone as prior observations accumulate; e never uses scores or ranks.",
+    "cutoff": 1794978060,
+    "event_id": "1399687",
+    "qualified_wallets": 137897
+  },
+  "wallet_skill": {
+    "minimum_qualified": 200,
+    "minimum_records": 5,
+    "minimum_smart": 20,
+    "score": "prior settlement PnL/gross*n/(n+20)",
+    "shrinkage_records": 20,
+    "smart_fraction": 0.1,
+    "sources": "existing FOMC including October, macro and same ETH daily family only; trades and settlements strictly before cutoff",
+    "used_by_e": false
+  }
+}
