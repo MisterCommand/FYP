@@ -113,3 +113,21 @@ External logs are `development.log`, `holdout.log`,
 the crypto data root. `development_manifest.csv` binds the external full freeze;
 `study_manifest.csv` binds preregistration, freeze, retained lock and runner code.
 No raw histories, wallet lists, candles, SQLite or locks were added to git.
+
+## Placebo seed clarification
+
+The executed event identifier is the qualified `registration.json.events` key
+`family:Gamma_event_ID`, also stored as `Market.event_id` by the feasibility
+mapper. `prepare` passes this key to `select_cohorts`, whose exact seed expression
+is `random.Random(f"{seed}:{event_id}:{cutoff}")`. Thus the actual seed string is
+`f"42:{family}:{gamma_event_id}:{cutoff}"`, not a bare-Gamma-ID-only encoding.
+Sampling is without replacement from sorted qualified wallet addresses, with
+the same cohort size as strategy a. This is a retrospective encoding clarification,
+not a change to the pinned registration, study artifacts, seed or random draw.
+
+Strategy h is a negative control. Its cohort cannot change a–g signals or ROIs.
+It does participate in the Holm family, so changing its advancement could change
+adjusted p-values; nevertheless it cannot change the a–g verdict in this study.
+ETH daily late-whale is the only advanced non-control and its raw p=0.025650
+exceeds the registered 0.01 threshold even before adjustment. No cohort or
+holdout was recomputed for this clarification.

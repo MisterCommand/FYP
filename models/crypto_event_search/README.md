@@ -81,6 +81,19 @@ The primary metric, strict cutoff/entry/candle rules, seven fixed strategies,
 single pooled test, development gate and round-four Holm alpha are specified in
 the committed registration. Unadvanced strategy holdout returns are not computed.
 
+The placebo uses the registry's qualified event key, `family:Gamma_event_ID`,
+as `event_id` in `select_cohorts`. Its exact Python seed string is
+`f"{seed}:{family}:{gamma_event_id}:{cutoff}"`, with seed 42 and cutoff in Unix
+seconds. The draw samples the sorted qualified-wallet universe without replacement
+and has the same size as the smart cohort. This clarifies the executed encoding;
+it does not amend the pinned preregistration or change any cohort or result.
+
+Placebo h is a negative control, not evidence for strategies a–g. Its seed does
+not change their signals or ROIs. Although h participates in Holm and can affect
+adjusted p-values, it cannot change the a–g verdict **in this study**: the only
+advanced non-control, ETH daily late-whale, has raw p=0.025650, already above
+0.01 even without any Holm adjustment. Do not change the seed or retry holdout.
+
 The full requested verification comprises this new suite and the existing
 `macro_event_search`, `strategy_search`, and `wallet_backtest` unittest suites,
 each with `-m unittest discover -s models/<directory> -p 'test_*.py' -v`.
