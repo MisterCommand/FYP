@@ -1,0 +1,9 @@
+family,resolved_gamma_events,resolved_gamma_contracts,sampled_events,sampled_contracts,usable_events,participant_rows,deduplicated_participant_rows,distinct_wallets,distinct_wallets_mapped_contracts,included
+btc_above_daily,492,4932,120,1200,120,3481989,3420468,168457,168457,True
+eth_above_daily,493,4907,120,1191,120,1082848,1070476,90382,90382,True
+btc_updown_daily,619,619,120,120,119,826817,795128,34882,34882,True
+eth_updown_daily,610,610,120,120,119,375906,360963,19495,19495,True
+btc_updown_weekly,3,3,3,3,2,705,678,179,179,False
+eth_updown_weekly,2,2,2,2,2,409,409,90,90,False
+btc_updown_hourly,13074,13074,120,120,117,537448,526318,21598,21598,True
+eth_updown_hourly,12747,12747,120,120,118,208019,202057,8753,8753,True
