@@ -90,6 +90,44 @@ class FeasibilityTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'fingerprint mismatch'):
                     audit.validate_cache(root)
 
+    def test_missing_october_history_fails_before_any_attachment(self):
+        with tempfile.TemporaryDirectory() as folder, sqlite3.connect(':memory:') as db:
+            with self.assertRaisesRegex(ValueError, 'October FOMC history is required: Fresh collection unavailable'):
+                audit.attach_prior(db, Path(folder) / 'crypto')
+            self.assertEqual([r[1] for r in db.execute('PRAGMA database_list')], ['main'])
+
+    def test_incomplete_october_history_fails_before_any_attachment(self):
+        with tempfile.TemporaryDirectory() as folder, sqlite3.connect(':memory:') as db:
+            parent = Path(folder)
+            history = parent / 'strategy_search/fresh/606422'
+            history.mkdir(parents=True)
+            for status in ('budget_limit', 'error', 'collecting'):
+                with self.subTest(status=status):
+                    (history / 'summary.json').write_text(json.dumps({'status': status}))
+                    with self.assertRaisesRegex(ValueError, 'October FOMC history is required: Fresh collection not exhausted'):
+                        audit.attach_prior(db, parent / 'crypto')
+                    self.assertEqual([r[1] for r in db.execute('PRAGMA database_list')], ['main'])
+
+    def test_complete_october_history_is_attached_with_other_prior_sources(self):
+        with tempfile.TemporaryDirectory() as folder, sqlite3.connect(':memory:') as db:
+            parent = Path(folder)
+            (parent / 'wallet_backtest_cache').mkdir()
+            (parent / 'macro').mkdir()
+            fresh = parent / 'fresh.sqlite3'
+            for path in (parent / 'wallet_backtest_cache/trades.sqlite3', parent / 'macro/trades.sqlite3', fresh):
+                with sqlite3.connect(path) as source:
+                    source.execute('CREATE TABLE marker (value TEXT)')
+            with patch.object(audit.prior, 'fresh_cache', return_value=(fresh, {}, 'complete')) as load:
+                audit.attach_prior(db, parent / 'crypto')
+            load.assert_called_once_with(parent)
+            self.assertEqual([r[1] for r in db.execute('PRAGMA database_list')], ['main', 'fomc', 'macro', 'fresh'])
+
+    def test_invalid_october_cache_error_is_not_silently_ignored(self):
+        with sqlite3.connect(':memory:') as db, patch.object(audit.prior, 'fresh_cache', side_effect=ValueError('Fresh metadata fingerprint mismatch')):
+            with self.assertRaisesRegex(ValueError, 'Fresh metadata fingerprint mismatch'):
+                audit.attach_prior(db, Path('/unused/crypto'))
+            self.assertEqual([r[1] for r in db.execute('PRAGMA database_list')], ['main'])
+
     def test_skill_uses_prior_resolution_and_prior_trades_in_allowed_sources(self):
         with sqlite3.connect(':memory:') as db:
             audit.create_tables(db, {})
