@@ -16,6 +16,7 @@ from markets import rule as market_rule
 import signals
 
 FAMILY = 'eth_updown_daily'
+HASH_CHUNK_BYTES = 1024*1024
 
 
 class PreFreeze(ValueError):
@@ -32,10 +33,19 @@ class Pending(Ineligible):
 
 def digest(path):
     path = Path(path)
-    data = path.read_bytes()
-    if path.suffix in ('.py', '.json', '.md', '.csv'):
-        data = data.replace(b'\r\n', b'\n')
-    return hashlib.sha256(data).hexdigest()
+    text = path.suffix in ('.py', '.json', '.md', '.csv')
+    result, pending = hashlib.sha256(), b''
+    with path.open('rb') as handle:
+        while block := handle.read(HASH_CHUNK_BYTES):
+            if text:
+                block = pending+block
+                pending = b'\r' if block.endswith(b'\r') else b''
+                if pending:
+                    block = block[:-1]
+                block = block.replace(b'\r\n', b'\n')
+            result.update(block)
+    result.update(pending)
+    return result.hexdigest()
 
 
 def atomic_json(path, value):

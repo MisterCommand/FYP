@@ -32,3 +32,18 @@ New normalized SHA-256 values:
 
 The dedicated operational worktree is intentionally not changed or executed
 while the final N is pending. This amendment changes code, not the study clock.
+
+## Amendment 2 — bounded-memory hashing
+
+Hash files in 1 MiB chunks instead of reading complete frozen databases into
+memory. Binary bytes are unchanged. For the registered text suffixes, retain
+CRLF-to-LF normalization even when the CR/LF pair spans two chunks; preserve a
+lone trailing CR. The resulting SHA-256 is identical to the original whole-file
+algorithm. Synthetic binary/text fixtures cover multiple bounded reads, empty
+files, CRLF boundaries, trailing CR and read-error propagation. No real database
+is read to verify this amendment, and no market is fetched or scored.
+
+New normalized `rule.py` SHA-256:
+`162ee6abcad4fe8f89f3cb60cf7bece3b320ece727288ef4be3af800251f8e41`.
+The scorer hash is unchanged from amendment 1. Original freeze, N=762 and all
+non-code protocol parameters and historical hashes remain unchanged.

@@ -76,6 +76,39 @@ def collecting_fixture(root, status='exhausted', records=None):
 
 
 class ForwardTests(unittest.TestCase):
+    def test_streamed_text_hash_matches_original_across_crlf_boundaries(self):
+        with tempfile.TemporaryDirectory() as folder, patch.object(rule, 'HASH_CHUNK_BYTES', 4):
+            for suffix in ('.py', '.json', '.md', '.csv'):
+                path = Path(folder)/('synthetic'+suffix)
+                for payload in (b'', b'\r', b'abc\r\nx', b'abc\r\r\nend\r', b'a\nb\r\nc\r\n'*5):
+                    with self.subTest(suffix=suffix, payload=payload):
+                        path.write_bytes(payload)
+                        expected = hashlib.sha256(payload.replace(b'\r\n', b'\n')).hexdigest()
+                        with patch.object(Path, 'read_bytes', side_effect=AssertionError('Whole-file read')):
+                            self.assertEqual(rule.digest(path), expected)
+
+    def test_streamed_binary_hash_is_byte_exact_and_reads_bounded_chunks(self):
+        payload = b'\x00\xff\r\n'*(rule.HASH_CHUNK_BYTES+3)
+        sizes = []
+        parent = self
+        class Reader(io.BytesIO):
+            def read(self, size=-1):
+                parent.assertEqual(size, rule.HASH_CHUNK_BYTES)
+                sizes.append(size)
+                return super().read(size)
+        with patch.object(Path, 'open', return_value=Reader(payload)), patch.object(Path, 'read_bytes', side_effect=AssertionError('Whole-file read')):
+            self.assertEqual(rule.digest(Path('synthetic.sqlite3')), hashlib.sha256(payload).hexdigest())
+        self.assertGreater(len(sizes), 2)
+        with patch.object(Path, 'open', return_value=Reader(b'')):
+            self.assertEqual(rule.digest(Path('empty.sqlite3')), hashlib.sha256(b'').hexdigest())
+
+    def test_streamed_hash_propagates_read_errors(self):
+        class Reader(io.BytesIO):
+            def read(self, size=-1):
+                raise OSError('Synthetic read failure')
+        with patch.object(Path, 'open', return_value=Reader()), self.assertRaisesRegex(OSError, 'Synthetic read failure'):
+            rule.digest(Path('synthetic.sqlite3'))
+
     def test_missing_or_future_settlement_timestamp_is_pending(self):
         _, _, now = described()
         for values in ({}, {'closedTime': None, 'umaEndDate': ''}, {'closedTime': '2026-11-28T17:05:00Z'}):
