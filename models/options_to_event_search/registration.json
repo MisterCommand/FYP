@@ -1,0 +1,301 @@
+{
+  "H1": "Next-close logit change on signed scaled asset move and outcome fixed effects; event CR1 SE; one-sided event wild-score sign-flip p.",
+  "H2": "Release minus 24h, latest completed asset window; expanding prior-resolved offset logistic with L2=1; earlier held-out labels permitted only after resolution; paired centered event bootstrap.",
+  "H3": "Fresh current-close baseline only; first strictly post-close, pre-release side trade, $0.02/share cost; equal-event ROI including cash; event sign-flip p.",
+  "L2": 1.0,
+  "asset_coverage": {
+    "MOVE": {
+      "daily_closes": 1246,
+      "end": "2026-11-25",
+      "missing_dates": [
+        "2022-10-10",
+        "2022-11-11",
+        "2023-10-09",
+        "2024-10-14",
+        "2024-11-11",
+        "2025-10-13",
+        "2025-11-11",
+        "2026-10-12",
+        "2026-11-11"
+      ],
+      "reason": "Incomplete sample coverage and unclear close availability; excluded before performance",
+      "start": "2021-11-26",
+      "used": false
+    },
+    "VIX": {
+      "daily_closes": 1255,
+      "end": "2026-11-25",
+      "start": "2021-11-26",
+      "used": true
+    },
+    "VIX9D": {
+      "daily_closes": 1255,
+      "end": "2026-11-25",
+      "start": "2021-11-26",
+      "used": true
+    }
+  },
+  "asset_scales": {
+    "term": 0.01,
+    "vix": 0.01
+  },
+  "assets": [
+    "vix",
+    "term"
+  ],
+  "bootstraps": 10000,
+  "code_hashes": {
+    "models/macro_event_search/coverage.py": "5e6fc141d3666dcb5d557a346e3c7c73e0541e6e22bf297bf81c289e129c5a5c",
+    "models/macro_event_search/registration.json": "c60f5d1b81fb9a75aba89eac5d19a51d5be1096804983a83a5b7d51f71018cc7",
+    "models/macro_event_search/releases.py": "23f1d32e12f2d6db647f5301d69fa8a99088e3fef6252ee7274aab331bfbff85",
+    "models/options_to_event_search/FEASIBILITY.md": "9f23d2bbf593101d283c7f1741c8d02d61ec48891f6d7572980078f49463eeb5",
+    "models/options_to_event_search/archive.py": "e9a8116ab9dd7324bbcd4e8da3c48322a96c8fdc3460a1a40bb7c8f40f005ac8",
+    "models/options_to_event_search/asset_coverage.csv": "f4a79b779ff7ee04ef12e9afc56a03829ec7681d401f8f1fc454ee782448bac2",
+    "models/options_to_event_search/event_split.csv": "cd46708e4eda16dbd237dece1850464aba55c0efba08b10c485a0e00940734b2",
+    "models/options_to_event_search/feasibility.csv": "97b7bbea9f3b1f1f7c0a819858975bce1904e35169e701f4a4854e4b6dac26dc",
+    "models/options_to_event_search/register_study.py": "c62ec469616146c1a022baf528a7a110b5680a8323d168afb8f2f389760df9fc",
+    "models/options_to_event_search/study.py": "760dedbb71a883e8ac369437d2c69c8539a1d4d326b801c4f9293629ca07a28b",
+    "models/options_to_event_search/test_study.py": "52c061992db2332dc7a5bb5914326edf8ac8c9b9bc0cabae2c85ab0219e1405e",
+    "models/stock_to_event_search/event_split.csv": "cd46708e4eda16dbd237dece1850464aba55c0efba08b10c485a0e00940734b2",
+    "models/stock_to_event_search/registration.json": "59cc2c69351ae8d626234d9fc43360778f36dc58b6f47c002f866324d599b8d8",
+    "models/strategy_search/search.py": "5ec77987037126aa12d52920cc551dedb363cf22fa1c795da3700b130e9d67b0",
+    "models/wallet_backtest/backtest.py": "9563128867590f0579972167022e78b9f856e0a2286da86169361612e1cae0ca",
+    "models/wallet_backtest/build_panel.py": "e5e70ba3d5f1b4814a86ce75c4c74f4fb3357ab9f235190b7d1f441565bd3538",
+    "models/wallet_backtest/settlements.csv": "3a44196b41c51b09769032e3ab1753db9b32520ae36eb946a49e6fb7835f8f72"
+  },
+  "daily_boundary": "16:15 America/New_York; 13:15 on sample early-close sessions",
+  "data_hashes": {
+    "macro/bea_schedules.md": "20880d3a91d71e802c4864a7a7abb42b013d916f50958dd9e70f31f3ccfdcbd8",
+    "macro/bls_batch_0.md": "21dc6ad7e187a97623c4209d86cdb6000b812d847b6c2af9b2286a9da32af551",
+    "macro/bls_batch_1.md": "2354cfaa949e6c3e97058cda85d2b495250cb8b0988016d23d826010bea0f327",
+    "macro/bls_batch_2.md": "239aa728213f38e22dc15e13b8e126534bc2da294516d0f7acd2d274c2f979ed",
+    "macro/bls_batch_3.md": "80f37d283ae3104415010ca848b34200ced9e8c26dc00e0afab27aeca2f79309",
+    "macro/discovery.json": "941010402d47ad55ad7309827ac06d07b4566014561efef02a8851368814631e",
+    "macro/trades.sqlite3": "dcb97c4565bdf9e65c5eae74258434024bf71f1cec2e676605bf67a32e6eb945",
+    "options_to_event_search/MOVE.json": "0f5b8c5d2908a57c05cf27a06e80fdffb5a7d544f605a45c93b8dfc02ed5b9d1",
+    "options_to_event_search/SESSION_CALENDAR.json": "5ae2b3ba9e98f9d3ed7cd1025bcb866eecfdc2ac623b449c6aa37ed0eab8c4ad",
+    "options_to_event_search/VIX.json": "c5414f565f1978834271621513d32ab8ef727ee09dd7f19a0985af8ce0636eff",
+    "options_to_event_search/VIX9D.json": "d01ae629118b4eaeebbeaf7edc24ed980f1f3860c71fa8dd361dd5c22a9bdbd5",
+    "options_to_event_search/VIX9D_History.csv": "811902db689a781ccfce3dc2daf64517512cb2f0a6db5c46023ab7dc5a35cc75",
+    "options_to_event_search/VIX_History.csv": "ed60df4d8699594795bf3d31614ea3d9f159fa4bd5365cc1318e091500de3b65",
+    "options_to_event_search/asset_sources.json": "0010eb9f5e917a23c84de6896cc9f892eee763c657fb88f5d6fe6759771011dc",
+    "options_to_event_search/feasibility.json": "3c9ba12c031425cf74568523527fdffc38907f5869a7b3ef28a1f2e740e829e9",
+    "options_to_event_search/panel.json": "12929d5ac02e849795ee3b1267079de333bbcf3e0612ad89b1427d0e92382a09",
+    "strategy_search/fresh/606422/summary.json": "3afb1e6baf32fb58f1978c7272509fb60d249d84fbbba654ed0942fc7059012a",
+    "strategy_search/fresh/event.json": "8b40159da6a77e6b0d049256264e87928f4e19eaa3b54a5eadb2d3bdb8ef1a86",
+    "strategy_search/fresh/trades.sqlite3": "314f38b45f4283bb213ceb56c78df9d1d33f14f85a6e2fad2fafdd36b85a144c",
+    "wallet_backtest_cache/trades.sqlite3": "daecb41292e8bf18586712a2cd7c8f7671aac93b2c6e6441017be9f62131c97c"
+  },
+  "development_alpha": 0.1,
+  "exact_max_events": 16,
+  "excluded_MOVE": "Five missing dates in original required feature windows; unclear close timing; no MOVE hypothesis",
+  "families": {
+    "cpi": {
+      "development": [
+        "cpi:1733923800",
+        "cpi:1736947800",
+        "cpi:1739367000",
+        "cpi:1741782600",
+        "cpi:1744288200",
+        "cpi:1747139400",
+        "cpi:1749645000",
+        "cpi:1752582600",
+        "cpi:1755001800",
+        "cpi:1757593800",
+        "cpi:1761309000",
+        "cpi:1766064600",
+        "cpi:1768311000",
+        "cpi:1770989400",
+        "cpi:1775824200"
+      ],
+      "holdout": [
+        "cpi:1778589000",
+        "cpi:1781094600",
+        "cpi:1784032200",
+        "cpi:1786537800",
+        "cpi:1789129800",
+        "cpi:1791981000",
+        "cpi:1794317400"
+      ]
+    },
+    "fomc": {
+      "development": [
+        "fomc:2023-12",
+        "fomc:2024-01",
+        "fomc:2024-03",
+        "fomc:2024-05",
+        "fomc:2024-06",
+        "fomc:2024-07",
+        "fomc:2024-09",
+        "fomc:2024-11",
+        "fomc:2024-12",
+        "fomc:2025-01",
+        "fomc:2025-07",
+        "fomc:2025-09",
+        "fomc:2025-10",
+        "fomc:2025-12"
+      ],
+      "holdout": [
+        "fomc:2026-01",
+        "fomc:2026-03",
+        "fomc:2026-04",
+        "fomc:2026-06",
+        "fomc:2026-07",
+        "fomc:2026-09",
+        "fomc:2026-10"
+      ]
+    },
+    "payrolls": {
+      "development": [
+        "payrolls:1728045000",
+        "payrolls:1730464200",
+        "payrolls:1733491800",
+        "payrolls:1736515800",
+        "payrolls:1738935000",
+        "payrolls:1741354200",
+        "payrolls:1743769800",
+        "payrolls:1746189000",
+        "payrolls:1749213000",
+        "payrolls:1751545800",
+        "payrolls:1754051400",
+        "payrolls:1757075400",
+        "payrolls:1765891800",
+        "payrolls:1767965400",
+        "payrolls:1770816600",
+        "payrolls:1772803800"
+      ],
+      "holdout": [
+        "payrolls:1778243400",
+        "payrolls:1780662600",
+        "payrolls:1782995400",
+        "payrolls:1786105800",
+        "payrolls:1788525000",
+        "payrolls:1790944200",
+        "payrolls:1793971800"
+      ]
+    },
+    "unemployment": {
+      "development": [
+        "unemployment:1733491800",
+        "unemployment:1736515800",
+        "unemployment:1738935000",
+        "unemployment:1741354200",
+        "unemployment:1743769800",
+        "unemployment:1746189000",
+        "unemployment:1749213000",
+        "unemployment:1751545800",
+        "unemployment:1754051400",
+        "unemployment:1757075400",
+        "unemployment:1765891800",
+        "unemployment:1767965400",
+        "unemployment:1770816600",
+        "unemployment:1775219400"
+      ],
+      "holdout": [
+        "unemployment:1778243400",
+        "unemployment:1780662600",
+        "unemployment:1782995400",
+        "unemployment:1786105800",
+        "unemployment:1788525000",
+        "unemployment:1790944200",
+        "unemployment:1793971800"
+      ]
+    }
+  },
+  "hashing": "SHA256; CRLF normalized to LF in text; binary databases streamed unchanged.",
+  "holdout_alpha": 0.01,
+  "hypotheses": [
+    "H1",
+    "H2",
+    "H3"
+  ],
+  "index_source": "Official CBOE daily closing values; round-six session dates only",
+  "inventory": [
+    {
+      "accuracy_market_cutoffs": 87,
+      "archived_events": 28,
+      "candidate_market_days": 6476,
+      "candidate_trading_days": 6476,
+      "daily_market_windows": 6059,
+      "development_events": 14,
+      "family": "fomc",
+      "holdout_events": 7,
+      "markets": 113,
+      "missing_entry_side_days": 2,
+      "missing_fresh_PM_day": 417,
+      "missing_fresh_trading_day": 275,
+      "missing_t1_accuracy_quotes": 26,
+      "trading_market_days": 6201,
+      "usable_events": 21
+    },
+    {
+      "accuracy_market_cutoffs": 281,
+      "archived_events": 22,
+      "candidate_market_days": 6364,
+      "candidate_trading_days": 6364,
+      "daily_market_windows": 5131,
+      "development_events": 15,
+      "family": "cpi",
+      "holdout_events": 7,
+      "markets": 297,
+      "missing_entry_side_days": 28,
+      "missing_fresh_PM_day": 1233,
+      "missing_fresh_trading_day": 763,
+      "missing_t1_accuracy_quotes": 16,
+      "trading_market_days": 5601,
+      "usable_events": 22
+    },
+    {
+      "accuracy_market_cutoffs": 137,
+      "archived_events": 23,
+      "candidate_market_days": 2542,
+      "candidate_trading_days": 2542,
+      "daily_market_windows": 1735,
+      "development_events": 16,
+      "family": "payrolls",
+      "holdout_events": 7,
+      "markets": 140,
+      "missing_entry_side_days": 0,
+      "missing_fresh_PM_day": 807,
+      "missing_fresh_trading_day": 512,
+      "missing_t1_accuracy_quotes": 3,
+      "trading_market_days": 2030,
+      "usable_events": 23
+    },
+    {
+      "accuracy_market_cutoffs": 131,
+      "archived_events": 21,
+      "candidate_market_days": 2860,
+      "candidate_trading_days": 2860,
+      "daily_market_windows": 1812,
+      "development_events": 14,
+      "family": "unemployment",
+      "holdout_events": 7,
+      "markets": 142,
+      "missing_entry_side_days": 2,
+      "missing_fresh_PM_day": 1048,
+      "missing_fresh_trading_day": 668,
+      "missing_t1_accuracy_quotes": 11,
+      "trading_market_days": 2192,
+      "usable_events": 21
+    }
+  ],
+  "minimum_test_events": 5,
+  "minimum_train_events": 3,
+  "permutations": 10000,
+  "placebo": {
+    "dates": "Strictly earlier asset-window dates, common donor date across both assets and all contracts at that family/close.",
+    "encoding": "SHA256(UTF8(\"42|\" + family + \"|\" + str(asset_window_end_epoch))) as hex integer modulo current zero-based asset-window index",
+    "scope": "All development controls; holdout controls only for advanced matching main hypotheses. No gate or Holm membership.",
+    "seed": 42
+  },
+  "pm_cost": 0.02,
+  "predictors": {
+    "term": "log(VIX9D_d/VIX_d)-log(VIX9D_previous/VIX_previous)",
+    "vix": "log(VIX_d/VIX_previous)"
+  },
+  "registered_hypotheses": 24,
+  "round": 7,
+  "seed": 42,
+  "sign_mapping": "Per canonical outcome, from strictly prior-resolved development events only; never held-out targets."
+}
