@@ -1,0 +1,5 @@
+accuracy_market_cutoffs,archived_events,candidate_market_days,candidate_trading_days,daily_market_windows,development_events,family,holdout_events,markets,missing_entry_side_days,missing_fresh_PM_day,missing_fresh_trading_day,missing_t1_accuracy_quotes,trading_market_days,usable_events
+87,28,6476,6476,6053,14,fomc,7,113,2,423,278,26,6198,21
+281,22,6357,6357,5128,15,cpi,7,297,28,1229,760,16,5597,22
+137,23,2540,2540,1729,16,payrolls,7,140,0,811,514,3,2026,23
+131,21,2860,2860,1798,14,unemployment,7,142,2,1062,675,11,2185,21
