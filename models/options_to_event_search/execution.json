@@ -1,0 +1,36 @@
+{
+  "artifact_audit": "Artifact audit passed: 24 frozen real development results and controls; no advanced hypothesis; retained terminal lock complete; zero holdout/control evaluations; all 24 holdout/Holm CSV fields empty; code/registration pins and external development freeze unchanged.",
+  "artifacts": {
+    "CHECKS.md": "706c90e22e87737a10103c3912c9099b0902903ed4ef4867be8af8582b332536",
+    "RESULTS.md": "c9c599e3f7faa12ccae01a54a7c4d67e21ff4aa59485517a5ee3f08722976ba4",
+    "development.json": "4cc67773527256e55a4bea7e119dbe1180983e0d43d587370f8d6847ec05dba0",
+    "holdout.json": "b257291e7d687087627b6fda0b2eb88ebb4b7ad093998f8704decb993cc5dc7a",
+    "registration.json": "60736235ee48e81fa15222a5eb7777d14c4c7e76ddb672c09da84b0500d96ce7",
+    "results.csv": "44377b9662562fd6cb16bf8409f33df6a1d291d7d47ba9410ef4e6e204f6cbaa"
+  },
+  "base_commit": "2973fe5d01cfea29d34c0fc3ac4de550e016b50d",
+  "development_commit": "d9fa3a39493d7673b2a457403b14e7271f32c7af",
+  "execution": [
+    "Development frozen; advanced: none",
+    "Holdout evaluated once; lock retained. Passes: none"
+  ],
+  "holdout_evaluated_hypotheses": 0,
+  "holdout_lock_sha256": "0e8ec71edec910066dd009a17d216ecdc6e28f43646d7f60fe4e4ff503e207ad",
+  "holdout_performance_computed": false,
+  "input_audit": {
+    "message": "Input audit passed: 14737 H1 windows; 636 H2 cutoffs; 16024 H3 opportunities; causal approved-clock asset/PM/entry/donor bounds; exact round-six events/split and archive hashes; mirrored inference ASTs; no performance state.",
+    "registration_sha256": "60736235ee48e81fa15222a5eb7777d14c4c7e76ddb672c09da84b0500d96ce7"
+  },
+  "preregistration_commit": "02ff97247f0f9961d127de61a2820f832419581e",
+  "preregistration_pushed_before_performance": true,
+  "real_terminal_holdout_invocations": 1,
+  "reason": "Registered model/test inputs unchanged since the final synthetic pass; later changes are reporting only.",
+  "round": 7,
+  "runtime": {
+    "numpy": "2.2.6",
+    "python": "3.12.16"
+  },
+  "test_command": "python -m unittest discover -s models/options_to_event_search -p 'test_*.py' -v",
+  "test_result": "Ran 23 tests in 0.064s\n\nOK",
+  "tests_rerun_after_scoring": false
+}
