@@ -1,0 +1,449 @@
+{
+  "advanced": [
+    "fomc/spy/H2"
+  ],
+  "code_hashes": {
+    "models/macro_event_search/coverage.py": "5e6fc141d3666dcb5d557a346e3c7c73e0541e6e22bf297bf81c289e129c5a5c",
+    "models/macro_event_search/registration.json": "c60f5d1b81fb9a75aba89eac5d19a51d5be1096804983a83a5b7d51f71018cc7",
+    "models/macro_event_search/releases.py": "23f1d32e12f2d6db647f5301d69fa8a99088e3fef6252ee7274aab331bfbff85",
+    "models/stock_to_event_search/FEASIBILITY.md": "bf512b80a75143f3ee9cd2c4aa3ab9f04d702383eceeb5737ea7d426faaf849f",
+    "models/stock_to_event_search/archive.py": "03024d9b7a65b3b17b135b708f26991d6cec45dc6a9c7aef626d089e4d8d26cc",
+    "models/stock_to_event_search/asset_coverage.csv": "fc61bd1543576b291570a85759b1877270d9d66c959c1e4e4f1ca1c4932064f5",
+    "models/stock_to_event_search/event_split.csv": "cd46708e4eda16dbd237dece1850464aba55c0efba08b10c485a0e00940734b2",
+    "models/stock_to_event_search/feasibility.csv": "b9b396246363f0463543554cc2dabd7b900faf487e27c05fa77594f44bf7bfd2",
+    "models/stock_to_event_search/register_study.py": "6af03b71b086ac349b30a1e21bf958d8aaa23cb1fcf4ef2eb45f5e98948f70bc",
+    "models/stock_to_event_search/study.py": "e90f934c17ab033fab234af9ed35e0be9caaf4b83eb67b6cc7a5876f9d4f478d",
+    "models/stock_to_event_search/test_study.py": "ff1f562c68c8f344413365bb81483c200f181b21be5ca3e6d6b29e0e6632143e",
+    "models/strategy_search/search.py": "5ec77987037126aa12d52920cc551dedb363cf22fa1c795da3700b130e9d67b0",
+    "models/wallet_backtest/backtest.py": "9563128867590f0579972167022e78b9f856e0a2286da86169361612e1cae0ca",
+    "models/wallet_backtest/build_panel.py": "e5e70ba3d5f1b4814a86ce75c4c74f4fb3357ab9f235190b7d1f441565bd3538",
+    "models/wallet_backtest/settlements.csv": "3a44196b41c51b09769032e3ab1753db9b32520ae36eb946a49e6fb7835f8f72"
+  },
+  "data_hashes": {
+    "macro/bea_schedules.md": "20880d3a91d71e802c4864a7a7abb42b013d916f50958dd9e70f31f3ccfdcbd8",
+    "macro/bls_batch_0.md": "21dc6ad7e187a97623c4209d86cdb6000b812d847b6c2af9b2286a9da32af551",
+    "macro/bls_batch_1.md": "2354cfaa949e6c3e97058cda85d2b495250cb8b0988016d23d826010bea0f327",
+    "macro/bls_batch_2.md": "239aa728213f38e22dc15e13b8e126534bc2da294516d0f7acd2d274c2f979ed",
+    "macro/bls_batch_3.md": "80f37d283ae3104415010ca848b34200ced9e8c26dc00e0afab27aeca2f79309",
+    "macro/discovery.json": "941010402d47ad55ad7309827ac06d07b4566014561efef02a8851368814631e",
+    "macro/trades.sqlite3": "dcb97c4565bdf9e65c5eae74258434024bf71f1cec2e676605bf67a32e6eb945",
+    "stock_to_event_search/DGS2.csv": "5610d2092f7523a4272bd5c7c1c0625e25a3fd49d027706a896d8b54ee41da68",
+    "stock_to_event_search/H15.html": "5079ff4f8a7cbfcf5112203e7ab22f73ec43b1b529b4d1b68e85bcc37cf66f1e",
+    "stock_to_event_search/NYSE.html": "8f213c85de7fc30cf98625535e225f7103f2fe0ae4a910640301ee8023e3ee57",
+    "stock_to_event_search/SHY.json": "ac457ccfcd9bdbed9e2f0af9eecc359faf392568e4fa1313dd4ff208c377f09b",
+    "stock_to_event_search/SPY.json": "5ae2b3ba9e98f9d3ed7cd1025bcb866eecfdc2ac623b449c6aa37ed0eab8c4ad",
+    "stock_to_event_search/asset_sources.json": "5dfb39cf61cc4d20c8cb11f0e31c0b8a5607594914e55b35728e76130fcf72bf",
+    "stock_to_event_search/feasibility.json": "a756ddf83a70c55375ba2c6a2c9725abab9a4d59b111ee8e0ed6f36809832fba",
+    "stock_to_event_search/panel.json": "589600e43c03ecc2960583e75f3edd7ead1a4db691e23bf96d08a5f0eff64d34",
+    "strategy_search/fresh/606422/summary.json": "3afb1e6baf32fb58f1978c7272509fb60d249d84fbbba654ed0942fc7059012a",
+    "strategy_search/fresh/event.json": "8b40159da6a77e6b0d049256264e87928f4e19eaa3b54a5eadb2d3bdb8ef1a86",
+    "strategy_search/fresh/trades.sqlite3": "314f38b45f4283bb213ceb56c78df9d1d33f14f85a6e2fad2fafdd36b85a144c",
+    "wallet_backtest_cache/trades.sqlite3": "daecb41292e8bf18586712a2cd7c8f7671aac93b2c6e6441017be9f62131c97c"
+  },
+  "development": {
+    "cpi/rates/H1": {
+      "cluster_se": 0.011628303394363703,
+      "metric": -0.00802000018315929,
+      "n_events": 9,
+      "n_rows": 1112,
+      "p": 0.734375
+    },
+    "cpi/rates/H2": {
+      "brier_delta": 0.0010525030447339802,
+      "cluster_se": null,
+      "improvement_ci_high": -3.819173068337809e-05,
+      "improvement_ci_low": -0.0026655851158840947,
+      "metric": -0.0010525030447339802,
+      "n_events": 15,
+      "n_rows": 150,
+      "p": 0.9106089391060894
+    },
+    "cpi/rates/H3": {
+      "cluster_se": null,
+      "metric": -0.08118785308867207,
+      "n_events": 15,
+      "n_rows": 3150,
+      "p": 0.998046875,
+      "roi": -0.08118785308867207
+    },
+    "cpi/spy/H1": {
+      "cluster_se": 0.03444240987071458,
+      "metric": -0.035795179210419845,
+      "n_events": 9,
+      "n_rows": 1112,
+      "p": 0.630859375
+    },
+    "cpi/spy/H2": {
+      "brier_delta": 4.4741155604602504e-05,
+      "cluster_se": null,
+      "improvement_ci_high": 2.1509096046635926e-05,
+      "improvement_ci_low": -0.00012766109656703925,
+      "metric": -4.4741155604602504e-05,
+      "n_events": 15,
+      "n_rows": 150,
+      "p": 0.8715128487151285
+    },
+    "cpi/spy/H3": {
+      "cluster_se": null,
+      "metric": -0.07813185673000857,
+      "n_events": 15,
+      "n_rows": 3150,
+      "p": 0.998046875,
+      "roi": -0.07813185673000857
+    },
+    "fomc/rates/H1": {
+      "cluster_se": 0.0078047228442925795,
+      "metric": 0.005024207192025117,
+      "n_events": 10,
+      "n_rows": 2367,
+      "p": 0.271484375
+    },
+    "fomc/rates/H2": {
+      "brier_delta": 1.1231172709297992e-05,
+      "cluster_se": null,
+      "improvement_ci_high": 1.6408461728407816e-05,
+      "improvement_ci_low": -4.5155320406589915e-05,
+      "metric": -1.1231172709297992e-05,
+      "n_events": 14,
+      "n_rows": 55,
+      "p": 0.7763223677632237
+    },
+    "fomc/rates/H3": {
+      "cluster_se": null,
+      "metric": -0.1499324663417411,
+      "n_events": 14,
+      "n_rows": 3155,
+      "p": 0.9921875,
+      "roi": -0.1499324663417411
+    },
+    "fomc/spy/H1": {
+      "cluster_se": 0.011048429620360857,
+      "metric": 0.0032963175291396726,
+      "n_events": 10,
+      "n_rows": 2367,
+      "p": 0.44921875
+    },
+    "fomc/spy/H2": {
+      "brier_delta": -2.113105070734643e-06,
+      "cluster_se": null,
+      "improvement_ci_high": 4.7151177221774785e-06,
+      "improvement_ci_low": -3.24516029106497e-08,
+      "metric": 2.113105070734643e-06,
+      "n_events": 14,
+      "n_rows": 55,
+      "p": 0.051794820517948204
+    },
+    "fomc/spy/H3": {
+      "cluster_se": null,
+      "metric": -0.18431782164789143,
+      "n_events": 14,
+      "n_rows": 3155,
+      "p": 0.99609375,
+      "roi": -0.18431782164789143
+    },
+    "payrolls/rates/H1": {
+      "cluster_se": 0.05701547019414321,
+      "metric": 0.017211313478265985,
+      "n_events": 10,
+      "n_rows": 449,
+      "p": 0.3994140625
+    },
+    "payrolls/rates/H2": {
+      "brier_delta": 0.010663950724287434,
+      "cluster_se": null,
+      "improvement_ci_high": 0.001110064904811844,
+      "improvement_ci_low": -0.03092454124026,
+      "metric": -0.010663950724287434,
+      "n_events": 16,
+      "n_rows": 93,
+      "p": 0.8846115388461154
+    },
+    "payrolls/rates/H3": {
+      "cluster_se": null,
+      "metric": -0.006643001187936191,
+      "n_events": 16,
+      "n_rows": 1485,
+      "p": 0.5498046875,
+      "roi": -0.006643001187936191
+    },
+    "payrolls/spy/H1": {
+      "cluster_se": 0.05103035482866471,
+      "metric": -0.049690316067630226,
+      "n_events": 10,
+      "n_rows": 449,
+      "p": 0.837890625
+    },
+    "payrolls/spy/H2": {
+      "brier_delta": -0.0012916529588677358,
+      "cluster_se": null,
+      "improvement_ci_high": 0.004020959745596389,
+      "improvement_ci_low": -0.00015389691623400738,
+      "metric": 0.0012916529588677358,
+      "n_events": 16,
+      "n_rows": 93,
+      "p": 0.2141785821417858
+    },
+    "payrolls/spy/H3": {
+      "cluster_se": null,
+      "metric": 0.023254614280625044,
+      "n_events": 16,
+      "n_rows": 1485,
+      "p": 0.3125,
+      "roi": 0.023254614280625044
+    },
+    "unemployment/rates/H1": {
+      "cluster_se": 0.10933276758518849,
+      "metric": -0.10693135696070144,
+      "n_events": 11,
+      "n_rows": 479,
+      "p": 0.767578125
+    },
+    "unemployment/rates/H2": {
+      "brier_delta": 0.002506010211171876,
+      "cluster_se": null,
+      "improvement_ci_high": 0.004977428487356457,
+      "improvement_ci_low": -0.013617739892996665,
+      "metric": -0.002506010211171876,
+      "n_events": 14,
+      "n_rows": 77,
+      "p": 0.7327267273272673
+    },
+    "unemployment/rates/H3": {
+      "cluster_se": null,
+      "metric": 0.022583627970903578,
+      "n_events": 14,
+      "n_rows": 1289,
+      "p": 0.4013671875,
+      "roi": 0.022583627970903578
+    },
+    "unemployment/spy/H1": {
+      "cluster_se": 0.06033061175665364,
+      "metric": -0.09436967325284931,
+      "n_events": 11,
+      "n_rows": 479,
+      "p": 0.86865234375
+    },
+    "unemployment/spy/H2": {
+      "brier_delta": 0.0015142434118844354,
+      "cluster_se": null,
+      "improvement_ci_high": 0.0008023660206960287,
+      "improvement_ci_low": -0.004592276603703215,
+      "metric": -0.0015142434118844354,
+      "n_events": 14,
+      "n_rows": 77,
+      "p": 0.8594140585941406
+    },
+    "unemployment/spy/H3": {
+      "cluster_se": null,
+      "metric": 0.07763373665589654,
+      "n_events": 14,
+      "n_rows": 1289,
+      "p": 0.484375,
+      "roi": 0.07763373665589654
+    }
+  },
+  "placebo": {
+    "cpi/rates/H1": {
+      "cluster_se": 0.009355934875409515,
+      "metric": 0.006135015469993615,
+      "n_events": 9,
+      "n_rows": 1112,
+      "p": 0.25
+    },
+    "cpi/rates/H2": {
+      "brier_delta": 0.0004181716830896713,
+      "cluster_se": null,
+      "improvement_ci_high": 0.0008456391120385407,
+      "improvement_ci_low": -0.0021858550749110093,
+      "metric": -0.0004181716830896713,
+      "n_events": 15,
+      "n_rows": 150,
+      "p": 0.7497250274972502
+    },
+    "cpi/rates/H3": {
+      "cluster_se": null,
+      "metric": -0.06931025076366279,
+      "n_events": 15,
+      "n_rows": 3150,
+      "p": 0.998046875,
+      "roi": -0.06931025076366279
+    },
+    "cpi/spy/H1": {
+      "cluster_se": 0.024319765645690078,
+      "metric": 0.008374311427566028,
+      "n_events": 9,
+      "n_rows": 1112,
+      "p": 0.369140625
+    },
+    "cpi/spy/H2": {
+      "brier_delta": -0.00017035197522751686,
+      "cluster_se": null,
+      "improvement_ci_high": 0.006644137040260667,
+      "improvement_ci_low": -0.005727995237313164,
+      "metric": 0.00017035197522751686,
+      "n_events": 15,
+      "n_rows": 150,
+      "p": 0.41655834416558346
+    },
+    "cpi/spy/H3": {
+      "cluster_se": null,
+      "metric": -0.06750564888779692,
+      "n_events": 15,
+      "n_rows": 3150,
+      "p": 0.998046875,
+      "roi": -0.06750564888779692
+    },
+    "fomc/rates/H1": {
+      "cluster_se": 0.007706536551329755,
+      "metric": 0.005421853224589756,
+      "n_events": 10,
+      "n_rows": 2367,
+      "p": 0.2578125
+    },
+    "fomc/rates/H2": {
+      "brier_delta": 5.384248182856607e-06,
+      "cluster_se": null,
+      "improvement_ci_high": 6.71447201823181e-06,
+      "improvement_ci_low": -1.9493795742830455e-05,
+      "metric": -5.384248182856607e-06,
+      "n_events": 14,
+      "n_rows": 55,
+      "p": 0.7949205079492051
+    },
+    "fomc/rates/H3": {
+      "cluster_se": null,
+      "metric": -0.17194196383418223,
+      "n_events": 14,
+      "n_rows": 3155,
+      "p": 0.9951171875,
+      "roi": -0.17194196383418223
+    },
+    "fomc/spy/H1": {
+      "cluster_se": 0.01762240837570937,
+      "metric": -0.023336762627509895,
+      "n_events": 10,
+      "n_rows": 2367,
+      "p": 0.912109375
+    },
+    "fomc/spy/H2": {
+      "brier_delta": 6.572010277139604e-05,
+      "cluster_se": null,
+      "improvement_ci_high": 6.256242229555519e-05,
+      "improvement_ci_low": -0.00023881858309640643,
+      "metric": -6.572010277139604e-05,
+      "n_events": 14,
+      "n_rows": 55,
+      "p": 0.8037196280371963
+    },
+    "fomc/spy/H3": {
+      "cluster_se": null,
+      "metric": -0.20843989682529132,
+      "n_events": 14,
+      "n_rows": 3155,
+      "p": 1.0,
+      "roi": -0.20843989682529132
+    },
+    "payrolls/rates/H1": {
+      "cluster_se": 0.04360117208466105,
+      "metric": 0.0270492538241435,
+      "n_events": 10,
+      "n_rows": 449,
+      "p": 0.267578125
+    },
+    "payrolls/rates/H2": {
+      "brier_delta": 0.004116013621484288,
+      "cluster_se": null,
+      "improvement_ci_high": -5.096279395640575e-05,
+      "improvement_ci_low": -0.010937484000575416,
+      "metric": -0.004116013621484288,
+      "n_events": 16,
+      "n_rows": 93,
+      "p": 0.9102089791020898
+    },
+    "payrolls/rates/H3": {
+      "cluster_se": null,
+      "metric": 0.03213365651476001,
+      "n_events": 16,
+      "n_rows": 1485,
+      "p": 0.2880859375,
+      "roi": 0.03213365651476001
+    },
+    "payrolls/spy/H1": {
+      "cluster_se": 0.04207420709792853,
+      "metric": 0.057885645053701744,
+      "n_events": 10,
+      "n_rows": 449,
+      "p": 0.05859375
+    },
+    "payrolls/spy/H2": {
+      "brier_delta": -0.0006590236898441209,
+      "cluster_se": null,
+      "improvement_ci_high": 0.003281005220763647,
+      "improvement_ci_low": -0.0016063356993822808,
+      "metric": 0.0006590236898441209,
+      "n_events": 16,
+      "n_rows": 93,
+      "p": 0.28287171282871715
+    },
+    "payrolls/spy/H3": {
+      "cluster_se": null,
+      "metric": 0.038456266580563066,
+      "n_events": 16,
+      "n_rows": 1485,
+      "p": 0.220703125,
+      "roi": 0.038456266580563066
+    },
+    "unemployment/rates/H1": {
+      "cluster_se": 0.04735043624836726,
+      "metric": -0.0634159142647099,
+      "n_events": 11,
+      "n_rows": 479,
+      "p": 0.9228515625
+    },
+    "unemployment/rates/H2": {
+      "brier_delta": 0.0049702497315844574,
+      "cluster_se": null,
+      "improvement_ci_high": 0.0005849953977218383,
+      "improvement_ci_low": -0.011757107409225037,
+      "metric": -0.0049702497315844574,
+      "n_events": 14,
+      "n_rows": 77,
+      "p": 0.932906709329067
+    },
+    "unemployment/rates/H3": {
+      "cluster_se": null,
+      "metric": -0.013361696434338498,
+      "n_events": 14,
+      "n_rows": 1289,
+      "p": 0.57666015625,
+      "roi": -0.013361696434338498
+    },
+    "unemployment/spy/H1": {
+      "cluster_se": 0.05805809463409308,
+      "metric": -0.0182412053953442,
+      "n_events": 11,
+      "n_rows": 479,
+      "p": 0.6318359375
+    },
+    "unemployment/spy/H2": {
+      "brier_delta": 0.00034116115780871367,
+      "cluster_se": null,
+      "improvement_ci_high": 0.0011433098053496029,
+      "improvement_ci_low": -0.0018069380217872225,
+      "metric": -0.00034116115780871367,
+      "n_events": 14,
+      "n_rows": 77,
+      "p": 0.6856314368563143
+    },
+    "unemployment/spy/H3": {
+      "cluster_se": null,
+      "metric": 0.06541421288335361,
+      "n_events": 14,
+      "n_rows": 1289,
+      "p": 0.3818359375,
+      "roi": 0.06541421288335361
+    }
+  },
+  "preregistration_commit": "3a2c03df383f79f4039dcdae9cdee108f179b5e9",
+  "registration_sha256": "59cc2c69351ae8d626234d9fc43360778f36dc58b6f47c002f866324d599b8d8"
+}
