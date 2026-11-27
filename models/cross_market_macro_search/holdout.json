@@ -1,0 +1,25 @@
+{
+  "holm": {
+    "unemployment/commodities/H1": 0.53125
+  },
+  "passed": [],
+  "placebo": {
+    "unemployment/commodities/H1": {
+      "cluster_se": 0.04073451306611266,
+      "metric": 0.021949557564610086,
+      "n_events": 7,
+      "n_rows": 376,
+      "p": 0.3671875
+    }
+  },
+  "results": {
+    "unemployment/commodities/H1": {
+      "cluster_se": 0.05223439872765325,
+      "metric": -0.004783833264978504,
+      "n_events": 7,
+      "n_rows": 376,
+      "p": 0.53125
+    }
+  },
+  "status": "complete"
+}

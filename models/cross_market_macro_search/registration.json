@@ -1,0 +1,524 @@
+{
+  "L2": 1.0,
+  "asset_coverage": {
+    "CPER": {
+      "calendar_missing": 0,
+      "exchange": "PCX",
+      "first": "2021-11-26",
+      "instrument": "ETF",
+      "last": "2026-11-25",
+      "observations": 1255,
+      "regular_end_utc": "2026-11-27T18:00:00+00:00"
+    },
+    "GLD": {
+      "calendar_missing": 0,
+      "exchange": "PCX",
+      "first": "2021-11-26",
+      "instrument": "ETF",
+      "last": "2026-11-25",
+      "observations": 1255,
+      "regular_end_utc": "2026-11-27T18:00:00+00:00"
+    },
+    "USO": {
+      "calendar_missing": 0,
+      "exchange": "PCX",
+      "first": "2021-11-26",
+      "instrument": "ETF",
+      "last": "2026-11-25",
+      "observations": 1255,
+      "regular_end_utc": "2026-11-27T18:00:00+00:00"
+    }
+  },
+  "assets": [
+    "combined",
+    "commodities"
+  ],
+  "bootstraps": 10000,
+  "code_hashes": {
+    "models/cross_market_macro_search/FEASIBILITY.md": "2d1c883a3f75a70e07cc4c97b801296719940232800635d7ca44f5c004fe3538",
+    "models/cross_market_macro_search/PREREGISTRATION.md": "8ee12e7ab3c71304641944787b72327757d2f8291bd85129f6fc4ba78f844034",
+    "models/cross_market_macro_search/asset_coverage.csv": "5d4b007f56d97356ba68d5b525d24c565f7d0346c844f01b7b125a0a265c4fba",
+    "models/cross_market_macro_search/audit.json": "66343fd004ad3a02c22474278485c5c901809105fa15abe3c15e42776e677f7a",
+    "models/cross_market_macro_search/audit.py": "7eead4fd90165a707d3359b0c9d27a06d252c3160f22406dd153816ce2027bd9",
+    "models/cross_market_macro_search/feasibility.csv": "b81135c2198c1d4259cd344ec724ea459c057b3bd1d0d160fb7ed67e7cfa0f1d",
+    "models/cross_market_macro_search/inputs.py": "9710a1a63382bd4870de07bc73ecf2d176760b77f7d8e54f44917aba511fd634",
+    "models/cross_market_macro_search/register_study.py": "cbdab44f95b7107818506d36a67ee9de8d9f7ec85cb770ea6a018f770183fd9c",
+    "models/cross_market_macro_search/source_cutoffs.csv": "b8f4655303d4f68e00c5212b99ca2948effd81b0f1c5c9ededf2ab910cfcc45d",
+    "models/cross_market_macro_search/study.py": "f87046a3a26f5e80c203f7b3ae9283b5e447adbc8b28035fdccf93bbba202d74",
+    "models/cross_market_macro_search/test_audit.py": "cdd13f8daa5f32420304d5014d10fcb6dc3f5f25340493dc16d948526d2a78fe",
+    "models/cross_market_macro_search/test_study.py": "83502a1ef6594dfbbdf39673f63ade5b7e0c0ac65083a3309fcab37c195d854f",
+    "models/macro_event_search/coverage.py": "5e6fc141d3666dcb5d557a346e3c7c73e0541e6e22bf297bf81c289e129c5a5c",
+    "models/macro_event_search/registration.json": "c60f5d1b81fb9a75aba89eac5d19a51d5be1096804983a83a5b7d51f71018cc7",
+    "models/macro_event_search/releases.py": "23f1d32e12f2d6db647f5301d69fa8a99088e3fef6252ee7274aab331bfbff85",
+    "models/stock_to_event_search/archive.py": "03024d9b7a65b3b17b135b708f26991d6cec45dc6a9c7aef626d089e4d8d26cc",
+    "models/stock_to_event_search/registration.json": "59cc2c69351ae8d626234d9fc43360778f36dc58b6f47c002f866324d599b8d8",
+    "models/strategy_search/search.py": "5ec77987037126aa12d52920cc551dedb363cf22fa1c795da3700b130e9d67b0",
+    "models/wallet_backtest/build_panel.py": "e5e70ba3d5f1b4814a86ce75c4c74f4fb3357ab9f235190b7d1f441565bd3538",
+    "models/wallet_backtest/settlements.csv": "3a44196b41c51b09769032e3ab1753db9b32520ae36eb946a49e6fb7835f8f72"
+  },
+  "data_hashes": {
+    "cross_market_macro_search/CPER.json": "1901cd5f28865f405d98bc22918d9a71f0c4a88a8c569e2bb07b49224b0b873d",
+    "cross_market_macro_search/GLD.json": "aa2f15e0f402bf3093d993edfdcd79fa03825327b4d7d35d3e81195f962aac91",
+    "cross_market_macro_search/USO.json": "8b2e45f9ce282b2b7bc02fcff47aff56be0383e2614286ff62c490f1918c4601",
+    "cross_market_macro_search/asset_sources.json": "2baf8505cbc85ff5e15d35c3459e04c22fb67c6e4073de97e0e1928d7c7c4417",
+    "cross_market_macro_search/feasibility.json": "7215c27733e25b7add17a0ec3585821cfd3676c29050177385d4ef98366fe13e",
+    "cross_market_macro_search/panel.json": "1cde07595f4ab2ea20a37f4e7ad0c20acf0fbf26d1bfeb579e7696d1e578a158",
+    "macro/bea_schedules.md": "20880d3a91d71e802c4864a7a7abb42b013d916f50958dd9e70f31f3ccfdcbd8",
+    "macro/bls_batch_0.md": "21dc6ad7e187a97623c4209d86cdb6000b812d847b6c2af9b2286a9da32af551",
+    "macro/bls_batch_1.md": "2354cfaa949e6c3e97058cda85d2b495250cb8b0988016d23d826010bea0f327",
+    "macro/bls_batch_2.md": "239aa728213f38e22dc15e13b8e126534bc2da294516d0f7acd2d274c2f979ed",
+    "macro/bls_batch_3.md": "80f37d283ae3104415010ca848b34200ced9e8c26dc00e0afab27aeca2f79309",
+    "macro/discovery.json": "941010402d47ad55ad7309827ac06d07b4566014561efef02a8851368814631e",
+    "macro/trades.sqlite3": "dcb97c4565bdf9e65c5eae74258434024bf71f1cec2e676605bf67a32e6eb945",
+    "stock_to_event_search/NYSE.html": "8f213c85de7fc30cf98625535e225f7103f2fe0ae4a910640301ee8023e3ee57",
+    "stock_to_event_search/SPY.json": "5ae2b3ba9e98f9d3ed7cd1025bcb866eecfdc2ac623b449c6aa37ed0eab8c4ad",
+    "strategy_search/fresh/606422/summary.json": "3afb1e6baf32fb58f1978c7272509fb60d249d84fbbba654ed0942fc7059012a",
+    "strategy_search/fresh/event.json": "8b40159da6a77e6b0d049256264e87928f4e19eaa3b54a5eadb2d3bdb8ef1a86",
+    "strategy_search/fresh/trades.sqlite3": "314f38b45f4283bb213ceb56c78df9d1d33f14f85a6e2fad2fafdd36b85a144c",
+    "wallet_backtest_cache/trades.sqlite3": "daecb41292e8bf18586712a2cd7c8f7671aac93b2c6e6441017be9f62131c97c"
+  },
+  "development_alpha": 0.1,
+  "exact_max_events": 16,
+  "families": {
+    "payrolls": {
+      "development": [
+        "payrolls:1728045000",
+        "payrolls:1730464200",
+        "payrolls:1733491800",
+        "payrolls:1736515800",
+        "payrolls:1738935000",
+        "payrolls:1741354200",
+        "payrolls:1743769800",
+        "payrolls:1746189000",
+        "payrolls:1749213000",
+        "payrolls:1751545800",
+        "payrolls:1754051400",
+        "payrolls:1757075400",
+        "payrolls:1765891800",
+        "payrolls:1767965400",
+        "payrolls:1770816600",
+        "payrolls:1772803800"
+      ],
+      "holdout": [
+        "payrolls:1778243400",
+        "payrolls:1780662600",
+        "payrolls:1782995400",
+        "payrolls:1786105800",
+        "payrolls:1788525000",
+        "payrolls:1790944200",
+        "payrolls:1793971800"
+      ]
+    },
+    "unemployment": {
+      "development": [
+        "unemployment:1733491800",
+        "unemployment:1736515800",
+        "unemployment:1738935000",
+        "unemployment:1741354200",
+        "unemployment:1743769800",
+        "unemployment:1746189000",
+        "unemployment:1749213000",
+        "unemployment:1751545800",
+        "unemployment:1754051400",
+        "unemployment:1757075400",
+        "unemployment:1765891800",
+        "unemployment:1767965400",
+        "unemployment:1770816600",
+        "unemployment:1775219400"
+      ],
+      "holdout": [
+        "unemployment:1778243400",
+        "unemployment:1780662600",
+        "unemployment:1782995400",
+        "unemployment:1786105800",
+        "unemployment:1788525000",
+        "unemployment:1790944200",
+        "unemployment:1793971800"
+      ]
+    }
+  },
+  "feature_scales": {
+    "copper": 0.01,
+    "cpi": 0.01,
+    "fed": 0.01,
+    "gold": 0.01,
+    "oil": 0.01
+  },
+  "groups": {
+    "combined": [
+      "fed",
+      "cpi",
+      "oil",
+      "gold",
+      "copper"
+    ],
+    "commodities": [
+      "oil",
+      "gold",
+      "copper"
+    ]
+  },
+  "holdout_alpha": 0.01,
+  "hypotheses": [
+    "H1",
+    "H2",
+    "H3"
+  ],
+  "inventory": [
+    {
+      "contracts_or_days": 1009,
+      "development_events": 12,
+      "family": "payrolls",
+      "feasible": true,
+      "holdout_events": 7,
+      "hypothesis": "H1"
+    },
+    {
+      "contracts_or_days": 75,
+      "development_events": 9,
+      "family": "payrolls",
+      "feasible": false,
+      "holdout_events": 4,
+      "hypothesis": "H2"
+    },
+    {
+      "contracts_or_days": 1193,
+      "development_events": 12,
+      "family": "payrolls",
+      "feasible": true,
+      "holdout_events": 7,
+      "hypothesis": "H3"
+    },
+    {
+      "contracts_or_days": 1230,
+      "development_events": 12,
+      "family": "unemployment",
+      "feasible": true,
+      "holdout_events": 7,
+      "hypothesis": "H1"
+    },
+    {
+      "contracts_or_days": 90,
+      "development_events": 10,
+      "family": "unemployment",
+      "feasible": false,
+      "holdout_events": 4,
+      "hypothesis": "H2"
+    },
+    {
+      "contracts_or_days": 1450,
+      "development_events": 12,
+      "family": "unemployment",
+      "feasible": true,
+      "holdout_events": 7,
+      "hypothesis": "H3"
+    }
+  ],
+  "minimum_test_events": 5,
+  "minimum_train_events": 3,
+  "permutations": 10000,
+  "pm_cost": 0.02,
+  "registered_hypotheses": 12,
+  "round": 8,
+  "seed": 42,
+  "selected_sources": {
+    "cpi": [
+      {
+        "event": "cpi:1736947800",
+        "market_id": "515388",
+        "outcome": "\u22652.9%",
+        "release": 1736947800
+      },
+      {
+        "event": "cpi:1739367000",
+        "market_id": "518813",
+        "outcome": "\u22652.9%",
+        "release": 1739367000
+      },
+      {
+        "event": "cpi:1741782600",
+        "market_id": "522186",
+        "outcome": "\u22653.1%",
+        "release": 1741782600
+      },
+      {
+        "event": "cpi:1744288200",
+        "market_id": "527847",
+        "outcome": "\u22652.8%",
+        "release": 1744288200
+      },
+      {
+        "event": "cpi:1747139400",
+        "market_id": "535934",
+        "outcome": "\u22652.7%",
+        "release": 1747139400
+      },
+      {
+        "event": "cpi:1749645000",
+        "market_id": "544349",
+        "outcome": "\u22652.6%",
+        "release": 1749645000
+      },
+      {
+        "event": "cpi:1752582600",
+        "market_id": "551588",
+        "outcome": "\u22652.6%",
+        "release": 1752582600
+      },
+      {
+        "event": "cpi:1755001800",
+        "market_id": "563709",
+        "outcome": "\u22653.0%",
+        "release": 1755001800
+      },
+      {
+        "event": "cpi:1757593800",
+        "market_id": "575237",
+        "outcome": "\u22653.0%",
+        "release": 1757593800
+      },
+      {
+        "event": "cpi:1761309000",
+        "market_id": "594320",
+        "outcome": "\u22653.3%",
+        "release": 1761309000
+      },
+      {
+        "event": "cpi:1766064600",
+        "market_id": "680537",
+        "outcome": "\u22653.2%",
+        "release": 1766064600
+      },
+      {
+        "event": "cpi:1768311000",
+        "market_id": "833214",
+        "outcome": "\u22653.2%",
+        "release": 1768311000
+      },
+      {
+        "event": "cpi:1770989400",
+        "market_id": "969664",
+        "outcome": "\u22653.2%",
+        "release": 1770989400
+      },
+      {
+        "event": "cpi:1775824200",
+        "market_id": "1559117",
+        "outcome": "\u22653.4%",
+        "release": 1775824200
+      },
+      {
+        "event": "cpi:1778589000",
+        "market_id": "1937962",
+        "outcome": "\u22654.1%",
+        "release": 1778589000
+      },
+      {
+        "event": "cpi:1781094600",
+        "market_id": "2242383",
+        "outcome": "\u22654.4%",
+        "release": 1781094600
+      },
+      {
+        "event": "cpi:1784032200",
+        "market_id": "2491382",
+        "outcome": "\u22654.7%",
+        "release": 1784032200
+      },
+      {
+        "event": "cpi:1786537800",
+        "market_id": "2925083",
+        "outcome": "\u22654.2%",
+        "release": 1786537800
+      },
+      {
+        "event": "cpi:1789129800",
+        "market_id": "3539680",
+        "outcome": "\u22654.0%",
+        "release": 1789129800
+      },
+      {
+        "event": "cpi:1791981000",
+        "market_id": "4469403",
+        "outcome": "\u22654.0%",
+        "release": 1791981000
+      },
+      {
+        "event": "cpi:1794317400",
+        "market_id": "5691094",
+        "outcome": "\u22654.3%",
+        "release": 1794317400
+      }
+    ],
+    "fed": [
+      {
+        "event": "fomc:2023-02",
+        "market_id": "248206",
+        "outcome": "No change",
+        "release": 1675278000
+      },
+      {
+        "event": "fomc:2023-03",
+        "market_id": "248564",
+        "outcome": "No change",
+        "release": 1679508000
+      },
+      {
+        "event": "fomc:2023-05",
+        "market_id": "249497",
+        "outcome": "No change",
+        "release": 1683136800
+      },
+      {
+        "event": "fomc:2023-06",
+        "market_id": "250703",
+        "outcome": "No change",
+        "release": 1686765600
+      },
+      {
+        "event": "fomc:2023-07",
+        "market_id": "251449",
+        "outcome": "No change",
+        "release": 1690394400
+      },
+      {
+        "event": "fomc:2023-09",
+        "market_id": "251824",
+        "outcome": "No change",
+        "release": 1695232800
+      },
+      {
+        "event": "fomc:2023-11",
+        "market_id": "252289",
+        "outcome": "No change",
+        "release": 1698861600
+      },
+      {
+        "event": "fomc:2023-12",
+        "market_id": "252729",
+        "outcome": "No change",
+        "release": 1702494000
+      },
+      {
+        "event": "fomc:2024-01",
+        "market_id": "253361",
+        "outcome": "No change",
+        "release": 1706727600
+      },
+      {
+        "event": "fomc:2024-03",
+        "market_id": "254244",
+        "outcome": "No change",
+        "release": 1710957600
+      },
+      {
+        "event": "fomc:2024-05",
+        "market_id": "500358",
+        "outcome": "No change",
+        "release": 1714586400
+      },
+      {
+        "event": "fomc:2024-06",
+        "market_id": "501306",
+        "outcome": "No change",
+        "release": 1718215200
+      },
+      {
+        "event": "fomc:2024-07",
+        "market_id": "502387",
+        "outcome": "No change",
+        "release": 1722448800
+      },
+      {
+        "event": "fomc:2024-09",
+        "market_id": "504071",
+        "outcome": "No change",
+        "release": 1726682400
+      },
+      {
+        "event": "fomc:2024-11",
+        "market_id": "504493",
+        "outcome": "No change",
+        "release": 1731006000
+      },
+      {
+        "event": "fomc:2024-12",
+        "market_id": "504587",
+        "outcome": "No change",
+        "release": 1734548400
+      },
+      {
+        "event": "fomc:2025-01",
+        "market_id": "512324",
+        "outcome": "No change",
+        "release": 1738177200
+      },
+      {
+        "event": "fomc:2025-07",
+        "market_id": "528974",
+        "outcome": "No change",
+        "release": 1753898400
+      },
+      {
+        "event": "fomc:2025-09",
+        "market_id": "542539",
+        "outcome": "No change",
+        "release": 1758132000
+      },
+      {
+        "event": "fomc:2025-10",
+        "market_id": "553812",
+        "outcome": "No change",
+        "release": 1761760800
+      },
+      {
+        "event": "fomc:2025-12",
+        "market_id": "570362",
+        "outcome": "No change",
+        "release": 1765393200
+      },
+      {
+        "event": "fomc:2026-01",
+        "market_id": "601699",
+        "outcome": "No change",
+        "release": 1769626800
+      },
+      {
+        "event": "fomc:2026-03",
+        "market_id": "654414",
+        "outcome": "No change",
+        "release": 1773856800
+      },
+      {
+        "event": "fomc:2026-04",
+        "market_id": "669662",
+        "outcome": "No change",
+        "release": 1777485600
+      },
+      {
+        "event": "fomc:2026-06",
+        "market_id": "906974",
+        "outcome": "No change",
+        "release": 1781719200
+      },
+      {
+        "event": "fomc:2026-07",
+        "market_id": "1654958",
+        "outcome": "No change",
+        "release": 1785348000
+      },
+      {
+        "event": "fomc:2026-09",
+        "market_id": "2252244",
+        "outcome": "No change",
+        "release": 1789581600
+      },
+      {
+        "event": "fomc:2026-10",
+        "market_id": "2589812",
+        "outcome": "No change",
+        "release": 1793210400
+      }
+    ]
+  }
+}
