@@ -1,0 +1,278 @@
+{
+  "H1": "Next-close logit change on signed scaled asset move and outcome fixed effects; event CR1 SE; one-sided event wild-score sign-flip p.",
+  "H2": "Release minus 24h, latest completed asset window; expanding prior-resolved offset logistic with L2=1; earlier held-out labels permitted only after resolution; paired centered event bootstrap.",
+  "H3": "Fresh current-close baseline only; first strictly post-close, pre-release side trade, $0.02/share cost; equal-event ROI including cash; event sign-flip p.",
+  "L2": 1.0,
+  "asset_coverage": {
+    "DGS2": {
+      "daily_observations": 1223,
+      "end": "2026-11-24",
+      "reason": "H.15 published after 16:00 ET; use permitted sign-flipped SHY proxy to avoid look-ahead",
+      "start": "2022-01-03",
+      "used": false
+    },
+    "SHY": {
+      "daily_closes": 1255,
+      "end": "2026-11-25",
+      "start": "2021-11-26"
+    },
+    "SPY": {
+      "daily_closes": 1255,
+      "end": "2026-11-25",
+      "start": "2021-11-26"
+    }
+  },
+  "asset_scales": {
+    "rates": 0.001,
+    "spy": 0.01
+  },
+  "assets": [
+    "spy",
+    "rates"
+  ],
+  "bootstraps": 10000,
+  "code_hashes": {
+    "models/macro_event_search/coverage.py": "5e6fc141d3666dcb5d557a346e3c7c73e0541e6e22bf297bf81c289e129c5a5c",
+    "models/macro_event_search/registration.json": "c60f5d1b81fb9a75aba89eac5d19a51d5be1096804983a83a5b7d51f71018cc7",
+    "models/macro_event_search/releases.py": "23f1d32e12f2d6db647f5301d69fa8a99088e3fef6252ee7274aab331bfbff85",
+    "models/stock_to_event_search/FEASIBILITY.md": "bf512b80a75143f3ee9cd2c4aa3ab9f04d702383eceeb5737ea7d426faaf849f",
+    "models/stock_to_event_search/archive.py": "03024d9b7a65b3b17b135b708f26991d6cec45dc6a9c7aef626d089e4d8d26cc",
+    "models/stock_to_event_search/asset_coverage.csv": "fc61bd1543576b291570a85759b1877270d9d66c959c1e4e4f1ca1c4932064f5",
+    "models/stock_to_event_search/event_split.csv": "cd46708e4eda16dbd237dece1850464aba55c0efba08b10c485a0e00940734b2",
+    "models/stock_to_event_search/feasibility.csv": "b9b396246363f0463543554cc2dabd7b900faf487e27c05fa77594f44bf7bfd2",
+    "models/stock_to_event_search/register_study.py": "6af03b71b086ac349b30a1e21bf958d8aaa23cb1fcf4ef2eb45f5e98948f70bc",
+    "models/stock_to_event_search/study.py": "e90f934c17ab033fab234af9ed35e0be9caaf4b83eb67b6cc7a5876f9d4f478d",
+    "models/stock_to_event_search/test_study.py": "ff1f562c68c8f344413365bb81483c200f181b21be5ca3e6d6b29e0e6632143e",
+    "models/strategy_search/search.py": "5ec77987037126aa12d52920cc551dedb363cf22fa1c795da3700b130e9d67b0",
+    "models/wallet_backtest/backtest.py": "9563128867590f0579972167022e78b9f856e0a2286da86169361612e1cae0ca",
+    "models/wallet_backtest/build_panel.py": "e5e70ba3d5f1b4814a86ce75c4c74f4fb3357ab9f235190b7d1f441565bd3538",
+    "models/wallet_backtest/settlements.csv": "3a44196b41c51b09769032e3ab1753db9b32520ae36eb946a49e6fb7835f8f72"
+  },
+  "data_hashes": {
+    "macro/bea_schedules.md": "20880d3a91d71e802c4864a7a7abb42b013d916f50958dd9e70f31f3ccfdcbd8",
+    "macro/bls_batch_0.md": "21dc6ad7e187a97623c4209d86cdb6000b812d847b6c2af9b2286a9da32af551",
+    "macro/bls_batch_1.md": "2354cfaa949e6c3e97058cda85d2b495250cb8b0988016d23d826010bea0f327",
+    "macro/bls_batch_2.md": "239aa728213f38e22dc15e13b8e126534bc2da294516d0f7acd2d274c2f979ed",
+    "macro/bls_batch_3.md": "80f37d283ae3104415010ca848b34200ced9e8c26dc00e0afab27aeca2f79309",
+    "macro/discovery.json": "941010402d47ad55ad7309827ac06d07b4566014561efef02a8851368814631e",
+    "macro/trades.sqlite3": "dcb97c4565bdf9e65c5eae74258434024bf71f1cec2e676605bf67a32e6eb945",
+    "stock_to_event_search/DGS2.csv": "5610d2092f7523a4272bd5c7c1c0625e25a3fd49d027706a896d8b54ee41da68",
+    "stock_to_event_search/H15.html": "5079ff4f8a7cbfcf5112203e7ab22f73ec43b1b529b4d1b68e85bcc37cf66f1e",
+    "stock_to_event_search/NYSE.html": "8f213c85de7fc30cf98625535e225f7103f2fe0ae4a910640301ee8023e3ee57",
+    "stock_to_event_search/SHY.json": "ac457ccfcd9bdbed9e2f0af9eecc359faf392568e4fa1313dd4ff208c377f09b",
+    "stock_to_event_search/SPY.json": "5ae2b3ba9e98f9d3ed7cd1025bcb866eecfdc2ac623b449c6aa37ed0eab8c4ad",
+    "stock_to_event_search/asset_sources.json": "5dfb39cf61cc4d20c8cb11f0e31c0b8a5607594914e55b35728e76130fcf72bf",
+    "stock_to_event_search/feasibility.json": "a756ddf83a70c55375ba2c6a2c9725abab9a4d59b111ee8e0ed6f36809832fba",
+    "stock_to_event_search/panel.json": "589600e43c03ecc2960583e75f3edd7ead1a4db691e23bf96d08a5f0eff64d34",
+    "strategy_search/fresh/606422/summary.json": "3afb1e6baf32fb58f1978c7272509fb60d249d84fbbba654ed0942fc7059012a",
+    "strategy_search/fresh/event.json": "8b40159da6a77e6b0d049256264e87928f4e19eaa3b54a5eadb2d3bdb8ef1a86",
+    "strategy_search/fresh/trades.sqlite3": "314f38b45f4283bb213ceb56c78df9d1d33f14f85a6e2fad2fafdd36b85a144c",
+    "wallet_backtest_cache/trades.sqlite3": "daecb41292e8bf18586712a2cd7c8f7671aac93b2c6e6441017be9f62131c97c"
+  },
+  "development_alpha": 0.1,
+  "exact_max_events": 16,
+  "families": {
+    "cpi": {
+      "development": [
+        "cpi:1733923800",
+        "cpi:1736947800",
+        "cpi:1739367000",
+        "cpi:1741782600",
+        "cpi:1744288200",
+        "cpi:1747139400",
+        "cpi:1749645000",
+        "cpi:1752582600",
+        "cpi:1755001800",
+        "cpi:1757593800",
+        "cpi:1761309000",
+        "cpi:1766064600",
+        "cpi:1768311000",
+        "cpi:1770989400",
+        "cpi:1775824200"
+      ],
+      "holdout": [
+        "cpi:1778589000",
+        "cpi:1781094600",
+        "cpi:1784032200",
+        "cpi:1786537800",
+        "cpi:1789129800",
+        "cpi:1791981000",
+        "cpi:1794317400"
+      ]
+    },
+    "fomc": {
+      "development": [
+        "fomc:2023-12",
+        "fomc:2024-01",
+        "fomc:2024-03",
+        "fomc:2024-05",
+        "fomc:2024-06",
+        "fomc:2024-07",
+        "fomc:2024-09",
+        "fomc:2024-11",
+        "fomc:2024-12",
+        "fomc:2025-01",
+        "fomc:2025-07",
+        "fomc:2025-09",
+        "fomc:2025-10",
+        "fomc:2025-12"
+      ],
+      "holdout": [
+        "fomc:2026-01",
+        "fomc:2026-03",
+        "fomc:2026-04",
+        "fomc:2026-06",
+        "fomc:2026-07",
+        "fomc:2026-09",
+        "fomc:2026-10"
+      ]
+    },
+    "payrolls": {
+      "development": [
+        "payrolls:1728045000",
+        "payrolls:1730464200",
+        "payrolls:1733491800",
+        "payrolls:1736515800",
+        "payrolls:1738935000",
+        "payrolls:1741354200",
+        "payrolls:1743769800",
+        "payrolls:1746189000",
+        "payrolls:1749213000",
+        "payrolls:1751545800",
+        "payrolls:1754051400",
+        "payrolls:1757075400",
+        "payrolls:1765891800",
+        "payrolls:1767965400",
+        "payrolls:1770816600",
+        "payrolls:1772803800"
+      ],
+      "holdout": [
+        "payrolls:1778243400",
+        "payrolls:1780662600",
+        "payrolls:1782995400",
+        "payrolls:1786105800",
+        "payrolls:1788525000",
+        "payrolls:1790944200",
+        "payrolls:1793971800"
+      ]
+    },
+    "unemployment": {
+      "development": [
+        "unemployment:1733491800",
+        "unemployment:1736515800",
+        "unemployment:1738935000",
+        "unemployment:1741354200",
+        "unemployment:1743769800",
+        "unemployment:1746189000",
+        "unemployment:1749213000",
+        "unemployment:1751545800",
+        "unemployment:1754051400",
+        "unemployment:1757075400",
+        "unemployment:1765891800",
+        "unemployment:1767965400",
+        "unemployment:1770816600",
+        "unemployment:1775219400"
+      ],
+      "holdout": [
+        "unemployment:1778243400",
+        "unemployment:1780662600",
+        "unemployment:1782995400",
+        "unemployment:1786105800",
+        "unemployment:1788525000",
+        "unemployment:1790944200",
+        "unemployment:1793971800"
+      ]
+    }
+  },
+  "hashing": "SHA256; CRLF normalized to LF in text; binary databases streamed unchanged.",
+  "holdout_alpha": 0.01,
+  "hypotheses": [
+    "H1",
+    "H2",
+    "H3"
+  ],
+  "inventory": [
+    {
+      "accuracy_market_cutoffs": 87,
+      "archived_events": 28,
+      "candidate_market_days": 6476,
+      "candidate_trading_days": 6476,
+      "daily_market_windows": 6053,
+      "development_events": 14,
+      "family": "fomc",
+      "holdout_events": 7,
+      "markets": 113,
+      "missing_entry_side_days": 2,
+      "missing_fresh_PM_day": 423,
+      "missing_fresh_trading_day": 278,
+      "missing_t1_accuracy_quotes": 26,
+      "trading_market_days": 6198,
+      "usable_events": 21
+    },
+    {
+      "accuracy_market_cutoffs": 281,
+      "archived_events": 22,
+      "candidate_market_days": 6357,
+      "candidate_trading_days": 6357,
+      "daily_market_windows": 5128,
+      "development_events": 15,
+      "family": "cpi",
+      "holdout_events": 7,
+      "markets": 297,
+      "missing_entry_side_days": 28,
+      "missing_fresh_PM_day": 1229,
+      "missing_fresh_trading_day": 760,
+      "missing_t1_accuracy_quotes": 16,
+      "trading_market_days": 5597,
+      "usable_events": 22
+    },
+    {
+      "accuracy_market_cutoffs": 137,
+      "archived_events": 23,
+      "candidate_market_days": 2540,
+      "candidate_trading_days": 2540,
+      "daily_market_windows": 1729,
+      "development_events": 16,
+      "family": "payrolls",
+      "holdout_events": 7,
+      "markets": 140,
+      "missing_entry_side_days": 0,
+      "missing_fresh_PM_day": 811,
+      "missing_fresh_trading_day": 514,
+      "missing_t1_accuracy_quotes": 3,
+      "trading_market_days": 2026,
+      "usable_events": 23
+    },
+    {
+      "accuracy_market_cutoffs": 131,
+      "archived_events": 21,
+      "candidate_market_days": 2860,
+      "candidate_trading_days": 2860,
+      "daily_market_windows": 1798,
+      "development_events": 14,
+      "family": "unemployment",
+      "holdout_events": 7,
+      "markets": 142,
+      "missing_entry_side_days": 2,
+      "missing_fresh_PM_day": 1062,
+      "missing_fresh_trading_day": 675,
+      "missing_t1_accuracy_quotes": 11,
+      "trading_market_days": 2185,
+      "usable_events": 21
+    }
+  ],
+  "minimum_test_events": 5,
+  "minimum_train_events": 3,
+  "permutations": 10000,
+  "placebo": {
+    "dates": "Strictly earlier asset-window dates, common donor date across both assets and all contracts at that family/close.",
+    "encoding": "SHA256(UTF8(\"42|\" + family + \"|\" + str(asset_window_end_epoch))) as hex integer modulo current zero-based asset-window index",
+    "scope": "All development controls; holdout controls only for advanced matching main hypotheses. No gate or Holm membership.",
+    "seed": 42
+  },
+  "pm_cost": 0.02,
+  "registered_hypotheses": 24,
+  "round": 6,
+  "seed": 42,
+  "sign_mapping": "Per canonical outcome, from strictly prior-resolved development events only; never held-out targets."
+}
