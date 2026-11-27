@@ -57,3 +57,23 @@ Holdout artifact audit passed: sole advanced FOMC/SPY/H2 and matching placebo; 7
 ```
 
 The CSV has 24 development rows and only one populated real holdout row. All 23 nonadvanced rows have empty holdout metrics/p-values. Primary H2 improvement is positive, but it fails round six's stricter preregistered threshold. No strategy change, alternate p-value, additional asset or holdout rerun followed that finding. No UI or visual verification applies.
+
+## Post-study amendment: first-setup directory creation (PR #15)
+
+After the study, review identified that running the archive command on a fresh setup fails when `~/data/polymarket/stock_to_event_search/` does not exist: `fetch_assets` tries to save `SPY.json` without creating its parent. A synthetic missing-nested-directory fixture reproduced `FileNotFoundError` with a mocked response and no network.
+
+The only Python caller is `archive.py`'s own `__main__` entry point, which is hash-pinned along with `fetch_assets`. There is no existing unpinned caller in which to move directory creation. Per the approved documentation-only fallback, **keep the pinned code unchanged** and create the directory explicitly before the README's first archive command:
+
+```sh
+mkdir -p "$HOME/data/polymarket/stock_to_event_search"
+/home/ubuntu/data/polymarket/wallet_backtest_env/bin/python models/stock_to_event_search/archive.py
+```
+
+This corrects the fresh-setup procedure, not the registered model. Do not run these commands to refresh the completed study's retained snapshot or rerun its performance. The actual study already had this directory; with a pre-existing directory, the old fetch behavior remains unchanged. Synthetic verification first reproduced the failure, then created the directory outside `fetch_assets`, saved all five mocked downloads, and proved a cached rerun made no request and left all cached bytes unchanged.
+
+Hash provenance (CRLF-normalized SHA-256):
+
+- **Retained `archive.py`:** `03024d9b7a65b3b17b135b708f26991d6cec45dc6a9c7aef626d089e4d8d26cc`.
+- The previously proposed internal `root.mkdir(parents=True, exist_ok=True)` patch would have produced **`56c03f22cd62aa47606e7bd6706a0b380a7a6153d7626853578f115771dc017e`**. That local patch was **reverted**, not committed or used to run the study. This is a candidate hash, not a replacement registered pin.
+- `registration.json`, `development.json`, `execution.json`, `holdout.json`, `RESULTS.md`, `results.csv` and the retained external lock remain unchanged. No historical code/data pins were regenerated and no performance was recomputed.
+- `execution.json`'s `CHECKS.md` hash intentionally describes the original study snapshot at `89699a8`, before this appended amendment. It is historical provenance, not a hash of this amended document. Git records the amendment and its new document bytes separately.
