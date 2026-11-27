@@ -1,0 +1,45 @@
+family,event,phase,release_utc,cutoff_utc,feature_end_utc,fed,fed_market,cpi,cpi_market,combined_predictors,target_fresh_contracts
+payrolls,payrolls:1728045000,development,2024-10-04T12:30:00+00:00,2024-10-03T12:30:00+00:00,2024-10-02T20:00:00+00:00,available,504493,missing fresh endpoint,515388,False,5
+payrolls,payrolls:1730464200,development,2024-11-01T12:30:00+00:00,2024-10-31T12:30:00+00:00,2024-10-30T20:00:00+00:00,available,504493,missing fresh endpoint,515388,False,5
+payrolls,payrolls:1733491800,development,2024-12-06T13:30:00+00:00,2024-12-05T13:30:00+00:00,2024-12-04T21:00:00+00:00,available,504587,missing fresh endpoint,515388,False,5
+payrolls,payrolls:1736515800,development,2025-01-10T13:30:00+00:00,2025-01-09T13:30:00+00:00,2025-01-08T21:00:00+00:00,available,512324,available,515388,True,6
+payrolls,payrolls:1738935000,development,2025-02-07T13:30:00+00:00,2025-02-06T13:30:00+00:00,2025-02-05T21:00:00+00:00,missing fresh endpoint,528974,available,518813,False,6
+payrolls,payrolls:1741354200,development,2025-03-07T13:30:00+00:00,2025-03-06T13:30:00+00:00,2025-03-05T21:00:00+00:00,missing fresh endpoint,528974,available,522186,False,6
+payrolls,payrolls:1743769800,development,2025-04-04T12:30:00+00:00,2025-04-03T12:30:00+00:00,2025-04-02T20:00:00+00:00,available,528974,available,527847,True,6
+payrolls,payrolls:1746189000,development,2025-05-02T12:30:00+00:00,2025-05-01T12:30:00+00:00,2025-04-30T20:00:00+00:00,available,528974,available,535934,True,6
+payrolls,payrolls:1749213000,development,2025-06-06T12:30:00+00:00,2025-06-05T12:30:00+00:00,2025-06-04T20:00:00+00:00,available,528974,available,544349,True,5
+payrolls,payrolls:1751545800,development,2025-07-03T12:30:00+00:00,2025-07-02T12:30:00+00:00,2025-07-01T20:00:00+00:00,available,528974,available,551588,True,5
+payrolls,payrolls:1754051400,development,2025-08-01T12:30:00+00:00,2025-07-31T12:30:00+00:00,2025-07-30T20:00:00+00:00,available,542539,available,563709,True,5
+payrolls,payrolls:1757075400,development,2025-09-05T12:30:00+00:00,2025-09-04T12:30:00+00:00,2025-09-03T20:00:00+00:00,available,542539,available,575237,True,5
+payrolls,payrolls:1765891800,development,2025-12-16T13:30:00+00:00,2025-12-15T13:30:00+00:00,2025-12-12T21:00:00+00:00,available,601699,available,680537,True,6
+payrolls,payrolls:1767965400,development,2026-01-09T13:30:00+00:00,2026-01-08T13:30:00+00:00,2026-01-07T21:00:00+00:00,available,601699,missing fresh endpoint,833214,False,7
+payrolls,payrolls:1770816600,development,2026-02-11T13:30:00+00:00,2026-02-10T13:30:00+00:00,2026-02-09T21:00:00+00:00,available,654414,available,969664,True,7
+payrolls,payrolls:1772803800,development,2026-03-06T13:30:00+00:00,2026-03-05T13:30:00+00:00,2026-03-04T21:00:00+00:00,available,654414,missing fresh endpoint,1559117,False,8
+payrolls,payrolls:1778243400,holdout,2026-05-08T12:30:00+00:00,2026-05-07T12:30:00+00:00,2026-05-06T20:00:00+00:00,available,906974,available,1937962,True,8
+payrolls,payrolls:1780662600,holdout,2026-06-05T12:30:00+00:00,2026-06-04T12:30:00+00:00,2026-06-03T20:00:00+00:00,available,906974,available,2242383,True,4
+payrolls,payrolls:1782995400,holdout,2026-07-02T12:30:00+00:00,2026-07-01T12:30:00+00:00,2026-06-30T20:00:00+00:00,available,1654958,missing fresh endpoint,2491382,False,6
+payrolls,payrolls:1786105800,holdout,2026-08-07T12:30:00+00:00,2026-08-06T12:30:00+00:00,2026-08-05T20:00:00+00:00,available,2252244,available,2925083,True,6
+payrolls,payrolls:1788525000,holdout,2026-09-04T12:30:00+00:00,2026-09-03T12:30:00+00:00,2026-09-02T20:00:00+00:00,available,2252244,available,3539680,True,6
+payrolls,payrolls:1790944200,holdout,2026-10-02T12:30:00+00:00,2026-10-01T12:30:00+00:00,2026-09-30T20:00:00+00:00,available,2589812,missing fresh endpoint,4469403,False,7
+payrolls,payrolls:1793971800,holdout,2026-11-06T13:30:00+00:00,2026-11-05T13:30:00+00:00,2026-11-04T21:00:00+00:00,no future archived release,,available,5691094,False,7
+unemployment,unemployment:1733491800,development,2024-12-06T13:30:00+00:00,2024-12-05T13:30:00+00:00,2024-12-04T21:00:00+00:00,available,504587,missing fresh endpoint,515388,False,4
+unemployment,unemployment:1736515800,development,2025-01-10T13:30:00+00:00,2025-01-09T13:30:00+00:00,2025-01-08T21:00:00+00:00,available,512324,available,515388,True,4
+unemployment,unemployment:1738935000,development,2025-02-07T13:30:00+00:00,2025-02-06T13:30:00+00:00,2025-02-05T21:00:00+00:00,missing fresh endpoint,528974,available,518813,False,4
+unemployment,unemployment:1741354200,development,2025-03-07T13:30:00+00:00,2025-03-06T13:30:00+00:00,2025-03-05T21:00:00+00:00,missing fresh endpoint,528974,available,522186,False,5
+unemployment,unemployment:1743769800,development,2025-04-04T12:30:00+00:00,2025-04-03T12:30:00+00:00,2025-04-02T20:00:00+00:00,available,528974,available,527847,True,5
+unemployment,unemployment:1746189000,development,2025-05-02T12:30:00+00:00,2025-05-01T12:30:00+00:00,2025-04-30T20:00:00+00:00,available,528974,available,535934,True,6
+unemployment,unemployment:1749213000,development,2025-06-06T12:30:00+00:00,2025-06-05T12:30:00+00:00,2025-06-04T20:00:00+00:00,available,528974,available,544349,True,6
+unemployment,unemployment:1751545800,development,2025-07-03T12:30:00+00:00,2025-07-02T12:30:00+00:00,2025-07-01T20:00:00+00:00,available,528974,available,551588,True,6
+unemployment,unemployment:1754051400,development,2025-08-01T12:30:00+00:00,2025-07-31T12:30:00+00:00,2025-07-30T20:00:00+00:00,available,542539,available,563709,True,5
+unemployment,unemployment:1757075400,development,2025-09-05T12:30:00+00:00,2025-09-04T12:30:00+00:00,2025-09-03T20:00:00+00:00,available,542539,available,575237,True,6
+unemployment,unemployment:1765891800,development,2025-12-16T13:30:00+00:00,2025-12-15T13:30:00+00:00,2025-12-12T21:00:00+00:00,available,601699,available,680537,True,6
+unemployment,unemployment:1767965400,development,2026-01-09T13:30:00+00:00,2026-01-08T13:30:00+00:00,2026-01-07T21:00:00+00:00,available,601699,missing fresh endpoint,833214,False,6
+unemployment,unemployment:1770816600,development,2026-02-11T13:30:00+00:00,2026-02-10T13:30:00+00:00,2026-02-09T21:00:00+00:00,available,654414,available,969664,True,5
+unemployment,unemployment:1775219400,development,2026-04-03T12:30:00+00:00,2026-04-02T12:30:00+00:00,2026-04-01T20:00:00+00:00,available,669662,available,1559117,True,9
+unemployment,unemployment:1778243400,holdout,2026-05-08T12:30:00+00:00,2026-05-07T12:30:00+00:00,2026-05-06T20:00:00+00:00,available,906974,available,1937962,True,9
+unemployment,unemployment:1780662600,holdout,2026-06-05T12:30:00+00:00,2026-06-04T12:30:00+00:00,2026-06-03T20:00:00+00:00,available,906974,available,2242383,True,7
+unemployment,unemployment:1782995400,holdout,2026-07-02T12:30:00+00:00,2026-07-01T12:30:00+00:00,2026-06-30T20:00:00+00:00,available,1654958,missing fresh endpoint,2491382,False,6
+unemployment,unemployment:1786105800,holdout,2026-08-07T12:30:00+00:00,2026-08-06T12:30:00+00:00,2026-08-05T20:00:00+00:00,available,2252244,available,2925083,True,7
+unemployment,unemployment:1788525000,holdout,2026-09-04T12:30:00+00:00,2026-09-03T12:30:00+00:00,2026-09-02T20:00:00+00:00,available,2252244,available,3539680,True,9
+unemployment,unemployment:1790944200,holdout,2026-10-02T12:30:00+00:00,2026-10-01T12:30:00+00:00,2026-09-30T20:00:00+00:00,available,2589812,missing fresh endpoint,4469403,False,8
+unemployment,unemployment:1793971800,holdout,2026-11-06T13:30:00+00:00,2026-11-05T13:30:00+00:00,2026-11-04T21:00:00+00:00,no future archived release,,available,5691094,False,8

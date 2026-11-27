@@ -1,0 +1,4 @@
+family,mapped_releases,valid_market_releases_upper_bound,decision
+pce,4,4,drop: fewer than 15 even before quote eligibility
+gdp,7,7,drop: fewer than 15 even before quote eligibility
+core_cpi,6,6,drop: fewer than 15 even before quote eligibility

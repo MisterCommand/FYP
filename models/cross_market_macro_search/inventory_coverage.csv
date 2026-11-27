@@ -1,0 +1,7 @@
+family,hypothesis,development_events_upper_bound,holdout_events_upper_bound,proceed
+payrolls,H1,13,7,True
+payrolls,H2,12,6,True
+payrolls,H3,13,7,True
+unemployment,H1,13,7,True
+unemployment,H2,12,6,True
+unemployment,H3,13,7,True

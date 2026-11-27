@@ -1,0 +1,7 @@
+family,hypothesis,contracts_or_days,development_events,holdout_events,feasible
+payrolls,H1,1009,12,7,True
+payrolls,H2,75,9,4,False
+payrolls,H3,1193,12,7,True
+unemployment,H1,1230,12,7,True
+unemployment,H2,90,10,4,False
+unemployment,H3,1450,12,7,True
