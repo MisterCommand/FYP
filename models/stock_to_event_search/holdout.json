@@ -1,0 +1,31 @@
+{
+  "holm": {
+    "fomc/spy/H2": 0.039696030396960305
+  },
+  "passed": [],
+  "placebo": {
+    "fomc/spy/H2": {
+      "brier_delta": 0.0004442633477717405,
+      "cluster_se": null,
+      "improvement_ci_high": -5.0483358948331674e-05,
+      "improvement_ci_low": -0.0009460954651836056,
+      "metric": -0.0004442633477717405,
+      "n_events": 7,
+      "n_rows": 32,
+      "p": 0.9582041795820418
+    }
+  },
+  "results": {
+    "fomc/spy/H2": {
+      "brier_delta": -4.394144463689616e-05,
+      "cluster_se": null,
+      "improvement_ci_high": 9.512502198135147e-05,
+      "improvement_ci_low": 2.8711686005617046e-06,
+      "metric": 4.394144463689616e-05,
+      "n_events": 7,
+      "n_rows": 32,
+      "p": 0.039696030396960305
+    }
+  },
+  "status": "complete"
+}
