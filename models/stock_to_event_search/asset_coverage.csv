@@ -1,0 +1,4 @@
+asset,source,start,end,observations,used
+DGS2,https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS2&cosd=2022-01-01&coed=2026-11-25,2022-01-03,2026-11-24,1223,False
+SHY,https://query1.finance.yahoo.com/v8/finance/chart/SHY?range=5y&interval=1d,2021-11-26,2026-11-25,1255,True
+SPY,https://query1.finance.yahoo.com/v8/finance/chart/SPY?range=5y&interval=1d,2021-11-26,2026-11-25,1255,True

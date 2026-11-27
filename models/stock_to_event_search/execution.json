@@ -1,0 +1,30 @@
+{
+  "artifacts": {
+    "CHECKS.md": "15a9a452879e7099ee486e245985a96a37663bbbf11f5b5736e80b028da06572",
+    "RESULTS.md": "b019842698810f32f79960f813ba4267b3f015e55c9d6516943645bab237d29c",
+    "development.json": "b532f99f4014439571889166468aadbdc31e86c15049370c53b0b622b038627a",
+    "holdout.json": "d8dc5d768b2c04a36750697829276170ea9d600efe413bd73855fbf7bcd082f1",
+    "registration.json": "59cc2c69351ae8d626234d9fc43360778f36dc58b6f47c002f866324d599b8d8",
+    "results.csv": "5e87b3e3ba4e22f7e20a61718769641eabc6c9843e8a688a5f96ced7255e61c5"
+  },
+  "development_commit": "02ecdd94f76e64a9dc9689e2a47d27a32dcbe91a",
+  "execution": [
+    "Development frozen; advanced: fomc/spy/H2",
+    "Holdout evaluated once; lock retained. Passes: none"
+  ],
+  "holdout_artifact_audit": "Holdout artifact audit passed: sole advanced FOMC/SPY/H2 and matching placebo; 7 meetings / 32 binary cutoffs; raw p=Holm p=0.039696030396960305; strict .01 bar fails; 23 other holdout hypotheses uncomputed; committed development freeze and pinned code unchanged; retained lock complete.",
+  "holdout_lock_sha256": "161bfba229ab3544f1ec8d2b5a5853a0a99463e243f6fab804d3389ff779de7d",
+  "input_audit": {
+    "message": "Input timing audit passed: 14708 H1 windows; 636 H2 cutoffs; 16006 H3 opportunities; causal asset/PM/entry/donor bounds, current-only H3 eligibility and all chronological splits agree.",
+    "registration_sha256": "59cc2c69351ae8d626234d9fc43360778f36dc58b6f47c002f866324d599b8d8"
+  },
+  "preregistration_commit": "3a2c03df383f79f4039dcdae9cdee108f179b5e9",
+  "reason": "Pinned implementation and synthetic test inputs unchanged since final test pass.",
+  "runtime": {
+    "numpy": "2.2.6",
+    "python": "3.12.16"
+  },
+  "test_command": "python -m unittest discover -s models/stock_to_event_search -p 'test_*.py' -v",
+  "test_result": "Ran 18 tests in 0.041s\n\nOK",
+  "tests_rerun_after_scoring": false
+}
