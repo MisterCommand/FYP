@@ -75,3 +75,34 @@ The second line is the runner's generic terminal message: with zero advanced
 hypotheses it invoked no holdout evaluation pipeline and computed no performance.
 All 24 holdout/control fields remain blank. No ETH/crypto data or forward-test
 files/worktree were read or touched. No UI or visual verification applies.
+
+## Post-study amendment: fresh-archive cross-check setup (PR #16)
+
+Review at `1d536be` identified that the pinned `fetch_assets` downloads the CBOE
+series and MOVE but not Yahoo `VIX.json` and `VIX9D.json`. The original study's
+coverage collection had already saved both, and their hashes are in the frozen
+manifest. On a fresh archive, the optional-file enumeration omits those keys;
+the unchanged scoring preflight correctly rejects the incomplete source set.
+
+The **code fix is outside the registered runner boundary**: new, unpinned
+`setup_cross_checks.py`, with `test_setup_cross_checks.py`. Run it before the
+archive command, as shown in README.md. It creates the directory, downloads only
+missing cross-checks, verifies CRLF-normalized SHA-256 against the existing
+registration, and preserves matching cached bytes. A changed cached or newly
+downloaded snapshot is rejected; no historical hash is replaced. Current rolling
+Yahoo responses are not guaranteed to reproduce the frozen vintage. If their
+hashes differ, restore the original archived responses instead. This helper is
+not a way to bypass any other pinned input or a completed study lock.
+
+The synthetic regression reproduces the omission with the original fetcher and
+the actual preflight, then demonstrates successful preflight after restoring
+both exact fixture snapshots. All requests are mocked. Other fixtures cover
+changed downloads/caches, network failure and missing pins. No real collector,
+scorer, setup helper or study inference was run for this correction.
+
+All pinned code bytes, `registration.json`, `development.json`, `holdout.json`,
+`RESULTS.md`, `results.csv`, `execution.json`, original source snapshots and the
+retained lock remain unchanged. The `CHECKS.md` hash in `execution.json` describes
+the historical study document at `1d536be`, before this appended amendment;
+it is intentionally not regenerated. The new setup helper and tests are not
+retroactively added to the original execution's code pins.
