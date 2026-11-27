@@ -1,0 +1,22 @@
+{
+  "base_commit": "783d1d3c2ed04915ae29e9a11da3e27715af7ebf",
+  "preregistration_commit": "1d450b9343d3951a5116bd895e0a903ccab2c2b6",
+  "development_freeze_commit": "035f214ade959e0c6e286ef919ca31196764c27d",
+  "registration_sha256": "707674f66ae6e15c94ad594ac2e8a2a3cd67e2917653a0162681d528a1b721e0",
+  "development_sha256": "01b06f72b62b0a92b3a38be3993a5b44a0a5ea805c4186190f7d8f41b1cb8a84",
+  "artifact_sha256": {
+    "holdout.json": "faa312a8e162ba2c3cb93bb72ea59d78e1a39859f8fc715cf8593f05470ae5ca",
+    "RESULTS.md": "f6415260788be953d8a24e1f728becf08049561b274e197dfeafec4823e03e19",
+    "results.csv": "45ff22ad415e2d4582e7fc42557a689b4b943bd33a67f4071fb69e2f04061667"
+  },
+  "holdout_lock_path": "~/data/polymarket/cross_market_macro_search/holdout_lock.json",
+  "holdout_lock_sha256": "a5d1fb46b13ba586d56e386362d723f8e1b05a77c38873fbebd9d0689a3826f4",
+  "development_invocations": 1,
+  "holdout_invocations": 1,
+  "registered_hypotheses": 12,
+  "advanced": ["unemployment/commodities/H1"],
+  "holdout_main_pipelines": 1,
+  "holdout_control_pipelines": 1,
+  "uncomputed_holdout_hypotheses": 11,
+  "holdout_passed": []
+}

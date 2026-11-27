@@ -7,6 +7,13 @@ Twelve hypotheses include one commodity-only group ablation. PCE, GDP and
 core CPI are excluded before performance because their archived populations
 are too small. H2 also has sparse pre-cutoff source coverage; see feasibility.
 
+**Verdict:** none of the combined hypotheses advanced from development.
+The sole advancement was the commodity-only unemployment H1 ablation
+(development p=.078125); it failed holdout with a negative slope and
+raw/Holm p=.53125. The other eleven holdout results remain uncomputed.
+This study did not establish predictive/trading value for the registered
+combined-market rules; sparse coverage and small samples limit that conclusion.
+
 ## Inputs and commands
 
 Run from the repository root. The provisioned interpreter is:
@@ -60,3 +67,13 @@ execution provenance in `execution.json`, and verification in `CHECKS.md`.
 The p-values are historical repeated-search diagnostics, not forward evidence
 of a deployable trading edge. The terminal verdict and commit SHAs are recorded
 after the registered run; no PR is opened by this workflow.
+
+## Frozen commits
+
+- Preregistration committed and pushed before real performance:
+  `1d450b9343d3951a5116bd895e0a903ccab2c2b6`.
+- Complete development results/advancement set committed before holdout:
+  `035f214ade959e0c6e286ef919ca31196764c27d`.
+- `execution.json` records artifact hashes and the retained terminal lock.
+  No input preparation, performance rerun, alternative cutoff or post-result
+  change to registered code/pins was made after registration.
